@@ -1,0 +1,10 @@
+.admin-login {
+  /* width: 40px !important; */
+  /* height: 40px !important; */
+  position: relative;
+}
+.admin-login i {
+  position: relative;
+  right: 8px;
+  top: -27px;
+}

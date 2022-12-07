@@ -1,0 +1,77 @@
+{
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "eslint:recommended",
+    "prettier",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+
+    // Solve import error
+    "requireConfigFile": false,
+
+    "babelOptions": {
+      "babelrc": false,
+      "configFile": false,
+      // your babel options
+      "presets": ["@babel/preset-env"],
+
+      // Solve parser plugin error problem
+      "parserOpts": {
+        "plugins": ["jsx"]
+      }
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "rules": {
+    "react/react-in-jsx-scope": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "no-console": 0,
+    "react/state-in-constructor": 0,
+    "indent": 0,
+    "linebreak-style": 0,
+    "react/prop-types": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/interactive-supports-focus": 0,
+    "jsx-a11y/label-has-associated-control": [
+      "warn",
+      {
+        "labelAttributes": ["label"]
+      }
+    ],
+    "react/destructuring-assignment": "warn",
+    "no-unused-vars": "warn",
+    "no-empty": "warn",
+    "no-use-before-define": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn",
+    "react/button-has-type": "warn",
+    "jsx-a11y/alt-text": "warn",
+    "jsx-a11y/anchor-is-valid": "warn",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "printWidth": 100,
+        "tabWidth": 2,
+        "semi": true,
+        "endOfLine": "auto"
+      }
+    ]
+  },
+  "plugins": ["prettier", "react", "react-hooks"]
+}

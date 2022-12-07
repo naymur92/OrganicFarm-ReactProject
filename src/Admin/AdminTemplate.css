@@ -1,0 +1,45 @@
+.menu {
+  list-style-type: none;
+}
+
+.menu li {
+  border-bottom: 1px dotted black;
+}
+
+.menu li:last-child {
+  border-bottom: none;
+}
+.left-menu {
+  min-width: 150px;
+}
+.left-menu :hover {
+  background-color: lightgreen;
+  color: green;
+}
+
+.minheight {
+  min-height: 450px;
+}
+
+.single-widget {
+  height: 200px;
+  width: 200px;
+  border-radius: 10px;
+  background-color: #404a3db0;
+  /* position: relative; */
+}
+
+.single-widget .widget-header {
+  color: white;
+  font-size: 3.5em;
+  font-weight: 600;
+  position: relative;
+  top: 35px;
+}
+
+.widget-text {
+  font-weight: 600;
+  font-size: 1.3em;
+  position: relative;
+  top: 50px;
+}
