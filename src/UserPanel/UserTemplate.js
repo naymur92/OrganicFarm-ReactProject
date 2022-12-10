@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import './AdminTemplate.css';
-import AdminFooter from './Components/AdminFooter';
-import AdminHeader from './Components/AdminHeader';
+import Footer from '../FrontEnd/Components/Footer';
+import Header from '../FrontEnd/Components/Header';
 
-function AdminTemplate() {
+function UserTemplate() {
   const navigate = useNavigate();
   const loginInfo = JSON.parse(sessionStorage.getItem('logininfo'));
   const authenticate = () => {
     if (!loginInfo) {
       navigate('/login');
-    } else if (loginInfo?.role === 'user') {
-      navigate('/user');
+    } else if (loginInfo?.role === 'admin' || loginInfo?.role === 'manager') {
+      navigate('/admin');
     }
   };
 
@@ -21,12 +20,12 @@ function AdminTemplate() {
   }, []);
 
   return (
-    <div>
-      <AdminHeader />
+    <>
+      <Header />
       <Outlet />
-      <AdminFooter />
-    </div>
+      <Footer />
+    </>
   );
 }
 
-export default AdminTemplate;
+export default UserTemplate;

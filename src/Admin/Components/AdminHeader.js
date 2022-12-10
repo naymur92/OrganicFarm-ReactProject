@@ -1,10 +1,18 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 function AdminHeader() {
+  const navigate = useNavigate();
+  const loginInfo = JSON.parse(sessionStorage.getItem('logininfo'));
+
+  const logOut = () => {
+    sessionStorage.clear();
+    navigate('/');
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <img src="assets/images/logo/01.png" alt="" />
         </Link>
@@ -73,6 +81,14 @@ function AdminHeader() {
               </a>
             </li>
           </ul>
+        </div>
+        <div className="float-end">
+          <span className="gretting text-light mx-2">
+            <strong>{`${loginInfo.firstname} ${loginInfo.lastname}`}</strong> - ({loginInfo.role})
+          </span>
+          <button className="btn btn-danger" onClick={logOut}>
+            Log Out
+          </button>
         </div>
       </div>
     </nav>

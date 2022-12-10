@@ -84,15 +84,15 @@ function Products() {
   };
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-12">
           <div className="mt-4 p-5 bg-primary text-white rounded">
             <h1 className="display-5 fw-bold text-center text-light">Products Area</h1>
           </div>
         </div>
-        <div className="col-3">
-          <div className="card">
+        <div className="col-sm-3 col-md-2">
+          <div className="card border-0 mt-2">
             <div className="card-header bg-primary">
               <h3 className="text-light">Left Bar</h3>
             </div>
@@ -167,32 +167,26 @@ function Products() {
             </div>
           </div>
         </div>
-        <div className="col-9">
+        <div className="col-sm-9 col-md-10">
           {/* <!-- Content Area --> */}
-          <div className="card">
+          <div className="card mt-2">
             <div className="card-header bg-warning">
               <div className="row justify-content-end">
-                <div className="col-6">
+                <div className="col-sm-6 col-md-7 col-lg-8">
                   <h5 className="text-light pt-1">Product Table</h5>
                 </div>
-                <div className="col-6">
-                  <div className="row">
-                    <div className="col-4 pt-1">
-                      <label htmlFor="_search">
-                        <strong>Search Product:</strong>
-                      </label>
-                    </div>
-                    <div className="col-8">
-                      <input
-                        type="text"
-                        name="search"
-                        id="_search"
-                        onChange={onSearch}
-                        className="form-control"
-                        placeholder="enter product name"
-                      />
-                    </div>
-                  </div>
+                <div className="col-sm-6 col-md-5 col-lg-4 search-box">
+                  <label htmlFor="_search">
+                    <strong>Search Product:</strong>
+                  </label>
+                  <input
+                    type="text"
+                    name="search"
+                    id="_search"
+                    onChange={onSearch}
+                    className="form-control"
+                    placeholder="enter product name"
+                  />
                 </div>
               </div>
             </div>

@@ -1,8 +1,16 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 function Header() {
+  const navigate = useNavigate();
+  const loginInfo = JSON.parse(sessionStorage.getItem('logininfo'));
+
+  const logOut = () => {
+    sessionStorage.clear();
+    navigate('/');
+  };
+
   return (
     <header className="header-section">
       <div className="header-top bg-black d-none d-lg-block">
@@ -135,7 +143,7 @@ function Header() {
                                 </p>
                               </div>
                               <div className="cart-action">
-                                <a href="#" className="lab-btn">
+                                <a href="#" className="lab-btn mx-2">
                                   <span>View Cart</span>
                                 </a>
                                 <a href="#" className="lab-btn">
@@ -152,9 +160,46 @@ function Header() {
                         </div>
                       </li>
                       <li>
-                        <Link className="admin-login" to="login">
+                        <div className="user-panel">
                           <i className="fas fa-user" />
-                        </Link>
+                          <div className="user-menu">
+                            <div className="user-menu-item">
+                              {loginInfo ? (
+                                <>
+                                  <span className="gretting">
+                                    <strong>Welcome,</strong> {loginInfo.firstname}
+                                  </span>
+                                  {loginInfo.role === 'admin' || loginInfo.role === 'manager' ? (
+                                    <Link to="/admin" className="lab-btn">
+                                      <span>Dashboard</span>
+                                    </Link>
+                                  ) : (
+                                    <Link to="/user" className="lab-btn">
+                                      <span>Dashboard</span>
+                                    </Link>
+                                  )}
+
+                                  <button
+                                    type="button"
+                                    onClick={logOut}
+                                    className="btn btn-outline-danger"
+                                  >
+                                    Log Out
+                                  </button>
+                                </>
+                              ) : (
+                                <>
+                                  <Link to="login" className="lab-btn">
+                                    <span>Login</span>
+                                  </Link>
+                                  <Link to="register" className="lab-btn">
+                                    <span>Register</span>
+                                  </Link>
+                                </>
+                              )}
+                            </div>
+                          </div>
+                        </div>
                       </li>
                     </ul>
                   </div>

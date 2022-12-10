@@ -1,10 +1,45 @@
-.admin-login {
-  /* width: 40px !important; */
-  /* height: 40px !important; */
-  position: relative;
+.search-cart li .user-panel.open .user-menu {
+  transform: scaleY(1);
 }
-.admin-login i {
-  position: relative;
-  right: 8px;
-  top: -27px;
+.search-cart li .user-menu {
+  width: 200px;
+  left: 0;
+  top: 56px;
+  background: #fff;
+  z-index: 9999;
+  padding: 10px;
+  transform-origin: top;
+  transform: scaleY(0);
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.search-cart li .user-menu .user-menu-item {
+  width: 100%;
+}
+
+.search-cart li .user-menu .user-menu-item a {
+  display: block;
+  padding: 0 !important;
+  outline: 2px solid #4e9b35;
+  color: #4e9b35 !important;
+  margin-top: 5px;
+  background: none;
+}
+
+.search-cart li .user-menu .user-menu-item a:hover {
+  background: #4e9b35;
+}
+.search-cart li .user-menu .user-menu-item a::after {
+  background: #4e9b35;
+}
+
+.search-cart li .user-menu .user-menu-item a span {
+  color: #4e9b35;
+}
+.search-cart li .user-menu .user-menu-item a:hover span {
+  color: #fff;
 }

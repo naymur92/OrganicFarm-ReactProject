@@ -150,7 +150,7 @@ function Footer() {
           <p>
             &copy; 2021
             <a href="index.html" target="_blank">
-              <span>OrganicFruit</span>
+              <span>OrganicFarm</span>
             </a>
             All Rights Reserved By
             <a href="https://naymur.bdprogrammers.com" target="_blank" rel="noreferrer">

@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 // import './Dashboard.css';
 
 function Dashboard() {
+  const loginInfo = JSON.parse(sessionStorage.getItem('logininfo'));
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-12">
           <div className="mt-4 p-5 bg-primary text-white rounded">
-            <h1 className="display-5 fw-bold text-center text-light">Dashboard</h1>
+            <div className="gretting mt-3 float-end">
+              Welcome, <strong>{`${loginInfo.firstname} ${loginInfo.lastname}`}</strong>
+            </div>
+            <h1 className="display-5 fw-bold text-light">Dashboard</h1>
           </div>
         </div>
-        <div className="col-3">
-          <div className="card">
+        <div className="col-sm-3 col-md-2">
+          <div className="card border-0 mt-2">
             <div className="card-header bg-primary">
               <h3 className="text-light">Left Bar</h3>
             </div>
@@ -37,7 +45,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="col-9">
+        <div className="col-sm-9 col-md-10">
           {/* <!-- Content Area --> */}
           <div className="dashboard-widget">
             <div className="row">

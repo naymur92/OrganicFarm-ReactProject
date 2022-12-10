@@ -1,48 +1,32 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-function Login() {
+function Register() {
   const navigate = useNavigate();
-  const loginInfo = JSON.parse(sessionStorage.getItem('logininfo'));
+  const [userInfo, setUserInfo] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+  });
 
-  const authenticate = () => {
-    if (loginInfo?.role === 'admin' || loginInfo?.role === 'manager') {
-      navigate('/admin');
-    } else if (loginInfo?.role === 'user') {
-      navigate('/user');
-    }
-    // console.log(loginInfo);
-  };
+  // useEffect(()=>{
 
-  useEffect(() => {
-    authenticate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const [userInfo, setuserInfo] = useState({});
+  // }, [])
 
   const onChangeValue = (e) => {
-    setuserInfo({
-      ...userInfo,
-      [e.target.name]: e.target.value,
-    });
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
-  const submitForm = async (event) => {
-    event.preventDefault();
-    // console.log(userInfo);
+  const submitForm = async (e) => {
+    e.preventDefault();
 
     await axios
-      .get(`http://localhost/wdpf51_React/organicfarm/api/login.php`, { params: userInfo })
+      .post(`http://localhost/wdpf51_React/organicfarm/api/register.php`, userInfo)
       .then((res) => {
         if (res.data.success) {
-          sessionStorage.setItem('logininfo', JSON.stringify(res.data.logininfo));
-          if (res.data.logininfo.role === 'admin' || res.data.logininfo.role === 'manager') {
-            navigate('/admin');
-          } else {
-            navigate('/user');
-          }
+          navigate('/login');
         }
         alert(res.data.msg);
         // console.log(res.data);
@@ -56,14 +40,14 @@ function Login() {
         <div className="overlay" />
         <div className="container">
           <div className="page-header-content-area">
-            <h4 className="ph-title">Login</h4>
+            <h4 className="ph-title">Register</h4>
             <ul className="agri-ul">
               <li>
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="login" className="active">
-                  Login
+                <Link to="register" className="active">
+                  Register
                 </Link>
               </li>
             </ul>
@@ -80,10 +64,44 @@ function Login() {
               <div className="col-xl-6 col-lg-8 col-12">
                 <div className="card">
                   <div className="card-header bg-warning">
-                    <h3 className="text-center">Login Form</h3>
+                    <h3 className="text-center">Registration Form</h3>
                   </div>
                   <div className="card-body">
-                    <form onSubmit={submitForm}>
+                    <form onSubmit={submitForm} method="POST">
+                      <div className="row">
+                        <div className="col-6">
+                          <div className="form-group my-2">
+                            <label htmlFor="_fname">
+                              <strong>First Name:</strong>
+                            </label>
+                            <input
+                              type="text"
+                              id="_fname"
+                              name="firstname"
+                              onChange={onChangeValue}
+                              placeholder="Enter firstname"
+                              className="form-control"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="col-6">
+                          <div className="form-group my-2">
+                            <label htmlFor="_lname">
+                              <strong>Last Name:</strong>
+                            </label>
+                            <input
+                              type="text"
+                              id="_lname"
+                              name="lasttname"
+                              onChange={onChangeValue}
+                              placeholder="Enter lastname"
+                              className="form-control"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
                       <div className="form-group my-2">
                         <label htmlFor="_email">
                           <strong>Email:</strong>
@@ -95,6 +113,7 @@ function Login() {
                           onChange={onChangeValue}
                           placeholder="Enter Email"
                           className="form-control"
+                          required
                         />
                       </div>
                       <div className="form-group my-2">
@@ -108,20 +127,21 @@ function Login() {
                           onChange={onChangeValue}
                           placeholder="Enter Password"
                           className="form-control"
+                          required
                         />
                       </div>
                       <input
                         type="submit"
                         name="submit"
-                        value="LOGIN"
+                        value="Register"
                         className="btn btn-warning"
                       />
                     </form>
                   </div>
                   <div className="card-footer">
-                    <span className="text-warning">Not a user? </span>
-                    <Link to="/register" className="btn btn-outline-warning">
-                      Sign Up Now
+                    <span className="text-warning">Already a user? </span>
+                    <Link to="/login" className="btn btn-outline-warning">
+                      Login Now
                     </Link>
                   </div>
                 </div>
@@ -135,4 +155,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
