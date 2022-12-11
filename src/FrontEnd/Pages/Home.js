@@ -1,4 +1,5 @@
 import React from 'react';
+import { useOutletContext } from 'react-router-dom';
 import Counter from '../Components/HomeComponent/Counter';
 import Feature from '../Components/HomeComponent/Feature';
 import Gallery from '../Components/HomeComponent/Gallery';
@@ -6,6 +7,8 @@ import Product from '../Components/HomeComponent/Product';
 import Slider from '../Components/HomeComponent/Slider';
 
 function Home() {
+  const [products, cartItems, onAdd] = useOutletContext();
+  // console.log(products);
   return (
     <>
       <Slider />
@@ -123,7 +126,7 @@ function Home() {
       {/* <!-- about section ending here --> */}
 
       {/* <!-- product section start here --> */}
-      <Product />
+      <Product products={products} onAdd={onAdd} />
       {/* <!-- product section ending here --> */}
 
       <Counter />

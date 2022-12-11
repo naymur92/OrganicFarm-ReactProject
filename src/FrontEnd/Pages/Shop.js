@@ -1,23 +1,11 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import './Shop.css';
 
 function Shop() {
-  const [products, setProducts] = useState([]);
-
-  // Get all products
-  const allProducts = async () => {
-    const res = await axios.get(
-      `http://localhost/wdpf51_React/organicfarm/api/products/products.php`
-    );
-    setProducts(res.data.products);
-  };
-
+  const [products, cartItems, onAdd] = useOutletContext();
   useEffect(() => {
     window.scrollTo(0, 0);
-    allProducts();
-    // console.log(products);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -72,14 +60,6 @@ function Shop() {
                     <p>
                       Showing 01 - {searchedProducts.length} of {searchedProducts.length} Results
                     </p>
-                    {/* <div className="product-view-mode">
-                      <a className="active" data-target="grids">
-                        <i className="icofont-ghost" />
-                      </a>
-                      <a data-target="lists">
-                        <i className="icofont-listing-box" />
-                      </a>
-                    </div> */}
                   </div>
 
                   <div className="shop-product-wrap grids row justify-content-center">
@@ -96,7 +76,7 @@ function Shop() {
                               <a href="#">
                                 <i className="icofont-heart-alt" />
                               </a>
-                              <a href="#">
+                              <a onClick={() => onAdd(item)} style={{ cursor: 'pointer' }}>
                                 <i className="icofont-cart-alt" />
                               </a>
                             </div>
@@ -108,32 +88,6 @@ function Shop() {
                             <h6>Tk. {item.price}</h6>
                           </div>
                         </div>
-                        {/* <div className="product-list-item">
-                          <div className="product-thumb">
-                            <img src={`assets/images/product/${item.thumbnail}`} alt="shope" />
-                            <div className="product-action-link">
-                              <a
-                                href={`assets/images/product/${item.thumbnail}`}
-                                data-rel="lightcase"
-                              >
-                                <i className="icofont-eye" />
-                              </a>
-                              <a href="#">
-                                <i className="icofont-heart-alt" />
-                              </a>
-                              <a href="#">
-                                <i className="icofont-cart-alt" />
-                              </a>
-                            </div>
-                          </div>
-                          <div className="product-content">
-                            <h6>
-                              <a href="#">{item.name}</a>
-                            </h6>
-                            <h6>Tk. {item.price}</h6>
-                            <p>{item.description}</p>
-                          </div>
-                        </div> */}
                       </div>
                     ))}
                   </div>

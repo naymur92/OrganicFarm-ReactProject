@@ -84,7 +84,7 @@ function Products() {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid cleartop">
       <div className="row">
         <div className="col-12">
           <div className="mt-4 p-5 bg-primary text-white rounded">

@@ -43,3 +43,23 @@
 .search-cart li .user-menu .user-menu-item a:hover span {
   color: #fff;
 }
+
+/* Cart Counting */
+.counting {
+  color: black;
+  /* position: relative; */
+}
+.counting .decrement,
+.counting .increment {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 10px;
+}
+.counting span {
+  position: absolute;
+  bottom: -4px;
+  font-weight: bold;
+}

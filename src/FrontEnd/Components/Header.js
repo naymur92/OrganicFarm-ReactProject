@@ -2,7 +2,8 @@ import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
 
-function Header() {
+function Header(props) {
+  const { cartItems, onRemove } = props;
   const navigate = useNavigate();
   const loginInfo = JSON.parse(sessionStorage.getItem('logininfo'));
 
@@ -102,56 +103,66 @@ function Header() {
                     <ul className="agri-ul search-cart">
                       <li>
                         <div className="cart-option">
-                          <i className="fas fa-cart-arrow-down" />
-                          <div className="cart-content">
-                            <div className="cart-item">
-                              <div className="cart-img">
-                                <a href="#">
-                                  <img src="assets/images/product/11.jpg" alt="cart" />
-                                </a>
+                          <i className="fas fa-cart-arrow-down position-relative" />
+                          {cartItems.length === 0 ? (
+                            <div className="cart-content text-warning fw-bold">Cart Is Empty</div>
+                          ) : (
+                            <>
+                              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {cartItems.length}
+                              </span>
+                              <div className="cart-content">
+                                {cartItems.map((item) => (
+                                  <div className="cart-item" key={item.id}>
+                                    <div className="cart-img">
+                                      <Link to={`/shop/view-product/${item.id}`}>
+                                        <img
+                                          src={`assets/images/product/${item.thumbnail}`}
+                                          alt="cart"
+                                        />
+                                      </Link>
+                                    </div>
+                                    <div className="cart-des">
+                                      <Link to={`/shop/view-product/${item.id}`}>{item.name}</Link>
+                                      <p>
+                                        Tk. {item.price} x {item.qty} = Tk. {item.qty * item.price}
+                                      </p>
+                                      <div className="row mx-4 mt-2 counting">
+                                        <div className="col-4 decrement bg-warning">
+                                          <span>-</span>
+                                        </div>
+                                        <div className="col-4 pb-2">{item.qty}</div>
+                                        <div className="col-4 increment bg-success">
+                                          <span>+</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="cart-btn">
+                                      <a onClick={onRemove}>
+                                        <i className="fa fa-times text-danger" />
+                                      </a>
+                                    </div>
+                                  </div>
+                                ))}
+
+                                <div className="cart-bottom">
+                                  <div className="cart-subtotal">
+                                    <p>
+                                      Total: <b className="float-right">$40.00</b>
+                                    </p>
+                                  </div>
+                                  <div className="cart-action">
+                                    <a href="#" className="lab-btn mx-2">
+                                      <span>View Cart</span>
+                                    </a>
+                                    <a href="#" className="lab-btn">
+                                      <span>Check Out</span>
+                                    </a>
+                                  </div>
+                                </div>
                               </div>
-                              <div className="cart-des">
-                                <a href="#">Product Title Hore</a>
-                                <p>$20.00</p>
-                              </div>
-                              <div className="cart-btn">
-                                <a href="#">
-                                  <i className="fa fa-times" />
-                                </a>
-                              </div>
-                            </div>
-                            <div className="cart-item">
-                              <div className="cart-img">
-                                <a href="#">
-                                  <img src="assets/images/product/12.jpg" alt="cart" />
-                                </a>
-                              </div>
-                              <div className="cart-des">
-                                <a href="#">Product Title Hore</a>
-                                <p>$20.00</p>
-                              </div>
-                              <div className="cart-btn">
-                                <a href="#">
-                                  <i className="fa fa-times" />
-                                </a>
-                              </div>
-                            </div>
-                            <div className="cart-bottom">
-                              <div className="cart-subtotal">
-                                <p>
-                                  Total: <b className="float-right">$40.00</b>
-                                </p>
-                              </div>
-                              <div className="cart-action">
-                                <a href="#" className="lab-btn mx-2">
-                                  <span>View Cart</span>
-                                </a>
-                                <a href="#" className="lab-btn">
-                                  <span>Check Out</span>
-                                </a>
-                              </div>
-                            </div>
-                          </div>
+                            </>
+                          )}
                         </div>
                       </li>
                       <li>

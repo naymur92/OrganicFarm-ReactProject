@@ -1,26 +1,8 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Product() {
-  const [products, setProducts] = useState([]);
-
-  // Get all products
-  const allProducts = () => {
-    axios.get(`http://localhost/wdpf51_React/organicfarm/api/products/products.php`).then((res) => {
-      // console.log(res.data.products);
-      setProducts(res.data.products);
-    });
-  };
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    allProducts();
-
-    // console.log(products);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+function Product(props) {
+  const { products, onAdd } = props;
   return (
     <section className="product-section product-style2 padding-tb">
       <div className="shape-image">
@@ -58,9 +40,9 @@ function Product() {
                       </div>
                       <h6 className="price">Tk. {item.price}</h6>
                       <div className="cart-option">
-                        <Link to={`shop/view-product/${item.id}`} className="lab-btn">
+                        <button type="button" onClick={onAdd} className="lab-btn">
                           <span>Add To Cart</span>
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   </div>

@@ -49,7 +49,7 @@ function Feature() {
                   </div>
                   <div className="feature-content">
                     <Link to="shop">
-                      <h5>Orange</h5>
+                      <h5>Honey</h5>
                     </Link>
                     <p>Continually aggregate friction web interfaces thout</p>
                   </div>
