@@ -1,16 +1,52 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 
 function Cart() {
   const navigate = useNavigate();
-  const [products, cartItems, onAdd, onRemove, onEmpty] = useOutletContext();
+  const [
+    products,
+    cartItems,
+    onAdd,
+    onRemove,
+    onEmpty,
+    itemsPrice,
+    totalPrice,
+    shippingCharge,
+    updateShippingCharge,
+  ] = useOutletContext();
 
   if (cartItems.length === 0) {
     navigate('/shop');
   }
 
+  const handleCheckout = (e) => {
+    e.preventDefault();
+  };
+
+  // Handle Shipping Charge
+  const [shipping, setShipping] = useState({
+    area: '',
+    zipcode: '',
+  });
+  const onShippingChange = (e) => {
+    setShipping({ ...shipping, [e.target.name]: e.target.value });
+  };
+  const calculateShipping = (e) => {
+    e.preventDefault();
+
+    if (itemsPrice < 2000) {
+      if (shipping.area === 'dhaka') {
+        updateShippingCharge(50);
+      } else if (shipping.area === 'others') {
+        updateShippingCharge(150);
+      }
+    }
+    // console.log(shippingCharge);
+  };
+
   useEffect(() => {
-    window.scrollTo(0, 450);
+    window.scrollTo(0, 400);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -62,7 +98,7 @@ function Cart() {
                           <Link to={`/shop/view-product/${item.id}`}>{item.name}</Link>
                         </div>
                       </td>
-                      <td>Tk. {item.price}</td>
+                      <td>Tk. {Number(item.price).toFixed(2)}</td>
                       <td>
                         <div className="cart-plus-minus">
                           <div
@@ -83,7 +119,7 @@ function Cart() {
                           </div>
                         </div>
                       </td>
-                      <td>Tk. {item.qty * item.price}</td>
+                      <td>Tk. {Number(item.qty * item.price).toFixed(2)}</td>
                       <td>
                         <Link role="button" onClick={() => onEmpty(item)}>
                           <img src="assets/images/del.png" alt="product" />
@@ -105,18 +141,22 @@ function Cart() {
                   />
                   <input type="submit" value="Apply Coupon" />
                 </form>
-                <form action="/" className="cart-checkout">
-                  <input type="submit" value="Update Cart" />
-                  <input type="submit" value="Proceed to Checkout" />
+                <form className="cart-checkout" onSubmit={handleCheckout}>
+                  <input type="submit" value="Update Cart" onClick={() => navigate('/shop')} />
+                  <input
+                    type="submit"
+                    value="Proceed to Checkout"
+                    onClick={() => navigate('/checkout')}
+                  />
                 </form>
               </div>
               <div className="shiping-box">
                 <div className="row">
                   <div className="col-md-6 col-12">
-                    <div className="calculate-shiping">
+                    <form className="calculate-shiping" onSubmit={calculateShipping}>
                       <h4>Calculate Shipping</h4>
                       <div className="outline-select">
-                        <select>
+                        <select name="country">
                           <option value="bangladesh" selected>
                             Bangladesh
                           </option>
@@ -126,9 +166,9 @@ function Cart() {
                         </span>
                       </div>
                       <div className="outline-select shipping-select">
-                        <select>
+                        <select name="area" onChange={onShippingChange}>
                           <option value="" selected disabled>
-                            State/Country
+                            Select Area
                           </option>
                           <option value="dhaka">Dhaka</option>
                           <option value="others">Outside Dhaka</option>
@@ -139,14 +179,15 @@ function Cart() {
                       </div>
                       <input
                         type="text"
-                        name="coupon"
+                        name="zipcode"
+                        onChange={onShippingChange}
                         placeholder="Postcode/ZIP"
                         className="cart-page-input-text"
                       />
                       <button type="submit" className="lab-btn">
                         <span>Update Total</span>
                       </button>
-                    </div>
+                    </form>
                   </div>
                   <div className="col-md-6 col-12">
                     <div className="cart-overview">
@@ -154,15 +195,19 @@ function Cart() {
                       <ul>
                         <li>
                           <span className="pull-left">Cart Subtotal</span>
-                          <p className="pull-right">$ 0.00</p>
+                          <p className="pull-right">Tk. {itemsPrice.toFixed(2)}</p>
                         </li>
                         <li>
                           <span className="pull-left">Shipping and Handling</span>
-                          <p className="pull-right">Free Shipping</p>
+                          <p className="pull-right">
+                            {shippingCharge === 0
+                              ? `Free Shipping`
+                              : `Tk. ${shippingCharge.toFixed(2)}`}
+                          </p>
                         </li>
                         <li>
                           <span className="pull-left">Order Total</span>
-                          <p className="pull-right">$ 2940.00</p>
+                          <p className="pull-right">Tk. {totalPrice.toFixed(2)}</p>
                         </li>
                       </ul>
                     </div>

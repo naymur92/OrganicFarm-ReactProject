@@ -11,8 +11,8 @@ function Home() {
   // console.log(products);
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
-  });
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Slider />

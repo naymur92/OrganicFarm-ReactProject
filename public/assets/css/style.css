@@ -1567,8 +1567,8 @@ ul.agri-ul li {
   transform: scaleY(1);
 }
 .search-cart li .cart-content {
-  width: 320px;
-  right: 0;
+  width: 420px;
+  right: -200px;
   top: 56px;
   background: #fff;
   z-index: 9999;

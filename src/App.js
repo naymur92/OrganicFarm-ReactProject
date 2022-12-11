@@ -3,6 +3,7 @@ import AdminTemplate from './Admin/AdminTemplate';
 import AddProduct from './Admin/Pages/AddProduct';
 import Dashboard from './Admin/Pages/Dashboard/Dashboard';
 import Products from './Admin/Pages/Products/Products';
+import ErrorPage from './ErrorPage';
 import FrontTemplate from './FrontEnd/FrontTemplate';
 import About from './FrontEnd/Pages/About';
 import Cart from './FrontEnd/Pages/Cart';
@@ -12,7 +13,6 @@ import Login from './FrontEnd/Pages/Login';
 import Register from './FrontEnd/Pages/Register';
 import Shop from './FrontEnd/Pages/Shop';
 import ViewProduct from './FrontEnd/Pages/ViewProduct';
-import UserDashboard from './UserPanel/pages/UserDashboard';
 import UserTemplate from './UserPanel/UserTemplate';
 
 function App() {
@@ -28,15 +28,14 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="user" element={<UserTemplate />} />
         </Route>
         <Route path="admin" element={<AdminTemplate />}>
           <Route index element={<Dashboard />} />
           <Route path="products" element={<Products />} />
           <Route path="products/addproduct" element={<AddProduct />} />
         </Route>
-        <Route path="user" element={<UserTemplate />}>
-          <Route index element={<UserDashboard />} />
-        </Route>
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   );

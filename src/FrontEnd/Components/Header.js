@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 function Header(props) {
-  const { cartItems, onAdd, onEmpty } = props;
+  const { cartItems, onAdd, onEmpty, itemsPrice } = props;
   const navigate = useNavigate();
   const loginInfo = JSON.parse(sessionStorage.getItem('logininfo'));
 
@@ -108,7 +108,7 @@ function Header(props) {
                             <div className="cart-content text-warning fw-bold">Cart Is Empty</div>
                           ) : (
                             <>
-                              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
                                 {cartItems.length}
                               </span>
                               <div className="cart-content">
@@ -126,7 +126,8 @@ function Header(props) {
                                     <div className="cart-des">
                                       <Link to={`/shop/view-product/${item.id}`}>{item.name}</Link>
                                       <p>
-                                        Tk. {item.price} x {item.qty} = Tk. {item.qty * item.price}
+                                        Tk. {Number(item.price).toFixed(2)} x {item.qty} = Tk.{' '}
+                                        {Number(item.qty * item.price).toFixed(2)}
                                       </p>
                                     </div>
                                     <div className="cart-btn">
@@ -139,8 +140,9 @@ function Header(props) {
 
                                 <div className="cart-bottom">
                                   <div className="cart-subtotal">
-                                    <p>
-                                      Total: <b className="float-right">$40.00</b>
+                                    <p className="mx-4">
+                                      Total:{' '}
+                                      <b className="float-end">Tk. {itemsPrice.toFixed(2)}</b>
                                     </p>
                                   </div>
                                   <div className="cart-action">

@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import './ViewProduct.css';
 
@@ -6,16 +7,28 @@ function ViewProduct() {
   const [products, cartItems, onAdd, onRemove, onEmpty] = useOutletContext();
 
   const params = useParams();
-  const product = products.filter((x) => x.id === params.id)[0];
-  // console.log(product);
   const navigate = useNavigate();
 
+  // const product = products.filter((x) => x.id === params.id)[0];
+
+  const [product, setProduct] = useState([]);
+
+  const singleProd = async (id) => {
+    await axios
+      .get(`http://localhost/wdpf51_React/organicfarm/api/products/get_product.php`, {
+        params: { id },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          setProduct(res.data.product);
+          // console.log(res.data);
+        }
+      });
+  };
+
   useEffect(() => {
-    // window.scrollTo(0, 0);
-    // console.log(product);
-    if (!product.id) {
-      navigate('/shop');
-    }
+    window.scrollTo(0, 0);
+    singleProd(params.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -4,9 +4,9 @@ import './Shop.css';
 
 function Shop() {
   const [products, cartItems, onAdd] = useOutletContext();
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Filter Method Starts
@@ -85,7 +85,7 @@ function Shop() {
                             <h6>
                               <a href="#">{item.name}</a>
                             </h6>
-                            <h6>Tk. {item.price}</h6>
+                            <h6>Tk. {Number(item.price).toFixed(2)}</h6>
                           </div>
                         </div>
                       </div>

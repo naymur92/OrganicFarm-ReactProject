@@ -7,10 +7,12 @@ import AdminHeader from './Components/AdminHeader';
 function AdminTemplate() {
   const navigate = useNavigate();
   const loginInfo = JSON.parse(sessionStorage.getItem('logininfo'));
+  // console.log(loginInfo);
   const authenticate = () => {
     if (!loginInfo) {
       navigate('/login');
-    } else if (loginInfo?.role === 'user') {
+    }
+    if (loginInfo?.role === 'user') {
       navigate('/user');
     }
   };
@@ -20,13 +22,13 @@ function AdminTemplate() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <div>
+  return loginInfo ? (
+    <>
       <AdminHeader />
       <Outlet />
       <AdminFooter />
-    </div>
-  );
+    </>
+  ) : null;
 }
 
 export default AdminTemplate;

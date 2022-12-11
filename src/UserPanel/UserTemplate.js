@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import Footer from '../FrontEnd/Components/Footer';
-import Header from '../FrontEnd/Components/Header';
+import { useNavigate } from 'react-router-dom';
 
 function UserTemplate() {
   const navigate = useNavigate();
@@ -19,13 +17,12 @@ function UserTemplate() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
+  return loginInfo ? (
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      <h1>User Template</h1>
+      <p>lorem</p>
     </>
-  );
+  ) : null;
 }
 
 export default UserTemplate;

@@ -18,13 +18,9 @@ function FrontTemplate() {
       });
   };
 
-  useEffect(() => {
-    allProducts();
-    // console.log(products);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const [cartItems, setCartItems] = useState([]);
+
+  // Method for adding items into cart
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
@@ -37,6 +33,7 @@ function FrontTemplate() {
     // console.log(cartItems);
   };
 
+  // Method for reducing items
   const onRemove = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist.qty === 1) {
@@ -48,12 +45,33 @@ function FrontTemplate() {
     }
   };
 
+  // Method for removing items
   const onEmpty = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
       setCartItems(cartItems.filter((x) => x.id !== product.id));
     }
   };
+
+  // Calculate shipping Charge
+  const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
+  const [shippingCharge, setShippingCharge] = useState(150);
+  const updateShippingCharge = (price) => {
+    setShippingCharge(price);
+  };
+
+  // Calculate total price
+  const totalPrice = shippingCharge + itemsPrice;
+
+  useEffect(() => {
+    allProducts();
+    if (itemsPrice >= 2000) {
+      setShippingCharge(0);
+    } else {
+      setShippingCharge(150);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itemsPrice]);
 
   return (
     <>
@@ -68,8 +86,26 @@ function FrontTemplate() {
       </div> */}
       {/* <!-- preloader ending here --> */}
       <Search />
-      <Header cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} onEmpty={onEmpty} />
-      <Outlet context={[products, cartItems, onAdd, onRemove, onEmpty]} />
+      <Header
+        cartItems={cartItems}
+        onAdd={onAdd}
+        onRemove={onRemove}
+        onEmpty={onEmpty}
+        itemsPrice={itemsPrice}
+      />
+      <Outlet
+        context={[
+          products,
+          cartItems,
+          onAdd,
+          onRemove,
+          onEmpty,
+          itemsPrice,
+          totalPrice,
+          shippingCharge,
+          updateShippingCharge,
+        ]}
+      />
       <Footer />
     </>
   );

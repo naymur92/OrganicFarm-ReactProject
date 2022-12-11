@@ -4,7 +4,7 @@ import Counter from '../Components/HomeComponent/Counter';
 function About() {
   useEffect(() => {
     window.scrollTo(0, 0);
-  });
+  }, []);
   return (
     <>
       {/* <!-- Page Header Section Start Here --> */}

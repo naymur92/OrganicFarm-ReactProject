@@ -38,7 +38,7 @@ function Product(props) {
                         <i className="icofont-star" />
                         <i className="icofont-star" />
                       </div>
-                      <h6 className="price">Tk. {item.price}</h6>
+                      <h6 className="price">Tk. {Number(item.price).toFixed(2)}</h6>
                       <div className="cart-option">
                         <Link role="button" onClick={() => onAdd(item)} className="lab-btn">
                           <span>Add To Cart</span>
