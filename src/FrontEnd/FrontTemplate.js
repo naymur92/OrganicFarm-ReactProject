@@ -34,10 +34,26 @@ function FrontTemplate() {
     } else {
       setCartItems([...cartItems, { ...product, qty: 1 }]);
     }
-    console.log(cartItems);
+    // console.log(cartItems);
   };
 
-  const onRemove = (product) => {};
+  const onRemove = (product) => {
+    const exist = cartItems.find((x) => x.id === product.id);
+    if (exist.qty === 1) {
+      setCartItems(cartItems.filter((x) => x.id !== product.id));
+    } else {
+      setCartItems(
+        cartItems.map((x) => (x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x))
+      );
+    }
+  };
+
+  const onEmpty = (product) => {
+    const exist = cartItems.find((x) => x.id === product.id);
+    if (exist) {
+      setCartItems(cartItems.filter((x) => x.id !== product.id));
+    }
+  };
 
   return (
     <>
@@ -52,8 +68,8 @@ function FrontTemplate() {
       </div> */}
       {/* <!-- preloader ending here --> */}
       <Search />
-      <Header cartItems={cartItems} onRemove={onRemove} />
-      <Outlet context={[products, cartItems, onAdd]} />
+      <Header cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} onEmpty={onEmpty} />
+      <Outlet context={[products, cartItems, onAdd, onRemove, onEmpty]} />
       <Footer />
     </>
   );

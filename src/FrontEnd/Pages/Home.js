@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import Counter from '../Components/HomeComponent/Counter';
 import Feature from '../Components/HomeComponent/Feature';
@@ -9,6 +9,10 @@ import Slider from '../Components/HomeComponent/Slider';
 function Home() {
   const [products, cartItems, onAdd] = useOutletContext();
   // console.log(products);
+
+  useEffect(() => {
+    // window.scrollTo(0, 0);
+  });
   return (
     <>
       <Slider />

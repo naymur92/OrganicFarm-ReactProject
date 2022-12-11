@@ -16,6 +16,7 @@ function Login() {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 450);
     authenticate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

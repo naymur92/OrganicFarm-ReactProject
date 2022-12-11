@@ -1,29 +1,21 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom';
 import './ViewProduct.css';
 
 function ViewProduct() {
+  const [products, cartItems, onAdd, onRemove, onEmpty] = useOutletContext();
+
   const params = useParams();
-  const [product, setProduct] = useState([]);
+  const product = products.filter((x) => x.id === params.id)[0];
+  // console.log(product);
   const navigate = useNavigate();
 
-  const singleProd = async (id) => {
-    axios
-      .get(`http://localhost/wdpf51_React/organicfarm/api/products/get_product.php`, {
-        params: { id },
-      })
-      .then((res) => {
-        if (res.data.success) {
-          setProduct(res.data.product);
-          console.log(res.data);
-        }
-      });
-  };
-
   useEffect(() => {
-    window.scrollTo(0, 0);
-    singleProd(params.id);
+    // window.scrollTo(0, 0);
+    // console.log(product);
+    if (!product.id) {
+      navigate('/shop');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -63,69 +55,7 @@ function ViewProduct() {
                             <div className="shop-item">
                               <div className="shop-thumb">
                                 <img
-                                  src={`assets/images/product/${product.thumbnail}`}
-                                  alt="shop-single"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="swiper-slide">
-                            <div className="shop-item">
-                              <div className="shop-thumb">
-                                <img
-                                  src={`assets/images/product/${product.thumbnail}`}
-                                  alt="shop-single"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="swiper-slide">
-                            <div className="shop-item">
-                              <div className="shop-thumb">
-                                <img
-                                  src={`assets/images/product/${product.thumbnail}`}
-                                  alt="shop-single"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="shop-navigation d-flex flex-wrap">
-                          <div className="shop-nav shop-slider-prev">
-                            <i className="icofont-simple-left" />
-                          </div>
-                          <div className="shop-nav shop-slider-next">
-                            <i className="icofont-simple-right" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="swiper-container gallery-thumbs">
-                        <div className="swiper-wrapper">
-                          <div className="swiper-slide">
-                            <div className="shop-item">
-                              <div className="shop-thumb">
-                                <img
-                                  src={`assets/images/product/${product.thumbnail}`}
-                                  alt="shop-single"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="swiper-slide">
-                            <div className="shop-item">
-                              <div className="shop-thumb">
-                                <img
-                                  src={`assets/images/product/${product.thumbnail}`}
-                                  alt="shop-single"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="swiper-slide">
-                            <div className="shop-item">
-                              <div className="shop-thumb">
-                                <img
-                                  src={`assets/images/product/${product.thumbnail}`}
+                                  src={`/assets/images/product/${product.thumbnail}`}
                                   alt="shop-single"
                                 />
                               </div>
@@ -149,12 +79,40 @@ function ViewProduct() {
                       <h4>Tk. {product.price}</h4>
                       <h5>Product Description:</h5>
                       <p>{product.description}</p>
-                      <Link
-                        to={`/shop/booking/${product.id}`}
-                        className="booking-btn fw-bold text-center"
+                      {cartItems.map(
+                        (item) =>
+                          item.id === product.id && (
+                            <div className="cart-plus-minus">
+                              <div
+                                role="button"
+                                onClick={() => onRemove(product)}
+                                className="dec qtybutton"
+                              >
+                                -
+                              </div>
+                              <input
+                                className="cart-plus-minus-box"
+                                type="text"
+                                name="qtybutton"
+                                value={item.qty}
+                              />
+                              <div
+                                role="button"
+                                onClick={() => onAdd(product)}
+                                className="inc qtybutton"
+                              >
+                                +
+                              </div>
+                            </div>
+                          )
+                      )}
+                      <button
+                        onClick={() => onAdd(product)}
+                        type="button"
+                        className="btn btn-success"
                       >
-                        Buy Now
-                      </Link>
+                        Add To Cart
+                      </button>
                     </div>
                   </div>
                 </div>

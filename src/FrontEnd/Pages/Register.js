@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Register() {
@@ -11,9 +11,9 @@ function Register() {
     password: '',
   });
 
-  // useEffect(()=>{
-
-  // }, [])
+  useEffect(() => {
+    window.scrollTo(0, 450);
+  }, []);
 
   const onChangeValue = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });

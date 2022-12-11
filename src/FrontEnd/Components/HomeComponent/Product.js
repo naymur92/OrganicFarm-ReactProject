@@ -40,9 +40,9 @@ function Product(props) {
                       </div>
                       <h6 className="price">Tk. {item.price}</h6>
                       <div className="cart-option">
-                        <button type="button" onClick={onAdd} className="lab-btn">
+                        <Link role="button" onClick={() => onAdd(item)} className="lab-btn">
                           <span>Add To Cart</span>
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -52,7 +52,7 @@ function Product(props) {
           </div>
           <div className="text-center wow fadeInUp" data-wow-delay="0.5s">
             <Link to="shop" className="lab-btn">
-              <span>View Product</span>
+              <span>View Products</span>
             </Link>
           </div>
         </div>
