@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import useSessionStorage from '../../hooks/useSessionStorage';
 import './Header.css';
 
 function Header(props) {
   const { cartItems, onAdd, onEmpty, itemsPrice } = props;
   const navigate = useNavigate();
-  const loginInfo = JSON.parse(sessionStorage.getItem('logininfo'));
+  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
 
   const logOut = () => {
     sessionStorage.clear();
     navigate('/');
+    window.location.reload(false);
   };
 
   return (
@@ -22,7 +24,7 @@ function Header(props) {
                 <ul className="agri-ul d-flex flex-wrap">
                   <li>
                     <i className="icofont-envelope" />
-                    <span>organicfruit@gmail.com</span>
+                    <span>organicfarm@gmail.com</span>
                   </li>
                   <li>
                     <i className="icofont-phone" />
@@ -169,7 +171,7 @@ function Header(props) {
                           <i className="fas fa-user" />
                           <div className="user-menu">
                             <div className="user-menu-item">
-                              {loginInfo ? (
+                              {loginInfo?.id ? (
                                 <>
                                   <span className="gretting">
                                     <strong>Welcome,</strong> {loginInfo.firstname}
@@ -183,7 +185,6 @@ function Header(props) {
                                       <span>Dashboard</span>
                                     </Link>
                                   )}
-
                                   <button
                                     type="button"
                                     onClick={logOut}

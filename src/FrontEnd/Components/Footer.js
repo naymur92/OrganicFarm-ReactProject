@@ -54,7 +54,7 @@ function Footer() {
                           <i className="icofont-envelope" />
                         </div>
                         <div className="detalis">
-                          <p>organicfruit@gmail.com</p>
+                          <p>organicfarm@gmail.com</p>
                         </div>
                       </li>
                     </ul>
@@ -66,7 +66,7 @@ function Footer() {
               <div className="footer-item footer-blog">
                 <div className="footer-inner">
                   <div className="footer-title">
-                    <h5>OrganicFruit Product</h5>
+                    <h5>OrganicFarm Product</h5>
                   </div>
                   <div className="footer-body">
                     <ul className="agri-ul">
@@ -105,7 +105,7 @@ function Footer() {
               <div className="footer-item footer-gallery">
                 <div className="footer-inner">
                   <div className="footer-title">
-                    <h5>OrganicFruit Product</h5>
+                    <h5>OrganicFarm Product</h5>
                   </div>
                   <div className="footer-body">
                     <ul className="agri-ul">

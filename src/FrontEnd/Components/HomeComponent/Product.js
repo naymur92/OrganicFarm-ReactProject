@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useSessionStorage from '../../../hooks/useSessionStorage';
 
 function Product(props) {
+  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
   const { products, onAdd } = props;
   return (
     <section className="product-section product-style2 padding-tb">
@@ -40,9 +42,11 @@ function Product(props) {
                       </div>
                       <h6 className="price">Tk. {Number(item.price).toFixed(2)}</h6>
                       <div className="cart-option">
-                        <Link role="button" onClick={() => onAdd(item)} className="lab-btn">
-                          <span>Add To Cart</span>
-                        </Link>
+                        {loginInfo?.role !== 'admin' || loginInfo?.role !== 'manager' ? (
+                          <Link role="button" onClick={() => onAdd(item)} className="lab-btn">
+                            <span>Add To Cart</span>
+                          </Link>
+                        ) : null}
                       </div>
                     </div>
                   </div>

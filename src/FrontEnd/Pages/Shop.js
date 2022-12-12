@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
+import useSessionStorage from '../../hooks/useSessionStorage';
+import Newsletter from '../Components/Newsletter';
 import './Shop.css';
 
 function Shop() {
+  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
   const [products, cartItems, onAdd] = useOutletContext();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    document.getElementsByClassName('shop-page')[0].scrollIntoView();
   }, []);
 
   // Filter Method Starts
@@ -76,9 +79,11 @@ function Shop() {
                               <a href="#">
                                 <i className="icofont-heart-alt" />
                               </a>
-                              <a onClick={() => onAdd(item)} style={{ cursor: 'pointer' }}>
-                                <i className="icofont-cart-alt" />
-                              </a>
+                              {loginInfo?.role !== 'admin' || loginInfo?.role !== 'manager' ? (
+                                <a onClick={() => onAdd(item)} style={{ cursor: 'pointer' }}>
+                                  <i className="icofont-cart-alt" />
+                                </a>
+                              ) : null}
                             </div>
                           </div>
                           <div className="product-content">
@@ -196,25 +201,7 @@ function Shop() {
       {/* <!-- shop page Section ENding Here --> */}
 
       {/* <!-- newsletters section start here --> */}
-      <div className="newsletter-section">
-        <div className="container">
-          <div className="row justify-content-lg-between justify-content-center align-items-center">
-            <div className="col-lg-6 col-12">
-              <div className="newsletter-title">
-                <h4>Subscribe Our Newsletter</h4>
-              </div>
-            </div>
-            <div className="col-lg-6 col-12">
-              <div className="newsletter-form">
-                <form className="d-flex flex-wrap">
-                  <input type="text" placeholder="Enter Your Email" className="input-email" />
-                  <input type="submit" value="Subscribe" className="subscribe-btn" />
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Newsletter />
       {/* <!-- newsletters section ending here --> */}
     </>
   );

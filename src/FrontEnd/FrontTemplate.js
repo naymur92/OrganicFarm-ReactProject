@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import useLocalStorage from '../hooks/useLocalStorage';
 import Footer from './Components/Footer';
 import Header from './Components/Header';
 import Search from './Components/Search';
 
 function FrontTemplate() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useLocalStorage('products', []);
 
   // Get all products
   const allProducts = async () => {
@@ -18,7 +19,7 @@ function FrontTemplate() {
       });
   };
 
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useLocalStorage('cart-items', []);
 
   // Method for adding items into cart
   const onAdd = (product) => {

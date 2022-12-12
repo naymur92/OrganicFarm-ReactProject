@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import useSessionStorage from '../../hooks/useSessionStorage';
 
 function Login() {
   const navigate = useNavigate();
-  const loginInfo = JSON.parse(sessionStorage.getItem('logininfo'));
+  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
 
   const authenticate = () => {
     if (loginInfo?.role === 'admin' || loginInfo?.role === 'manager') {
@@ -16,10 +17,11 @@ function Login() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 450);
+    document.getElementsByClassName('contact-section')[0].scrollIntoView();
+    // window.scrollTo(0, 450);
     authenticate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loginInfo]);
 
   const [userInfo, setuserInfo] = useState({});
 
@@ -38,12 +40,7 @@ function Login() {
       .get(`http://localhost/wdpf51_React/organicfarm/api/login.php`, { params: userInfo })
       .then((res) => {
         if (res.data.success) {
-          sessionStorage.setItem('logininfo', JSON.stringify(res.data.logininfo));
-          if (res.data.logininfo.role === 'admin' || res.data.logininfo.role === 'manager') {
-            navigate('/admin');
-          } else {
-            navigate('/user');
-          }
+          setLoginInfo(res.data.logininfo);
         }
         alert(res.data.msg);
         // console.log(res.data);

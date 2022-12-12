@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom';
+import useSessionStorage from '../../hooks/useSessionStorage';
 import './ViewProduct.css';
 
 function ViewProduct() {
   const [products, cartItems, onAdd, onRemove, onEmpty] = useOutletContext();
+  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
 
   const params = useParams();
   const navigate = useNavigate();
@@ -119,13 +121,15 @@ function ViewProduct() {
                             </div>
                           )
                       )}
-                      <button
-                        onClick={() => onAdd(product)}
-                        type="button"
-                        className="btn btn-success"
-                      >
-                        Add To Cart
-                      </button>
+                      {loginInfo?.role !== 'admin' || loginInfo?.role !== 'manager' ? (
+                        <button
+                          onClick={() => onAdd(product)}
+                          type="button"
+                          className="btn btn-success"
+                        >
+                          Add To Cart
+                        </button>
+                      ) : null}
                     </div>
                   </div>
                 </div>

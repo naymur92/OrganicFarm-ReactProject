@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Newsletter from '../Components/Newsletter';
 
 function Contact() {
   useEffect(() => {
+    // document.getElementsByClassName('page-header')[0].scrollIntoView();
     window.scrollTo(0, 0);
   }, []);
   return (
@@ -101,25 +103,7 @@ function Contact() {
       {/* <!-- Contact Us Section ENding Here --></div> */}
 
       {/* <!-- newsletters section start here --> */}
-      <div className="newsletter-section">
-        <div className="container">
-          <div className="row justify-content-lg-between justify-content-center align-items-center">
-            <div className="col-lg-6 col-12">
-              <div className="newsletter-title">
-                <h4>Subscribe Our Newsletter</h4>
-              </div>
-            </div>
-            <div className="col-lg-6 col-12">
-              <div className="newsletter-form">
-                <form className="d-flex flex-wrap">
-                  <input type="text" placeholder="Enter Your Email" className="input-email" />
-                  <input type="submit" value="Subscribe" className="subscribe-btn" />
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Newsletter />
       {/* <!-- newsletters section ending here --> */}
     </>
   );

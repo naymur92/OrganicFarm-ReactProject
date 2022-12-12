@@ -7,6 +7,7 @@ import ErrorPage from './ErrorPage';
 import FrontTemplate from './FrontEnd/FrontTemplate';
 import About from './FrontEnd/Pages/About';
 import Cart from './FrontEnd/Pages/Cart';
+import Checkout from './FrontEnd/Pages/Checkout';
 import Contact from './FrontEnd/Pages/Contact';
 import Home from './FrontEnd/Pages/Home';
 import Login from './FrontEnd/Pages/Login';
@@ -23,8 +24,9 @@ function App() {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="shop" element={<Shop />} />
-          <Route path="cart" element={<Cart />} />
           <Route path="shop/view-product/:id" element={<ViewProduct />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="checkout" element={<Checkout />} />
           <Route path="contact" element={<Contact />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />

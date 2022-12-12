@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import Newsletter from '../Components/Newsletter';
 
 function Cart() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ function Cart() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 400);
+    document.getElementsByClassName('shop-cart')[0].scrollIntoView();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -221,25 +222,7 @@ function Cart() {
       {/* <!-- Shop Cart Page Section ending here --> */}
 
       {/* <!-- newsletters section start here --> */}
-      <div className="newsletter-section">
-        <div className="container">
-          <div className="row justify-content-lg-between justify-content-center align-items-center">
-            <div className="col-lg-6 col-12">
-              <div className="newsletter-title">
-                <h4>Subscribe Our Newsletter</h4>
-              </div>
-            </div>
-            <div className="col-lg-6 col-12">
-              <div className="newsletter-form">
-                <form action="/" className="d-flex flex-wrap">
-                  <input type="text" placeholder="Enter Your Email" className="input-email" />
-                  <input type="submit" value="Subscribe" className="subscribe-btn" />
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Newsletter />
       {/* <!-- newsletters section ending here --> */}
     </>
   );

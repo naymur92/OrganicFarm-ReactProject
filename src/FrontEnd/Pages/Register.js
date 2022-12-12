@@ -12,7 +12,7 @@ function Register() {
   });
 
   useEffect(() => {
-    window.scrollTo(0, 450);
+    document.getElementsByClassName('contact-section')[0].scrollIntoView();
   }, []);
 
   const onChangeValue = (e) => {

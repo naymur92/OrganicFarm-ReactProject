@@ -52,3 +52,17 @@
   max-height: 450px;
   overflow-y: scroll;
 }
+
+/* .logout-btn {
+  width: 80px !important;
+  background-color: red !important;
+  border-radius: 5px;
+  outline: none !important;
+}
+.logout-btn span {
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+.logout-btn:hover {
+  background-color: rgba(255, 153, 0, 0.884) !important;
+} */

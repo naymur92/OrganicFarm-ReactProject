@@ -3,6 +3,7 @@ import Counter from '../Components/HomeComponent/Counter';
 
 function About() {
   useEffect(() => {
+    // document.getElementsByClassName('page-header')[0].scrollIntoView();
     window.scrollTo(0, 0);
   }, []);
   return (

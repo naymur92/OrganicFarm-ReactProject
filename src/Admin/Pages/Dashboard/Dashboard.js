@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import useSessionStorage from '../../../hooks/useSessionStorage';
 // import './Dashboard.css';
 
 function Dashboard() {
-  const loginInfo = JSON.parse(sessionStorage.getItem('logininfo'));
+  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
   useEffect(() => {
+    window.scrollTo(0, 0);
+    localStorage.removeItem('cart-items');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
