@@ -94,32 +94,37 @@ function ViewProduct() {
                       <h4>Tk. {product.price}</h4>
                       <h5>Product Description:</h5>
                       <p>{product.description}</p>
-                      {cartItems.map(
-                        (item) =>
-                          item.id === product.id && (
-                            <div className="cart-plus-minus">
-                              <div
-                                role="button"
-                                onClick={() => onRemove(product)}
-                                className="dec qtybutton"
-                              >
-                                -
-                              </div>
-                              <input
-                                className="cart-plus-minus-box"
-                                type="text"
-                                name="qtybutton"
-                                value={item.qty}
-                              />
-                              <div
-                                role="button"
-                                onClick={() => onAdd(product)}
-                                className="inc qtybutton"
-                              >
-                                +
-                              </div>
+
+                      {product.stock < 20 ? (
+                        <p className="my-2 alert alert-warning">Stock is running low!!</p>
+                      ) : null}
+
+                      {cartItems.map((item) =>
+                        item.id === product.id ? (
+                          <div className="cart-plus-minus">
+                            <div
+                              role="button"
+                              onClick={() => onRemove(product)}
+                              className="dec qtybutton"
+                            >
+                              -
                             </div>
-                          )
+                            <input
+                              className="cart-plus-minus-box"
+                              type="text"
+                              name="qtybutton"
+                              value={item.qty}
+                            />
+                            <div
+                              role="button"
+                              onClick={() => onAdd(product)}
+                              className="inc qtybutton"
+                            >
+                              +
+                            </div>
+                            <br />
+                          </div>
+                        ) : null
                       )}
                       {loginInfo?.role !== 'admin' || loginInfo?.role !== 'manager' ? (
                         <button

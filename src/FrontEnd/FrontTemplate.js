@@ -54,6 +54,12 @@ function FrontTemplate() {
     }
   };
 
+  // Clear Cart items
+  const clearCartItems = () => {
+    localStorage.removeItem('cart-items');
+    return true;
+  };
+
   // Calculate shipping Charge
   const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   const [shippingCharge, setShippingCharge] = useState(150);
@@ -71,8 +77,12 @@ function FrontTemplate() {
     } else {
       setShippingCharge(150);
     }
+
+    if (cartItems.length === 0) {
+      localStorage.removeItem('pendingcheckout');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemsPrice]);
+  }, [itemsPrice, cartItems]);
 
   return (
     <>
@@ -105,6 +115,7 @@ function FrontTemplate() {
           totalPrice,
           shippingCharge,
           updateShippingCharge,
+          clearCartItems,
         ]}
       />
       <Footer />

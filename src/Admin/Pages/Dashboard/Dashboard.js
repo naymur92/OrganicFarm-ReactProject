@@ -8,6 +8,7 @@ function Dashboard() {
   useEffect(() => {
     window.scrollTo(0, 0);
     localStorage.removeItem('cart-items');
+    localStorage.removeItem('pendingcheckout');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

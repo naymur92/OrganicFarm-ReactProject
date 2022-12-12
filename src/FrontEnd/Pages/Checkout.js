@@ -1,20 +1,11 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import useSessionStorage from '../../hooks/useSessionStorage';
 import Newsletter from '../Components/Newsletter';
 
 function Checkout() {
-  const navigate = useNavigate();
-  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
-  // console.log(loginInfo);
-  const authenticate = () => {
-    if (!loginInfo?.id) {
-      navigate('/login');
-    } else if (loginInfo?.role === 'admin' || loginInfo?.role === 'manager') {
-      navigate('/admin');
-    }
-  };
-
   const [
     products,
     cartItems,
@@ -25,22 +16,20 @@ function Checkout() {
     totalPrice,
     shippingCharge,
     updateShippingCharge,
+    clearCartItems,
   ] = useOutletContext();
 
-  if (cartItems.length === 0) {
-    navigate('/shop');
-  }
+  const navigate = useNavigate();
+  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
+  const [pendingCheckout, setPendingCheckout] = useLocalStorage('pendingcheckout', []);
 
-  // Handle Shipping Charge
-  const [shipping, setShipping] = useState({
-    area: '',
-    zipcode: '',
-    address: '',
-    phone: '',
-  });
-
-  const onChange = (e) => {
-    setShipping({ ...shipping, [e.target.name]: e.target.value });
+  // console.log(loginInfo);
+  const authenticate = () => {
+    if (!loginInfo?.id) {
+      navigate('/login');
+    } else if (loginInfo?.role === 'admin' || loginInfo?.role === 'manager') {
+      navigate('/admin');
+    }
   };
 
   const updateShipping = (e) => {
@@ -54,16 +43,59 @@ function Checkout() {
     // console.log(shippingCharge);
   };
 
-  const handleCheckout = (e) => {
-    e.preventDefault();
-    console.log(shipping);
-  };
-
   useEffect(() => {
     document.getElementsByClassName('checkout')[0].scrollIntoView();
+    if (cartItems.length === 0) {
+      navigate('/shop');
+    }
+    setPendingCheckout({ status: 'pending' });
     authenticate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginInfo]);
+
+  // Handle Shipping Charge
+  const [shipping, setShipping] = useState({
+    area: '',
+    zipcode: '',
+    address: '',
+    phone: '',
+  });
+
+  const onChange = (e) => {
+    setShipping({ ...shipping, [e.target.name]: e.target.value });
+  };
+
+  const handleCheckout = async (e) => {
+    e.preventDefault();
+    // console.log(shipping);
+    // console.log(cartItems);
+    // localStorage.removeItem('pendingcheckout');
+    await axios
+      .post('http://localhost/wdpf51_React/organicfarm/api/orders/new_order.php', {
+        userid: loginInfo.id,
+        products: cartItems,
+        subtotal: totalPrice,
+        shipping: shippingCharge,
+        total: totalPrice + shippingCharge,
+        address: shipping,
+        payment: { method: document.getElementById('pmt_method').value },
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.success) {
+          // cartItems
+          //   .map((item) => onRemove(item))
+          //   .then(() => {
+          //     navigate('/');
+          //   });
+          localStorage.removeItem('pendingcheckout');
+          // navigate('/');
+          // if (clearCartItems()) {
+          // }
+        }
+        alert(res.data.msg);
+      });
+  };
 
   return (
     <>
@@ -206,9 +238,23 @@ function Checkout() {
                           </li>
                         </ul>
                       </div>
-                      <button type="submit" className="lab-btn mt-5">
-                        <span>Confirm Booking</span>
-                      </button>
+                      <div className="row">
+                        <div className="col-6 form-group mt-2">
+                          <label htmlFor="pmt_method">
+                            <strong>Payment Method:</strong>
+                          </label>
+                          <select name="pmtmethod" id="pmt_method" className="form-control">
+                            <option value="cashondelivery" selected>
+                              CashOnDelivery
+                            </option>
+                          </select>
+                        </div>
+                        <div className="col-6">
+                          <button type="submit" className="lab-btn mt-5">
+                            <span>Confirm Booking</span>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </form>

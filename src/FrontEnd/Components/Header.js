@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useSessionStorage from '../../hooks/useSessionStorage';
 import './Header.css';
@@ -11,8 +11,14 @@ function Header(props) {
   const logOut = () => {
     sessionStorage.clear();
     navigate('/');
-    window.location.reload(false);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoginInfo(JSON.parse(sessionStorage.getItem('logininfo')));
+    }, 1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginInfo]);
 
   return (
     <header className="header-section">
@@ -188,7 +194,7 @@ function Header(props) {
                                   <button
                                     type="button"
                                     onClick={logOut}
-                                    className="btn btn-outline-danger"
+                                    className="btn btn-outline-danger mt-2"
                                   >
                                     Log Out
                                   </button>

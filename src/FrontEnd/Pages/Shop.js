@@ -73,7 +73,7 @@ function Shop() {
                           <div className="product-thumb">
                             <img src={`assets/images/product/${item.thumbnail}`} alt="shope" />
                             <div className="product-action-link">
-                              <Link to={`view-product/${item.id}`} data-rel="lightcase">
+                              <Link to={`view-product/${item.id}`}>
                                 <i className="icofont-eye" />
                               </Link>
                               <a href="#">
