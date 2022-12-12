@@ -1,24 +1,20 @@
 import React, { useEffect } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import useSessionStorage from '../../hooks/useSessionStorage';
 import './Header.css';
 
 function Header(props) {
-  const { cartItems, onAdd, onEmpty, itemsPrice } = props;
+  const { cartItems, onAdd, onEmpty, itemsPrice, loginInfo, setLoginInfo } = props;
   const navigate = useNavigate();
-  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
 
   const logOut = () => {
-    sessionStorage.clear();
+    sessionStorage.removeItem('logininfo');
+    setLoginInfo([]);
     navigate('/');
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoginInfo(JSON.parse(sessionStorage.getItem('logininfo')));
-    }, 1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginInfo]);
+  }, []);
 
   return (
     <header className="header-section">
@@ -175,6 +171,11 @@ function Header(props) {
                       <li>
                         <div className="user-panel">
                           <i className="fas fa-user" />
+                          {loginInfo?.id ? (
+                            <span className="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle">
+                              <span className="visually-hidden">New alerts</span>
+                            </span>
+                          ) : null}
                           <div className="user-menu">
                             <div className="user-menu-item">
                               {loginInfo?.id ? (

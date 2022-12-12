@@ -14,6 +14,8 @@ import Login from './FrontEnd/Pages/Login';
 import Register from './FrontEnd/Pages/Register';
 import Shop from './FrontEnd/Pages/Shop';
 import ViewProduct from './FrontEnd/Pages/ViewProduct';
+import UserDashboard from './UserPanel/UserDashboard';
+import UserOrders from './UserPanel/UserOrders';
 import UserTemplate from './UserPanel/UserTemplate';
 
 function App() {
@@ -30,7 +32,10 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="user" element={<UserTemplate />} />
+          <Route path="user" element={<UserTemplate />}>
+            <Route index element={<UserDashboard />} />
+            <Route path="orders" element={<UserOrders />} />
+          </Route>
         </Route>
         <Route path="admin" element={<AdminTemplate />}>
           <Route index element={<Dashboard />} />

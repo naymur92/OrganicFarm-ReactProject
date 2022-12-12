@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
-import useSessionStorage from '../../../hooks/useSessionStorage';
+import { NavLink, useOutletContext } from 'react-router-dom';
 // import './Dashboard.css';
 
 function Dashboard() {
-  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
+  const [loginInfo, setLoginInfo] = useOutletContext();
   useEffect(() => {
     window.scrollTo(0, 0);
     localStorage.removeItem('cart-items');

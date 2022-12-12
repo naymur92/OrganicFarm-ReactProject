@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import useSessionStorage from '../../hooks/useSessionStorage';
 import Newsletter from '../Components/Newsletter';
 
 function Checkout() {
@@ -16,12 +15,15 @@ function Checkout() {
     totalPrice,
     shippingCharge,
     updateShippingCharge,
-    clearCartItems,
+    setCartItems,
+    loginInfo,
+    setLoginInfo,
   ] = useOutletContext();
 
   const navigate = useNavigate();
-  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
-  const [pendingCheckout, setPendingCheckout] = useLocalStorage('pendingcheckout', []);
+  const [pendingCheckout, setPendingCheckout] = useLocalStorage('pendingcheckout', {
+    status: 'pending',
+  });
 
   // console.log(loginInfo);
   const authenticate = () => {
@@ -48,7 +50,6 @@ function Checkout() {
     if (cartItems.length === 0) {
       navigate('/shop');
     }
-    setPendingCheckout({ status: 'pending' });
     authenticate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginInfo]);
@@ -81,17 +82,11 @@ function Checkout() {
         payment: { method: document.getElementById('pmt_method').value },
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.success) {
-          // cartItems
-          //   .map((item) => onRemove(item))
-          //   .then(() => {
-          //     navigate('/');
-          //   });
+          setCartItems([]);
           localStorage.removeItem('pendingcheckout');
-          // navigate('/');
-          // if (clearCartItems()) {
-          // }
+          navigate('/');
         }
         alert(res.data.msg);
       });

@@ -25,8 +25,8 @@ function AdminTemplate() {
 
   return loginInfo?.id ? (
     <>
-      <AdminHeader />
-      <Outlet />
+      <AdminHeader loginInfo={loginInfo} setLoginInfo={setLoginInfo} />
+      <Outlet context={[loginInfo, setLoginInfo]} />
       <AdminFooter />
     </>
   ) : null;

@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useLocalStorage from '../hooks/useLocalStorage';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import useSessionStorage from '../hooks/useSessionStorage';
 
 function UserTemplate() {
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
-  const [pendingCheckout, setPendingCheckout] = useLocalStorage('pendingcheckout', []);
+  const pendingCheckout = JSON.parse(localStorage.getItem('pendingcheckout'));
 
   // console.log(typeof loginInfo);
 
@@ -19,6 +18,8 @@ function UserTemplate() {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    // console.log(pendingCheckout);
     if (pendingCheckout?.status === 'pending') {
       navigate('/checkout');
     }
@@ -27,10 +28,38 @@ function UserTemplate() {
   }, [loginInfo]);
 
   return loginInfo?.id ? (
-    <>
-      <h1>User Template</h1>
-      <p>lorem</p>
-    </>
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col-sm-3">
+          <ul className="nav nav-pills flex-column">
+            <li className="nav-item">
+              <Link className="nav-link" to="/user">
+                Dashboard
+              </Link>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="orders">
+                Orders
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="wishlists">
+                Wishlists
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link disabled" href="#">
+                Disabled
+              </a>
+            </li>
+          </ul>
+          <hr className="d-sm-none" />
+        </div>
+        <div className="col-sm-9">
+          <Outlet />
+        </div>
+      </div>
+    </div>
   ) : null;
 }
 

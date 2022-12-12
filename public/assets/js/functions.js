@@ -11,11 +11,21 @@
     $(document).on('click', '.cart-option', () => {
       $('.cart-option').toggleClass('open');
     });
+    $(document).on('click', (e) => {
+      if ($(e.target).is('.cart-option') === false) {
+        $('.cart-option').removeClass('open');
+      }
+    });
     $(document).on('click', '.search-option, .search-close', () => {
       $('.search-input').toggleClass('open');
     });
     $(document).on('click', '.user-panel', () => {
       $('.user-panel').toggleClass('open');
+    });
+    $(document).on('click', (e) => {
+      if ($(e.target).is('.user-panel') === false) {
+        $('.user-panel').removeClass('open');
+      }
     });
 
     // Header Section Menu Part

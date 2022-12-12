@@ -1,11 +1,23 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import useSessionStorage from '../../hooks/useSessionStorage';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 
 function Login() {
   const navigate = useNavigate();
-  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
+  const [
+    products,
+    cartItems,
+    onAdd,
+    onRemove,
+    onEmpty,
+    itemsPrice,
+    totalPrice,
+    shippingCharge,
+    updateShippingCharge,
+    setCartItems,
+    loginInfo,
+    setLoginInfo,
+  ] = useOutletContext();
 
   const authenticate = () => {
     if (loginInfo?.role === 'admin' || loginInfo?.role === 'manager') {

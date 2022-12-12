@@ -2,12 +2,15 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
+import useSessionStorage from '../hooks/useSessionStorage';
 import Footer from './Components/Footer';
 import Header from './Components/Header';
+
 import Search from './Components/Search';
 
 function FrontTemplate() {
   const [products, setProducts] = useLocalStorage('products', []);
+  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
 
   // Get all products
   const allProducts = async () => {
@@ -54,12 +57,6 @@ function FrontTemplate() {
     }
   };
 
-  // Clear Cart items
-  const clearCartItems = () => {
-    localStorage.removeItem('cart-items');
-    return true;
-  };
-
   // Calculate shipping Charge
   const itemsPrice = cartItems.reduce((a, c) => a + c.price * c.qty, 0);
   const [shippingCharge, setShippingCharge] = useState(150);
@@ -86,16 +83,6 @@ function FrontTemplate() {
 
   return (
     <>
-      {/* <!-- preloader start here --> */}
-      {/* <div className="preloader">
-        <div className="preloader-inner">
-          <div className="preloader-icon">
-            <span />
-            <span />
-          </div>
-        </div>
-      </div> */}
-      {/* <!-- preloader ending here --> */}
       <Search />
       <Header
         cartItems={cartItems}
@@ -103,6 +90,8 @@ function FrontTemplate() {
         onRemove={onRemove}
         onEmpty={onEmpty}
         itemsPrice={itemsPrice}
+        loginInfo={loginInfo}
+        setLoginInfo={setLoginInfo}
       />
       <Outlet
         context={[
@@ -115,7 +104,9 @@ function FrontTemplate() {
           totalPrice,
           shippingCharge,
           updateShippingCharge,
-          clearCartItems,
+          setCartItems,
+          loginInfo,
+          setLoginInfo,
         ]}
       />
       <Footer />

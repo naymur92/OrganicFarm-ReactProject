@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import useSessionStorage from '../../hooks/useSessionStorage';
 
-function AdminHeader() {
+function AdminHeader(props) {
+  const { loginInfo, setLoginInfo } = props;
   const navigate = useNavigate();
-  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
 
   const logOut = () => {
-    sessionStorage.clear();
+    sessionStorage.removeItem('logininfo');
+    setLoginInfo([]);
     navigate('/');
   };
 
