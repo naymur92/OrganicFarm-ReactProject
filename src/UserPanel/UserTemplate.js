@@ -28,35 +28,42 @@ function UserTemplate() {
   }, [loginInfo]);
 
   return loginInfo?.id ? (
-    <div className="container mt-5">
+    <div className="container my-4">
       <div className="row">
-        <div className="col-sm-3">
-          <ul className="nav nav-pills flex-column">
-            <li className="nav-item">
-              <Link className="nav-link" to="/user">
-                Dashboard
-              </Link>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="orders">
-                Orders
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="wishlists">
-                Wishlists
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link disabled" href="#">
-                Disabled
-              </a>
-            </li>
-          </ul>
-          <hr className="d-sm-none" />
+        <div className="col-sm-3 col-md-2">
+          <div className="card" style={{ minHeight: '500px' }}>
+            <div className="card-header bg-theme">
+              <h5 className="text-light">User Panel</h5>
+            </div>
+            <div className="card-body">
+              <ul className="nav nav-pills flex-column">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/user">
+                    Dashboard
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="orders">
+                    Orders
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="wishlists">
+                    Wishlists
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link disabled" href="#">
+                    Disabled
+                  </a>
+                </li>
+              </ul>
+              <hr className="d-sm-none" />
+            </div>
+          </div>
         </div>
-        <div className="col-sm-9">
-          <Outlet />
+        <div className="col-sm-9 col-md-10 border-left">
+          <Outlet context={[loginInfo]} />
         </div>
       </div>
     </div>

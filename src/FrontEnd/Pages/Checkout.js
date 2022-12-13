@@ -86,7 +86,7 @@ function Checkout() {
         if (res.data.success) {
           setCartItems([]);
           localStorage.removeItem('pendingcheckout');
-          navigate('/');
+          navigate('/user/orders');
         }
         alert(res.data.msg);
       });

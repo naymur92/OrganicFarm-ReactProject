@@ -1,14 +1,34 @@
 <?php
 include '../dbconfig.php';
 
-$result = $db_conn->query("SELECT * FROM orders");
+if (isset($_GET['userid'])) {
+  $userid = trim($_GET['userid']);
+  if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM orders WHERE id=$id AND user_id=$userid";
+  } else {
+    $sql = "SELECT * FROM orders WHERE user_id=$userid";
+  }
+} else {
+  $sql = "SELECT * FROM orders";
+}
+$result = $db_conn->query($sql);
 
 if ($result->num_rows > 0) {
+  $index = 0;
   while ($row = $result->fetch_assoc()) {
-    $orders[] = $row;
+    foreach ($row as $key => $value) {
+      if ($key == 'products' || $key == 'address' || $key == 'payment') {
+        $orders[$index][$key] = json_decode($value);
+      } else {
+        $orders[$index][$key] = $value;
+      }
+    }
+    $index++;
   }
+  // echo json_encode($orders);
   echo json_encode(["success" => true, "orders" => $orders]);
-  return;
+  // return;
 } else {
   echo json_encode(["success" => false, "msg" => 'No Order']);
   return;
