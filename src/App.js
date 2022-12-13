@@ -14,10 +14,11 @@ import Login from './FrontEnd/Pages/Login';
 import Register from './FrontEnd/Pages/Register';
 import Shop from './FrontEnd/Pages/Shop';
 import ViewProduct from './FrontEnd/Pages/ViewProduct';
-import UserDashboard from './UserPanel/UserDashboard';
-import UserOrders from './UserPanel/UserOrders';
+import UserDashboard from './UserPanel/pages/UserDashboard';
+import UserFavourites from './UserPanel/pages/UserFavourites';
+import UserOrders from './UserPanel/pages/UserOrders';
+import ViewUserOrder from './UserPanel/pages/ViewUserOrder';
 import UserTemplate from './UserPanel/UserTemplate';
-import ViewUserOrder from './UserPanel/ViewUserOrder';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
             <Route index element={<UserDashboard />} />
             <Route path="orders" element={<UserOrders />} />
             <Route path="orders/view-order/:id" element={<ViewUserOrder />} />
+            <Route path="wishlists" element={<UserFavourites />} />
           </Route>
         </Route>
         <Route path="admin" element={<AdminTemplate />}>

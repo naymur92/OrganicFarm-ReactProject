@@ -1,55 +1,20 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+import React, { useEffect } from 'react';
 import { Link, useOutletContext, useParams } from 'react-router-dom';
+import DateTime from '../../Components/DateTime';
 import './ViewUserOrder.css';
 
 function ViewUserOrder() {
-  const [loginInfo, cancelOrder] = useOutletContext();
+  const [loginInfo, cancelOrder, orders] = useOutletContext();
   const params = useParams();
-  const [order, setOrder] = useState([]);
 
-  const userOrder = async (id, userid) => {
-    axios
-      .get('http://localhost/wdpf51_React/organicfarm/api/orders/orders.php', {
-        params: { id, userid },
-      })
-      .then((res) => {
-        if (res.data.success) {
-          setOrder(res.data.orders[0]);
-        }
-        // console.log(res.data);
-      });
-  };
+  const order = orders.find((item) => item.id === params.id);
+  // console.log(order);
 
   useEffect(() => {
-    userOrder(params.id, loginInfo.id);
+    window.scrollTo(0, 0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [order]);
-  // console.log(order.address.address);
-
-  // convert MySQL DATETIME into javascript time
-  function DateTime(time) {
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    const date = new Date(time.time);
-    return `${date.getHours() > 12 ? date.getHours() - 12 : null}:${
-      date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
-    } ${date.getHours() > 12 ? `PM` : `AM`} - ${date.getDate()} ${
-      months[date.getMonth()]
-    }, ${date.getFullYear()}`;
-  }
+  }, []);
 
   return (
     <div

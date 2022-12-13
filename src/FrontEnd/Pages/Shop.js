@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import useSessionStorage from '../../hooks/useSessionStorage';
@@ -10,7 +11,19 @@ function Shop() {
 
   useEffect(() => {
     document.getElementsByClassName('shop-page')[0].scrollIntoView();
-  }, []);
+  }, [products]);
+
+  const addFavourite = async (userid, prodid) => {
+    await axios
+      .post('http://localhost/wdpf51_React/organicfarm/api/favourites/add_favourite.php', {
+        userid,
+        prodid,
+      })
+      .then((res) => {
+        console.log(res.data);
+        alert(res.data.msg);
+      });
+  };
 
   // Filter Method Starts
   const [category, setCategory] = useState('');
@@ -76,7 +89,7 @@ function Shop() {
                               <Link to={`view-product/${item.id}`}>
                                 <i className="icofont-eye" />
                               </Link>
-                              <a href="#">
+                              <a role="button" onClick={() => addFavourite(loginInfo.id, item.id)}>
                                 <i className="icofont-heart-alt" />
                               </a>
                               {loginInfo?.role !== 'admin' || loginInfo?.role !== 'manager' ? (

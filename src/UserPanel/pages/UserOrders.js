@@ -1,53 +1,10 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+// import axios from 'axios';
 import { Link, useOutletContext } from 'react-router-dom';
+import DateTime from '../../Components/DateTime';
 
 function UserOrders() {
-  const [loginInfo, cancelOrder] = useOutletContext();
-  const [orders, setOrders] = useState([]);
-
-  const userOrders = async (userid) => {
-    await axios
-      .get('http://localhost/wdpf51_React/organicfarm/api/orders/orders.php', {
-        params: { userid },
-      })
-      .then((res) => {
-        if (res.data.success) {
-          setOrders(res.data.orders);
-        }
-        // console.log(res.data);
-      });
-  };
-
-  useEffect(() => {
-    userOrders(loginInfo.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orders]);
-  // console.log(orders[0]);
-
-  // convert MySQL DATETIME into javascript time
-  function DateTime(time) {
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-    const date = new Date(time.time);
-    return `${date.getHours() > 12 ? date.getHours() - 12 : null}:${
-      date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
-    } ${date.getHours() > 12 ? `PM` : `AM`} - ${date.getDate()} ${
-      months[date.getMonth()]
-    }, ${date.getFullYear()}`;
-  }
+  const [loginInfo, cancelOrder, orders] = useOutletContext();
+  // console.log(orders);
 
   return (
     <div className="card">
@@ -130,7 +87,7 @@ function UserOrders() {
                         {order.status === 'pending' ? (
                           <Link
                             role="button"
-                            onClick={() => cancelOrder(order.id, loginInfo.id)}
+                            onClick={() => cancelOrder(order.id, order.products)}
                             className="dropdown-item"
                           >
                             <i className="fas fa-times text-danger mx-3" />

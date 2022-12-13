@@ -27,7 +27,7 @@ if (isset($data)) {
     foreach ($stock_mg as $key => $value) {
       mysqli_query($db_conn, "UPDATE products SET stock=stock + $value WHERE id='$key'");
     }
-    echo json_encode(['success' => true, 'msg' => 'Order Placed']);
+    echo json_encode(['success' => true, 'msg' => 'Order cancelled']);
     return;
   } else {
     echo json_encode(['success' => false, 'msg' => 'Failed! Try again']);

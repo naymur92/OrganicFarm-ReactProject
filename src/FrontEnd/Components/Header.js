@@ -11,6 +11,7 @@ function Header(props) {
     setLoginInfo([]);
     localStorage.removeItem('cart-items');
     setCartItems([]);
+    localStorage.removeItem('user-orders');
     navigate('/');
   };
 

@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
+import useLocalStorage from '../hooks/useLocalStorage';
 import useSessionStorage from '../hooks/useSessionStorage';
 
 function UserTemplate() {
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
   const pendingCheckout = JSON.parse(localStorage.getItem('pendingcheckout'));
+  const [orders, setOrders] = useLocalStorage('user-orders');
 
   // console.log(typeof loginInfo);
 
@@ -25,13 +27,29 @@ function UserTemplate() {
         products: prodlist,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
+        userOrders(loginInfo.id);
+      });
+  };
+
+  // Get Orders
+  const userOrders = async (userid) => {
+    await axios
+      .get('http://localhost/wdpf51_React/organicfarm/api/orders/orders.php', {
+        params: { userid },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          setOrders(res.data.orders);
+        }
+        // console.log(res.data);
       });
   };
 
   useEffect(() => {
     window.scrollTo(0, 0);
     // console.log(pendingCheckout);
+    userOrders(loginInfo.id);
     if (pendingCheckout?.status === 'pending') {
       navigate('/checkout');
     }
@@ -75,7 +93,7 @@ function UserTemplate() {
           </div>
         </div>
         <div className="col-sm-9 col-md-10 border-left">
-          <Outlet context={[loginInfo, cancelOrder]} />
+          <Outlet context={[loginInfo, cancelOrder, orders]} />
         </div>
       </div>
     </div>
