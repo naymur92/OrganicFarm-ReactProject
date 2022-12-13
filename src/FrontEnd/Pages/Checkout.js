@@ -78,7 +78,7 @@ function Checkout() {
         subtotal: totalPrice,
         shipping: shippingCharge,
         total: totalPrice + shippingCharge,
-        address: shipping,
+        address: { name: `${loginInfo.firstname} ${loginInfo.lastname}`, ...shipping },
         payment: { method: document.getElementById('pmt_method').value },
       })
       .then((res) => {

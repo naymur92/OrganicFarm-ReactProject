@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import useSessionStorage from '../hooks/useSessionStorage';
@@ -15,6 +16,17 @@ function UserTemplate() {
     } else if (loginInfo?.role === 'admin' || loginInfo?.role === 'manager') {
       navigate('/admin');
     }
+  };
+
+  const cancelOrder = async (orderid, prodlist) => {
+    await axios
+      .put('http://localhost/wdpf51_React/organicfarm/api/orders/cancel_order.php', {
+        id: orderid,
+        products: prodlist,
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   useEffect(() => {
@@ -63,7 +75,7 @@ function UserTemplate() {
           </div>
         </div>
         <div className="col-sm-9 col-md-10 border-left">
-          <Outlet context={[loginInfo]} />
+          <Outlet context={[loginInfo, cancelOrder]} />
         </div>
       </div>
     </div>

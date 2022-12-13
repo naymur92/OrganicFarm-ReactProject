@@ -3,18 +3,20 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 function Header(props) {
-  const { cartItems, onAdd, onEmpty, itemsPrice, loginInfo, setLoginInfo } = props;
+  const { cartItems, setCartItems, onAdd, onEmpty, itemsPrice, loginInfo, setLoginInfo } = props;
   const navigate = useNavigate();
 
   const logOut = () => {
     sessionStorage.removeItem('logininfo');
     setLoginInfo([]);
+    localStorage.removeItem('cart-items');
+    setCartItems([]);
     navigate('/');
   };
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [cartItems]);
 
   return (
     <header className="header-section">
@@ -66,7 +68,7 @@ function Header(props) {
             <div className="primary-menu">
               <div className="logo d-lg-none">
                 <Link to="/">
-                  <img src="assets/images/logo/01.png" alt="logo" />
+                  <img src="/assets/images/logo/01.png" alt="logo" />
                 </Link>
               </div>
               <button
@@ -93,7 +95,7 @@ function Header(props) {
                     </ul>
                     <div className="logo px-4 d-none d-lg-block">
                       <Link to="/">
-                        <img src="assets/images/logo/01.png" alt="logo" />
+                        <img src="/assets/images/logo/01.png" alt="logo" />
                       </Link>
                     </div>
                     <ul className="agri-ul">

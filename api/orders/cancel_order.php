@@ -13,27 +13,20 @@ if (isset($data)) {
   foreach ($products as $product) {
     $stock_mg[$product->id] = $product->qty;
   }
-  // print_r($stock_mg);
+  // print_r($stock_mg);  
 
-  $userid = mysqli_real_escape_string($db_conn, trim($data->userid));
-  $products = json_encode($products);
-  $subtotal = mysqli_real_escape_string($db_conn, trim($data->subtotal));
-  $shipping = mysqli_real_escape_string($db_conn, trim($data->shipping));
-  $total = mysqli_real_escape_string($db_conn, trim($data->total));
-  $address = json_encode($data->address);
-  $payment = json_encode($data->payment);
+  $order_id = mysqli_real_escape_string($db_conn, trim($data->id));
 
-  $sql = "INSERT INTO orders VALUES(NULL, '$userid', '$products', '$subtotal', '$shipping', '$total', '$address', DEFAULT, '$payment', DEFAULT)";
+  $sql = "UPDATE orders SET status='cancelled' WHERE id=$order_id";
   // echo $sql;
 
   $result = $db_conn->query($sql);
 
   if ($db_conn->affected_rows > 0) {
-    // Update stock
+    // Update stock in database
     foreach ($stock_mg as $key => $value) {
-      mysqli_query($db_conn, "UPDATE products SET stock = stock - $value WHERE id='$key'");
+      mysqli_query($db_conn, "UPDATE products SET stock=stock + $value WHERE id='$key'");
     }
-
     echo json_encode(['success' => true, 'msg' => 'Order Placed']);
     return;
   } else {

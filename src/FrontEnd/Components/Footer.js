@@ -11,7 +11,7 @@ function Footer() {
               <div className="footer-item">
                 <div className="footer-inner">
                   <div className="footer-logo">
-                    <img src="assets/images/logo/01.png" alt="footer-logo" />
+                    <img src="/assets/images/logo/01.png" alt="footer-logo" />
                   </div>
                   <div className="footer-desc">
                     <p>
@@ -73,7 +73,7 @@ function Footer() {
                       <li>
                         <div className="thumb">
                           <a href="blog-single.html">
-                            <img src="assets/images/blog/01.jpg" alt="footer-blog" />
+                            <img src="/assets/images/blog/01.jpg" alt="footer-blog" />
                           </a>
                         </div>
                         <div className="detalis">
@@ -86,7 +86,7 @@ function Footer() {
                       <li>
                         <div className="thumb">
                           <Link to="shop">
-                            <img src="assets/images/blog/honey.jpg" alt="footer-blog" />
+                            <img src="/assets/images/blog/honey.jpg" alt="footer-blog" />
                           </Link>
                         </div>
                         <div className="detalis">
@@ -111,32 +111,32 @@ function Footer() {
                     <ul className="agri-ul">
                       <li>
                         <Link to="shop">
-                          <img src="assets/images/gallery/honey.jpg" alt="footer-gallery" />
+                          <img src="/assets/images/gallery/honey.jpg" alt="footer-gallery" />
                         </Link>
                       </li>
                       <li>
                         <Link to="shop">
-                          <img src="assets/images/gallery/lichi.jpg" alt="footer-gallery" />
+                          <img src="/assets/images/gallery/lichi.jpg" alt="footer-gallery" />
                         </Link>
                       </li>
                       <li>
                         <Link to="shop">
-                          <img src="assets/images/gallery/mango.jpg" alt="footer-gallery" />
+                          <img src="/assets/images/gallery/mango.jpg" alt="footer-gallery" />
                         </Link>
                       </li>
                       <li>
                         <Link to="shop">
-                          <img src="assets/images/gallery/vegitables.jpg" alt="footer-gallery" />
+                          <img src="/assets/images/gallery/vegitables.jpg" alt="footer-gallery" />
                         </Link>
                       </li>
                       <li>
                         <Link to="shop">
-                          <img src="assets/images/gallery/05.jpg" alt="footer-gallery" />
+                          <img src="/assets/images/gallery/05.jpg" alt="footer-gallery" />
                         </Link>
                       </li>
                       <li>
                         <Link to="shop">
-                          <img src="assets/images/gallery/06.jpg" alt="footer-gallery" />
+                          <img src="/assets/images/gallery/06.jpg" alt="footer-gallery" />
                         </Link>
                       </li>
                     </ul>

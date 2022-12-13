@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 
 function UserOrders() {
-  const [loginInfo] = useOutletContext();
+  const [loginInfo, cancelOrder] = useOutletContext();
   const [orders, setOrders] = useState([]);
 
   const userOrders = async (userid) => {
@@ -22,7 +22,7 @@ function UserOrders() {
   useEffect(() => {
     userOrders(loginInfo.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [orders]);
   // console.log(orders[0]);
 
   // convert MySQL DATETIME into javascript time
@@ -73,7 +73,7 @@ function UserOrders() {
                 <td>
                   <ol>
                     {order.products.map((product) => (
-                      <li>
+                      <li className="my-2" key={product.id}>
                         <div className="d-flex justify-content-between">
                           <div>{product.name}</div>
                           <div>
@@ -91,7 +91,7 @@ function UserOrders() {
                     </div>
                     <div>Tk. {order.subtotal}</div>
                   </div>
-                  <div className="d-flex justify-content-between">
+                  <div className="d-flex justify-content-between my-2">
                     <div>
                       <strong>Shipping:</strong>
                     </div>
@@ -128,7 +128,11 @@ function UserOrders() {
                       </li>
                       <li>
                         {order.status === 'pending' ? (
-                          <Link role="button" className="dropdown-item">
+                          <Link
+                            role="button"
+                            onClick={() => cancelOrder(order.id, loginInfo.id)}
+                            className="dropdown-item"
+                          >
                             <i className="fas fa-times text-danger mx-3" />
                             Cancel Order
                           </Link>
