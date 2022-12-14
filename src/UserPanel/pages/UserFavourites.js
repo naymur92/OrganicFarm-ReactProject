@@ -58,7 +58,7 @@ function UserFavourites() {
                 </td>
                 <td>
                   <div className="d-flex justify-content-between mx-3">
-                    <Link to={`/shop/view-product/${item.id}`}>
+                    <Link to={`/shop/view-product/${item.id}`} target="_blank">
                       <i className="fas fa-eye text-success" />
                     </Link>
                     <a role="button">

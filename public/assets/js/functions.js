@@ -12,7 +12,11 @@
       $('.cart-option').toggleClass('open');
     });
     $(document).on('click', (e) => {
-      if ($(e.target).is('.cart-option') === false) {
+      if (
+        $(e.target).is('.cart-option') === false &&
+        $(e.target).is('.fa-times') === false &&
+        $(e.target).is('.cart-btn') === false
+      ) {
         $('.cart-option').removeClass('open');
       }
     });

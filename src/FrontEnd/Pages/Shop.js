@@ -11,7 +11,7 @@ function Shop() {
 
   useEffect(() => {
     document.getElementsByClassName('shop-page')[0].scrollIntoView();
-  }, [products]);
+  }, []);
 
   const addFavourite = async (userid, prodid) => {
     await axios

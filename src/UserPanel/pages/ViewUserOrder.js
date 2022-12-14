@@ -124,7 +124,9 @@ function ViewUserOrder() {
               <div className="col-md-6 col-lg-6">
                 <p>
                   <span className="mx-1">{index + 1}.</span>
-                  {item.name}
+                  <Link to={`/shop/view-product/${item.id}`} target="_blank">
+                    {item.name}
+                  </Link>
                 </p>
               </div>
               <div className="col-md-3 col-lg-3">

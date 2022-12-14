@@ -92,7 +92,7 @@ function FrontTemplate() {
       localStorage.removeItem('pendingcheckout');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemsPrice, cartItems]);
+  }, [itemsPrice]);
 
   return (
     <>
