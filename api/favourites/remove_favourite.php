@@ -7,12 +7,12 @@ require '../dbconfig.php';
 // echo json_encode($_GET['prodid']);
 
 if (
-  isset($_GET['prodid'])
-  && !empty($_GET['prodid'])
+  isset($_GET['id'])
+  && !empty($_GET['id'])
 ) {
-  $prodid = $_GET['prodid'];
+  $id = $_GET['id'];
 
-  $sql = "DELETE FROM favourites WHERE fv_id=$prodid";
+  $sql = "DELETE FROM favourites WHERE fv_id=$id";
 
   $result = $db_conn->query($sql);
 

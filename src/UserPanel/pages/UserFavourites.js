@@ -20,10 +20,10 @@ function UserFavourites() {
       });
   };
 
-  const removeFavourite = (prodid) => {
-    axios
+  const removeFavourite = async (id) => {
+    await axios
       .delete('http://localhost/wdpf51_React/organicfarm/api/favourites/remove_favourite.php', {
-        params: { prodid },
+        params: { id },
       })
       .then((res) => {
         // console.log(res.data);
