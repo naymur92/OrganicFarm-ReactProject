@@ -7,7 +7,7 @@ import './Shop.css';
 
 function Shop() {
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
-  const [products, cartItems, onAdd] = useOutletContext();
+  const [API_PATH, products, cartItems, onAdd] = useOutletContext();
 
   useEffect(() => {
     document.getElementsByClassName('shop-page')[0].scrollIntoView();
@@ -15,7 +15,7 @@ function Shop() {
 
   const addFavourite = async (userid, prodid) => {
     await axios
-      .post('http://localhost/wdpf51_React/organicfarm/api/favourites/add_favourite.php', {
+      .post(`${API_PATH}/favourites/add_favourite.php`, {
         userid,
         prodid,
       })
@@ -89,9 +89,15 @@ function Shop() {
                               <Link to={`view-product/${item.id}`}>
                                 <i className="icofont-eye" />
                               </Link>
-                              <a role="button" onClick={() => addFavourite(loginInfo.id, item.id)}>
-                                <i className="icofont-heart-alt" />
-                              </a>
+                              {loginInfo?.id ? (
+                                <a
+                                  role="button"
+                                  onClick={() => addFavourite(loginInfo.id, item.id)}
+                                >
+                                  <i className="icofont-heart-alt" />
+                                </a>
+                              ) : null}
+
                               {loginInfo?.role !== 'admin' || loginInfo?.role !== 'manager' ? (
                                 <a onClick={() => onAdd(item)} style={{ cursor: 'pointer' }}>
                                   <i className="icofont-cart-alt" />

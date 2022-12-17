@@ -3,7 +3,7 @@ import { NavLink, useOutletContext } from 'react-router-dom';
 // import './Dashboard.css';
 
 function Dashboard() {
-  const [loginInfo, setLoginInfo] = useOutletContext();
+  const [API_PATH, loginInfo, setLoginInfo] = useOutletContext();
   useEffect(() => {
     // window.scrollTo(0, 0);
     localStorage.removeItem('cart-items');

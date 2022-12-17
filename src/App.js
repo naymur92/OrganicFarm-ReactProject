@@ -22,11 +22,12 @@ import UserOrders from './UserPanel/pages/UserOrders';
 import ViewUserOrder from './UserPanel/pages/ViewUserOrder';
 
 function App() {
+  const API_PATH = 'http://localhost/wdpf51_React/organicfarm/api';
   return (
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<FrontTemplate />}>
+        <Route path="/" element={<FrontTemplate API_PATH={API_PATH} />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="shop" element={<Shop />} />
@@ -36,14 +37,14 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="user" element={<UserTemplate />}>
+          <Route path="user" element={<UserTemplate API_PATH={API_PATH} />}>
             <Route index element={<UserDashboard />} />
             <Route path="orders" element={<UserOrders />} />
             <Route path="orders/view-order/:id" element={<ViewUserOrder />} />
             <Route path="wishlists" element={<UserFavourites />} />
           </Route>
         </Route>
-        <Route path="admin" element={<AdminTemplate />}>
+        <Route path="admin" element={<AdminTemplate API_PATH={API_PATH} />}>
           <Route index element={<Dashboard />} />
           <Route path="products" element={<Products />} />
           <Route path="products/addproduct" element={<AddProduct />} />

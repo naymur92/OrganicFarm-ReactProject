@@ -8,19 +8,17 @@ import Header from './Components/Header';
 
 import Search from './Components/Search';
 
-function FrontTemplate() {
+function FrontTemplate({ API_PATH }) {
   const [products, setProducts] = useLocalStorage('products', []);
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
 
   // Get all products
   const allProducts = async () => {
-    await axios
-      .get(`http://localhost/wdpf51_React/organicfarm/api/products/products.php`)
-      .then((res) => {
-        // console.log(res.data.products);
-        const productsList = res.data.products.filter((item) => item.stock > 0);
-        setProducts(productsList);
-      });
+    await axios.get(`${API_PATH}/products/products.php`).then((res) => {
+      // console.log(res.data.products);
+      const productsList = res.data.products.filter((item) => item.stock > 0);
+      setProducts(productsList);
+    });
   };
 
   const [cartItems, setCartItems] = useLocalStorage('cart-items', []);
@@ -118,6 +116,7 @@ function FrontTemplate() {
       />
       <Outlet
         context={[
+          API_PATH,
           products,
           cartItems,
           onAdd,

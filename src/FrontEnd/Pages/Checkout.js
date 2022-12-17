@@ -6,6 +6,7 @@ import Newsletter from '../Components/Newsletter';
 
 function Checkout() {
   const [
+    API_PATH,
     products,
     cartItems,
     onAdd,
@@ -72,7 +73,7 @@ function Checkout() {
     // console.log(cartItems);
     // localStorage.removeItem('pendingcheckout');
     await axios
-      .post('http://localhost/wdpf51_React/organicfarm/api/orders/new_order.php', {
+      .post(`${API_PATH}/orders/new_order.php`, {
         userid: loginInfo.id,
         products: cartItems,
         subtotal: totalPrice,

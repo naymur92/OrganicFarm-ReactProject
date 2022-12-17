@@ -4,7 +4,7 @@ import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
 import useSessionStorage from '../hooks/useSessionStorage';
 
-function UserTemplate() {
+function UserTemplate({ API_PATH }) {
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
   const pendingCheckout = JSON.parse(localStorage.getItem('pendingcheckout'));
@@ -22,7 +22,7 @@ function UserTemplate() {
 
   const cancelOrder = async (orderid, prodlist) => {
     await axios
-      .put('http://localhost/wdpf51_React/organicfarm/api/orders/cancel_order.php', {
+      .put(`${API_PATH}/orders/cancel_order.php`, {
         id: orderid,
         products: prodlist,
       })
@@ -35,7 +35,7 @@ function UserTemplate() {
   // Get Orders
   const userOrders = async (userid) => {
     await axios
-      .get('http://localhost/wdpf51_React/organicfarm/api/orders/orders.php', {
+      .get(`${API_PATH}/orders/orders.php`, {
         params: { userid },
       })
       .then((res) => {
@@ -92,7 +92,7 @@ function UserTemplate() {
           </div>
         </div>
         <div className="col-sm-9 col-md-10 border-left">
-          <Outlet context={[loginInfo, cancelOrder, orders]} />
+          <Outlet context={[API_PATH, loginInfo, cancelOrder, orders]} />
         </div>
       </div>
     </div>

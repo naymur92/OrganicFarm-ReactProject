@@ -5,6 +5,7 @@ import Newsletter from '../Components/Newsletter';
 function Cart() {
   const navigate = useNavigate();
   const [
+    API_PATH,
     products,
     cartItems,
     onAdd,

@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useOutletContext } from 'react-router-dom';
 
 function Products() {
+  const [API_PATH] = useOutletContext();
   const [products, setProducts] = useState([]);
 
   // Get all products
   const allProducts = () => {
-    axios.get(`http://localhost/wdpf51_React/organicfarm/api/products/products.php`).then((res) => {
+    axios.get(`${API_PATH}/products/products.php`).then((res) => {
       // console.log(res.data.products);
       setProducts(res.data.products);
     });
@@ -45,7 +46,7 @@ function Products() {
   const changeStatus = async (id, status) => {
     // console.log(id, status);
     axios
-      .put(`http://localhost/wdpf51_React/organicfarm/api/products/change_p_status.php`, {
+      .put(`${API_PATH}/products/change_p_status.php`, {
         params: {
           id,
           status,
@@ -63,7 +64,7 @@ function Products() {
   const delProd = (id) => {
     // console.log(id);
     axios
-      .put(`http://localhost/wdpf51_React/organicfarm/api/products/delete_product.php`, {
+      .put(`${API_PATH}/products/delete_product.php`, {
         params: { id },
       })
       .then((res) => {

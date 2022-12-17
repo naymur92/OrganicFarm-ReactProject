@@ -5,7 +5,7 @@ import useSessionStorage from '../../hooks/useSessionStorage';
 import './ViewProduct.css';
 
 function ViewProduct() {
-  const [products, cartItems, onAdd, onRemove, onEmpty] = useOutletContext();
+  const [API_PATH, products, cartItems, onAdd, onRemove, onEmpty] = useOutletContext();
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
 
   const params = useParams();
@@ -17,13 +17,15 @@ function ViewProduct() {
 
   const singleProd = async (id) => {
     await axios
-      .get(`http://localhost/wdpf51_React/organicfarm/api/products/get_product.php`, {
+      .get(`${API_PATH}/products/get_product.php`, {
         params: { id },
       })
       .then((res) => {
         if (res.data.success) {
           setProduct(res.data.product);
           // console.log(res.data);
+        } else {
+          navigate('/shop');
         }
       });
   };
@@ -95,7 +97,7 @@ function ViewProduct() {
                       <h5>Product Description:</h5>
                       <p>{product.description}</p>
 
-                      {product.stock < 20 ? (
+                      {product.stock < 20 && Number(product.stock) !== 0 ? (
                         <p className="my-2 alert alert-warning">Stock is running low!!</p>
                       ) : null}
 
@@ -126,7 +128,8 @@ function ViewProduct() {
                           </div>
                         ) : null
                       )}
-                      {loginInfo?.role !== 'admin' || loginInfo?.role !== 'manager' ? (
+                      {(loginInfo?.role !== 'admin' || loginInfo?.role !== 'manager') &&
+                      Number(product.stock) !== 0 ? (
                         <button
                           onClick={() => onAdd(product)}
                           type="button"
@@ -134,7 +137,11 @@ function ViewProduct() {
                         >
                           Add To Cart
                         </button>
-                      ) : null}
+                      ) : (
+                        <div className="alert alert-danger text-center disabled">
+                          <strong>Not Available</strong>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 
 function AddProduct() {
+  const [API_PATH] = useOutletContext();
   const navigate = useNavigate();
   const [product, setProduct] = useState({
     name: '',
@@ -25,7 +26,7 @@ function AddProduct() {
     event.preventDefault();
     // console.log(product);
     axios
-      .post(`http://localhost/wdpf51_React/organicfarm/api/products/addproduct.php`, {
+      .post(`${API_PATH}/products/addproduct.php`, {
         product,
       })
       .then((res) => {

@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 
 function Register() {
+  const [API_PATH] = useOutletContext();
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     firstname: '',
@@ -22,15 +23,13 @@ function Register() {
   const submitForm = async (e) => {
     e.preventDefault();
 
-    await axios
-      .post(`http://localhost/wdpf51_React/organicfarm/api/register.php`, userInfo)
-      .then((res) => {
-        if (res.data.success) {
-          navigate('/login');
-        }
-        alert(res.data.msg);
-        // console.log(res.data);
-      });
+    await axios.post(`${API_PATH}/register.php`, userInfo).then((res) => {
+      if (res.data.success) {
+        navigate('/login');
+      }
+      alert(res.data.msg);
+      // console.log(res.data);
+    });
   };
 
   return (

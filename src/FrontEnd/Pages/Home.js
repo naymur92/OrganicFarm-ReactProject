@@ -7,7 +7,7 @@ import Product from '../Components/HomeComponent/Product';
 import Slider from '../Components/HomeComponent/Slider';
 
 function Home() {
-  const [products, cartItems, onAdd] = useOutletContext();
+  const [API_PATH, products, cartItems, onAdd] = useOutletContext();
   // console.log(products);
 
   return (

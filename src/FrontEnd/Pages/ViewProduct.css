@@ -9,3 +9,6 @@
   color: #fff;
   padding-top: 12px;
 }
+.disabled {
+  cursor: not-allowed;
+}

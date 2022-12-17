@@ -5,6 +5,7 @@ import { Link, useNavigate, useOutletContext } from 'react-router-dom';
 function Login() {
   const navigate = useNavigate();
   const [
+    API_PATH,
     products,
     cartItems,
     onAdd,
@@ -47,15 +48,13 @@ function Login() {
     event.preventDefault();
     // console.log(userInfo);
 
-    await axios
-      .get(`http://localhost/wdpf51_React/organicfarm/api/login.php`, { params: userInfo })
-      .then((res) => {
-        if (res.data.success) {
-          setLoginInfo(res.data.logininfo);
-        }
-        alert(res.data.msg);
-        // console.log(res.data);
-      });
+    await axios.get(`${API_PATH}/login.php`, { params: userInfo }).then((res) => {
+      if (res.data.success) {
+        setLoginInfo(res.data.logininfo);
+      }
+      alert(res.data.msg);
+      // console.log(res.data);
+    });
   };
 
   return (

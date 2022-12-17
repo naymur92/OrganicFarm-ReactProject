@@ -5,7 +5,7 @@ import './AdminTemplate.css';
 import AdminFooter from './Components/AdminFooter';
 import AdminHeader from './Components/AdminHeader';
 
-function AdminTemplate() {
+function AdminTemplate({ API_PATH }) {
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
   // console.log(loginInfo);
@@ -26,7 +26,7 @@ function AdminTemplate() {
   return loginInfo?.id ? (
     <>
       <AdminHeader loginInfo={loginInfo} setLoginInfo={setLoginInfo} />
-      <Outlet context={[loginInfo, setLoginInfo]} />
+      <Outlet context={[API_PATH, loginInfo, setLoginInfo]} />
       <AdminFooter />
     </>
   ) : null;

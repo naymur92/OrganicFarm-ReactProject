@@ -4,12 +4,12 @@ import { Link, useOutletContext } from 'react-router-dom';
 import DateTime from '../../Components/DateTime';
 
 function UserFavourites() {
-  const [loginInfo, cancelOrder] = useOutletContext();
+  const [API_PATH, loginInfo, cancelOrder] = useOutletContext();
   const [fav, setFav] = useState([]);
 
   const getFavourites = async (userid) => {
     await axios
-      .get('http://localhost/wdpf51_React/organicfarm/api/favourites/get_favourites.php', {
+      .get(`${API_PATH}/favourites/get_favourites.php`, {
         params: { userid },
       })
       .then((res) => {
@@ -22,7 +22,7 @@ function UserFavourites() {
 
   const removeFavourite = async (id) => {
     await axios
-      .delete('http://localhost/wdpf51_React/organicfarm/api/favourites/remove_favourite.php', {
+      .delete(`${API_PATH}/favourites/remove_favourite.php`, {
         params: { id },
       })
       .then((res) => {
