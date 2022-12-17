@@ -5,7 +5,7 @@ import { NavLink, useOutletContext } from 'react-router-dom';
 function Dashboard() {
   const [loginInfo, setLoginInfo] = useOutletContext();
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     localStorage.removeItem('cart-items');
     localStorage.removeItem('pendingcheckout');
     // eslint-disable-next-line react-hooks/exhaustive-deps

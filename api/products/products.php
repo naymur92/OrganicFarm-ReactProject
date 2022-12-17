@@ -1,7 +1,7 @@
 <?php
 include '../dbconfig.php';
 
-$result = $db_conn->query("SELECT * FROM products WHERE stock > 0");
+$result = $db_conn->query("SELECT * FROM products");
 
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {

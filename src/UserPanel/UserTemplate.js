@@ -47,7 +47,6 @@ function UserTemplate() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     // console.log(pendingCheckout);
     userOrders(loginInfo.id);
     if (pendingCheckout?.status === 'pending') {
@@ -55,7 +54,7 @@ function UserTemplate() {
     }
     authenticate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginInfo]);
+  }, []);
 
   return loginInfo?.id ? (
     <div className="container my-4">

@@ -29,7 +29,7 @@ function ViewProduct() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    document.getElementsByClassName('shop-single')[0].scrollIntoView();
     singleProd(params.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

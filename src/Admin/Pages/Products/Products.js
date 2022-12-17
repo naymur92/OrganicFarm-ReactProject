@@ -14,7 +14,7 @@ function Products() {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     allProducts();
     // console.log(products);
     // eslint-disable-next-line react-hooks/exhaustive-deps

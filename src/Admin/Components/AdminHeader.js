@@ -15,7 +15,7 @@ function AdminHeader(props) {
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          <img src="assets/images/logo/01.png" alt="" />
+          <img src="/assets/images/logo/01.png" alt="" />
         </Link>
         <button
           className="navbar-toggler"

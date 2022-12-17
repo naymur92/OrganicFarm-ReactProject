@@ -18,7 +18,8 @@ function FrontTemplate() {
       .get(`http://localhost/wdpf51_React/organicfarm/api/products/products.php`)
       .then((res) => {
         // console.log(res.data.products);
-        setProducts(res.data.products);
+        const productsList = res.data.products.filter((item) => item.stock > 0);
+        setProducts(productsList);
       });
   };
 
@@ -28,16 +29,22 @@ function FrontTemplate() {
   const onAdd = (product) => {
     const exist = cartItems.find((x) => x.id === product.id);
     if (exist) {
-      // set limit for single item
-      if (exist.qty < 5) {
-        // main method
-        setCartItems(
-          cartItems.map((x) => (x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x))
-        );
+      // Check Database stock and stop adding to cart
+      if (exist.qty < product.stock) {
+        // set limit for single item
+        if (exist.qty < 5) {
+          // main method
+          setCartItems(
+            cartItems.map((x) => (x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x))
+          );
+        } else {
+          alert('Maximum order quantity is 5!');
+        }
       } else {
-        alert('Maximum order quantity is 5!');
+        alert('Not in stock');
       }
-    } else {
+      // Check Database stock and stop adding to cart if (product.stock > 0)
+    } else if (product.stock > 0) {
       // Check cart length
       // eslint-disable-next-line no-lonely-if
       if (cartItems.length < 5) {
@@ -46,6 +53,8 @@ function FrontTemplate() {
       } else {
         alert('Maximum cart items is 5!');
       }
+    } else {
+      alert('Not in stock');
     }
     // console.log(cartItems);
   };

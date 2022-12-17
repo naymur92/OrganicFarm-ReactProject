@@ -26,7 +26,7 @@ export default function DateTime(time) {
       <span>
         {date.getHours() > 12 ? date.getHours() - 12 : date.getHours() === 0 ? 12 : date.getHours()}
       </span>
-      :<span>{date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}</span>
+      :<span>{date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()}</span> {` `}
       <span>{date.getHours() > 12 ? `PM` : `AM`}</span>
     </>
   );

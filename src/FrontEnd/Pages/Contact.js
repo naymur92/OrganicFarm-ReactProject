@@ -4,9 +4,9 @@ import Newsletter from '../Components/Newsletter';
 
 function Contact() {
   useEffect(() => {
-    // document.getElementsByClassName('page-header')[0].scrollIntoView();
-    window.scrollTo(0, 0);
+    document.getElementsByClassName('page-header')[0].scrollIntoView();
   }, []);
+
   return (
     <>
       {/* <!-- Page Header Section Start Here --> */}

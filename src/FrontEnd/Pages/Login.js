@@ -30,7 +30,6 @@ function Login() {
 
   useEffect(() => {
     document.getElementsByClassName('contact-section')[0].scrollIntoView();
-    // window.scrollTo(0, 450);
     authenticate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginInfo]);

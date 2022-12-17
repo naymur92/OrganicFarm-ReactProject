@@ -7,7 +7,7 @@ function Counter() {
       <div className="container">
         <div className="section-wrapper">
           <div className="row justify-content-center">
-            <div className="col-xl-3 col-sm-6 col-12">
+            <div className="col-xl-3 col-sm-6 col-12 wow fadeInUp" data-wow-delay="0.4s">
               <div className="counter-item">
                 <div className="counter-inner">
                   <div className="counter-thumb">
@@ -20,7 +20,7 @@ function Counter() {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12">
+            <div className="col-xl-3 col-sm-6 col-12 wow fadeInUp" data-wow-delay="0.5s">
               <div className="counter-item">
                 <div className="counter-inner">
                   <div className="counter-thumb">
@@ -33,7 +33,7 @@ function Counter() {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12">
+            <div className="col-xl-3 col-sm-6 col-12 wow fadeInUp" data-wow-delay="0.6s">
               <div className="counter-item">
                 <div className="counter-inner">
                   <div className="counter-thumb">
@@ -46,7 +46,7 @@ function Counter() {
                 </div>
               </div>
             </div>
-            <div className="col-xl-3 col-sm-6 col-12">
+            <div className="col-xl-3 col-sm-6 col-12 wow fadeInUp" data-wow-delay="0.7s">
               <div className="counter-item">
                 <div className="counter-inner">
                   <div className="counter-thumb">

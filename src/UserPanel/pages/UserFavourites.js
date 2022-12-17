@@ -19,7 +19,20 @@ function UserFavourites() {
         }
       });
   };
+
+  const removeFavourite = (prodid) => {
+    axios
+      .delete('http://localhost/wdpf51_React/organicfarm/api/favourites/remove_favourite.php', {
+        params: { prodid },
+      })
+      .then((res) => {
+        // console.log(res.data);
+        getFavourites(loginInfo.id);
+      });
+  };
+
   useEffect(() => {
+    // document.getElementsByClassName('card')[0].scrollIntoView();
     getFavourites(loginInfo.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -43,7 +56,7 @@ function UserFavourites() {
           </thead>
           <tbody>
             {fav?.map((item, index) => (
-              <tr key={item.fav_id} className="align-middle">
+              <tr key={item.fv_id} className="align-middle">
                 <td>{index + 1}</td>
                 <td>
                   <img
@@ -61,7 +74,7 @@ function UserFavourites() {
                     <Link to={`/shop/view-product/${item.id}`} target="_blank">
                       <i className="fas fa-eye text-success" />
                     </Link>
-                    <a role="button">
+                    <a role="button" onClick={() => removeFavourite(item.fv_id)}>
                       <i className="fas fa-trash text-danger" />
                     </a>
                   </div>
