@@ -22,7 +22,7 @@ function ViewUserOrder() {
       style={{ borderColor: '#4e9b35 !important' }}
     >
       <div className="card-header bg-theme">
-        <h4 className="text-center text-light">View Order</h4>
+        <h4 className="text-center text-light">Invoice</h4>
       </div>
       <div className="card-body p-2">
         <span className="lead fw-bold mb-5" style={{ color: '#4e9b35' }}>
@@ -67,31 +67,31 @@ function ViewUserOrder() {
           </h5>
           <address>
             <div className="row">
-              <div className="col-3">
+              <div className="col-4">
                 <strong>Delevery To:</strong>
                 <span className="float-end">{order.address?.name}</span>
               </div>
             </div>
             <div className="row">
-              <div className="col-3">
+              <div className="col-4">
                 <strong>Area:</strong>
                 <span className="float-end">{order.address?.area}</span>
               </div>
             </div>
             <div className="row">
-              <div className="col-3">
+              <div className="col-4">
                 <strong>Address:</strong>
                 <span className="float-end">{order.address?.address}</span>
               </div>
             </div>
             <div className="row">
-              <div className="col-3">
+              <div className="col-4">
                 <strong>ZipCode:</strong>
                 <span className="float-end">{order.address?.zipcode}</span>
               </div>
             </div>
             <div className="row">
-              <div className="col-3">
+              <div className="col-4">
                 <strong>Phone:</strong>
                 <span className="float-end">{order.address?.phone}</span>
               </div>

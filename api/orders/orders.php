@@ -5,12 +5,12 @@ if (isset($_GET['userid'])) {
   $userid = trim($_GET['userid']);
   if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM orders WHERE id=$id AND user_id=$userid";
+    $sql = "SELECT * FROM orders WHERE id=$id AND user_id=$userid ORDER BY order_time DESC";
   } else {
-    $sql = "SELECT * FROM orders WHERE user_id=$userid";
+    $sql = "SELECT * FROM orders WHERE user_id=$userid ORDER BY order_time DESC";
   }
 } else {
-  $sql = "SELECT * FROM orders";
+  $sql = "SELECT * FROM orders ORDER BY order_time DESC";
 }
 $result = $db_conn->query($sql);
 

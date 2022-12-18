@@ -47,8 +47,8 @@ function AdminHeader(props) {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="bookings">
-                Bookings
+              <NavLink className="nav-link" to="orders">
+                Orders
               </NavLink>
             </li>
             {/* <li className="nav-item dropdown">

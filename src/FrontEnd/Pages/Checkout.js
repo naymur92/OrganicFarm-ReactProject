@@ -76,9 +76,9 @@ function Checkout() {
       .post(`${API_PATH}/orders/new_order.php`, {
         userid: loginInfo.id,
         products: cartItems,
-        subtotal: totalPrice,
+        subtotal: itemsPrice,
         shipping: shippingCharge,
-        total: totalPrice + shippingCharge,
+        total: totalPrice,
         address: { name: `${loginInfo.firstname} ${loginInfo.lastname}`, ...shipping },
         payment: { method: document.getElementById('pmt_method').value },
       })

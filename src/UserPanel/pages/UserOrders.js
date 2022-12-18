@@ -1,10 +1,15 @@
 // import axios from 'axios';
+import { useEffect } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import DateTime from '../../Components/DateTime';
 
 function UserOrders() {
   const [API_PATH, loginInfo, cancelOrder, orders] = useOutletContext();
   // console.log(orders);
+
+  useEffect(() => {
+    document.getElementsByClassName('card')[0].scrollIntoView();
+  });
 
   return (
     <div className="card">

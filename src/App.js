@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdminTemplate from './Admin/AdminTemplate';
-import AddProduct from './Admin/Pages/AddProduct';
+import Orders from './Admin/Pages/Bookings/Orders';
 import Dashboard from './Admin/Pages/Dashboard/Dashboard';
+import AddProduct from './Admin/Pages/Products/AddProduct';
 import Products from './Admin/Pages/Products/Products';
 import ScrollToTop from './Components/ScroolToTop';
 import ErrorPage from './ErrorPage';
@@ -15,11 +16,11 @@ import Login from './FrontEnd/Pages/Login';
 import Register from './FrontEnd/Pages/Register';
 import Shop from './FrontEnd/Pages/Shop';
 import ViewProduct from './FrontEnd/Pages/ViewProduct';
-import UserTemplate from './UserPanel/UserTemplate';
 import UserDashboard from './UserPanel/pages/UserDashboard';
 import UserFavourites from './UserPanel/pages/UserFavourites';
 import UserOrders from './UserPanel/pages/UserOrders';
 import ViewUserOrder from './UserPanel/pages/ViewUserOrder';
+import UserTemplate from './UserPanel/UserTemplate';
 
 function App() {
   const API_PATH = 'http://localhost/wdpf51_React/organicfarm/api';
@@ -48,6 +49,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="products" element={<Products />} />
           <Route path="products/addproduct" element={<AddProduct />} />
+          <Route path="orders" element={<Orders />} />
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>

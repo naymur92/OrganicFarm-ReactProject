@@ -15,3 +15,7 @@ code {
 .bg-theme {
   background-color: #4e9b35 !important;
 }
+
+address {
+  font-style: italic;
+}

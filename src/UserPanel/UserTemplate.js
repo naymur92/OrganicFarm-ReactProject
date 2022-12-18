@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
 import useSessionStorage from '../hooks/useSessionStorage';
@@ -8,7 +8,7 @@ function UserTemplate({ API_PATH }) {
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
   const pendingCheckout = JSON.parse(localStorage.getItem('pendingcheckout'));
-  const [orders, setOrders] = useLocalStorage('user-orders');
+  const [orders, setOrders] = useState([]);
 
   // console.log(typeof loginInfo);
 
@@ -18,18 +18,6 @@ function UserTemplate({ API_PATH }) {
     } else if (loginInfo?.role === 'admin' || loginInfo?.role === 'manager') {
       navigate('/admin');
     }
-  };
-
-  const cancelOrder = async (orderid, prodlist) => {
-    await axios
-      .put(`${API_PATH}/orders/cancel_order.php`, {
-        id: orderid,
-        products: prodlist,
-      })
-      .then((res) => {
-        // console.log(res.data);
-        userOrders(loginInfo.id);
-      });
   };
 
   // Get Orders
@@ -43,6 +31,18 @@ function UserTemplate({ API_PATH }) {
           setOrders(res.data.orders);
         }
         // console.log(res.data);
+      });
+  };
+
+  const cancelOrder = async (orderid, prodlist) => {
+    await axios
+      .put(`${API_PATH}/orders/cancel_order.php`, {
+        id: orderid,
+        products: prodlist,
+      })
+      .then((res) => {
+        // console.log(res.data);
+        userOrders(loginInfo.id);
       });
   };
 
