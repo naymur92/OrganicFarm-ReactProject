@@ -129,7 +129,7 @@ function ViewProduct() {
                         ) : null
                       )}
                       {(loginInfo?.role !== 'admin' || loginInfo?.role !== 'manager') &&
-                      Number(product.stock) !== 0 ? (
+                      Number(product.status) === 'available' ? (
                         <button
                           onClick={() => onAdd(product)}
                           type="button"
@@ -139,7 +139,7 @@ function ViewProduct() {
                         </button>
                       ) : (
                         <div className="alert alert-danger text-center disabled">
-                          <strong>Not Available</strong>
+                          <strong>Not Available Right Now!</strong>
                         </div>
                       )}
                     </div>

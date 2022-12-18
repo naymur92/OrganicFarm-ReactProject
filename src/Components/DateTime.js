@@ -30,46 +30,4 @@ export default function DateTime(time) {
       <span>{date.getHours() > 12 ? `PM` : `AM`}</span>
     </>
   );
-
-  // const [hour, setHour] = useState('');
-  // const [min, setMin] = useState('');
-  // const [amPm, setAmPm] = useState('');
-
-  // // Check Hour
-  // if (date.getHours() > 12) {
-  //   setHour(date.getHours() - 12);
-  // } else if (date.getHours() === 0) {
-  //   setHour(12);
-  // } else {
-  //   setHour(date.getHours());
-  // }
-
-  // // Check Minutes
-  // if (date.getMinutes() < 10) {
-  //   setMin(`0${date.getMinutes()}`);
-  // } else {
-  //   setMin(date.getMinutes());
-  // }
-
-  // // Check am/pm
-  // if (date.getHours() > 12) {
-  //   setAmPm('AM');
-  // } else {
-  //   setAmPm('PM');
-  // }
-
-  // // Date
-  // const DATE = date.getDate();
-
-  // // Month
-  // const MONTH = months[date.getMonth()];
-
-  // // Year
-  // const YEAR = date.getFullYear();
-
-  // return (
-  //   <span>
-  //     {DATE} {MONTH}, {YEAR} - {hour}:{min} {amPm}
-  //   </span>
-  // );
 }

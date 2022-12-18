@@ -1,7 +1,7 @@
 <?php
 include '../dbconfig.php';
 
-$result = $db_conn->query("SELECT * FROM products");
+$result = $db_conn->query("SELECT * FROM products ORDER BY name");
 
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {

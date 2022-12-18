@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
+import DateTime from '../../Components/DateTime';
 import useSessionStorage from '../../hooks/useSessionStorage';
 import Newsletter from '../Components/Newsletter';
 import './Shop.css';
@@ -8,10 +9,22 @@ import './Shop.css';
 function Shop() {
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
   const [API_PATH, products, cartItems, onAdd] = useOutletContext();
+  const [productList, setProductList] = useState(products);
 
   useEffect(() => {
     document.getElementsByClassName('shop-page')[0].scrollIntoView();
+    showAvailable();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Find latest products using sort method
+  const latestProducts = products
+    .sort((p1, p2) =>
+      // eslint-disable-next-line no-nested-ternary
+      p1.creation_time < p2.creation_time ? 1 : p1.creation_time > p2.creation_time ? -1 : 0
+    )
+    .filter((item) => item.status === 'available')
+    .slice(0, 4);
 
   const addFavourite = async (userid, prodid) => {
     await axios
@@ -20,16 +33,27 @@ function Shop() {
         prodid,
       })
       .then((res) => {
-        // console.log(res.data);
         alert(res.data.msg);
       });
+  };
+
+  // Show upcoming products
+  const showUpcoming = () => {
+    setProductList(products.filter((product) => product.status === 'upcoming'));
+  };
+
+  // Show Available Products
+  const showAvailable = () => {
+    setProductList(products.filter((product) => product.status === 'available'));
   };
 
   // Filter Method Starts
   const [category, setCategory] = useState('');
 
-  let filteredProducts = products;
-  filteredProducts = products.filter((product) => product.category.includes(category));
+  let filteredProducts = productList;
+  if (category !== '') {
+    filteredProducts = productList.filter((product) => product.category === category);
+  }
 
   // Search Method start
   const [searchItems, setSearchItems] = useState('');
@@ -98,7 +122,8 @@ function Shop() {
                                 </a>
                               ) : null}
 
-                              {loginInfo?.role !== 'admin' || loginInfo?.role !== 'manager' ? (
+                              {(loginInfo?.role !== 'admin' || loginInfo?.role !== 'manager') &&
+                              item.status === 'available' ? (
                                 <a onClick={() => onAdd(item)} style={{ cursor: 'pointer' }}>
                                   <i className="icofont-cart-alt" />
                                 </a>
@@ -159,6 +184,28 @@ function Shop() {
                     </div>
                   </div>
 
+                  <div className="widget my-4 p-0">
+                    <div className="widget-header">
+                      <h5>Filter Products</h5>
+                    </div>
+                    <div className="d-flex justify-content-between my-2">
+                      <button
+                        type="button"
+                        onClick={showAvailable}
+                        className="btn btn-outline-success"
+                      >
+                        Available
+                      </button>
+                      <button
+                        type="button"
+                        onClick={showUpcoming}
+                        className="btn btn-outline-warning"
+                      >
+                        Upcoming
+                      </button>
+                    </div>
+                  </div>
+
                   <div className="widget widget-category">
                     <div className="widget-header">
                       <h5>All Categories</h5>
@@ -194,18 +241,20 @@ function Shop() {
                       <h5>Latests Products</h5>
                     </div>
                     <ul className="agri-ul widget-wrapper">
-                      {products.slice(0, 3).map((item) => (
+                      {latestProducts.map((item) => (
                         <li className="d-flex flex-wrap justify-content-between" key={item.id}>
                           <div className="post-thumb">
-                            <a href="blog-single.html">
+                            <Link to={`/shop/view-product/${item.id}`}>
                               <img src={`assets/images/product/${item.thumbnail}`} alt="product" />
-                            </a>
+                            </Link>
                           </div>
                           <div className="post-content">
-                            <a href="blog-single.html">
+                            <Link to={`/shop/view-product/${item.id}`}>
                               <h6>{item.name}</h6>
-                            </a>
-                            <p>{item.creation_time}</p>
+                            </Link>
+                            <p>
+                              <DateTime time={item.creation_time} />
+                            </p>
                           </div>
                         </li>
                       ))}

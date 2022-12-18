@@ -15,9 +15,9 @@ function FrontTemplate({ API_PATH }) {
   // Get all products
   const allProducts = async () => {
     await axios.get(`${API_PATH}/products/products.php`).then((res) => {
-      // console.log(res.data.products);
-      const productsList = res.data.products.filter((item) => item.stock > 0);
-      setProducts(productsList);
+      // const productsList = res.data.products.filter((item) => item.stock > 0);
+      // setProducts(productsList);
+      setProducts(res.data.products);
     });
   };
 

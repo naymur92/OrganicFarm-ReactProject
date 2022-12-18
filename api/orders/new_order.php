@@ -7,7 +7,7 @@ $data = json_decode(file_get_contents('php://input'));
 
 if (isset($data)) {
 
-  // Calculate new stock
+  // seperate products and quantity
   $products = $data->products;
   $stock_mg = [];
   foreach ($products as $product) {
@@ -23,6 +23,9 @@ if (isset($data)) {
   $address = json_encode($data->address);
   $payment = json_encode($data->payment);
 
+  $db_conn->autocommit(false);
+  $db_conn->begin_transaction();
+
   $sql = "INSERT INTO orders VALUES(NULL, '$userid', '$products', '$subtotal', '$shipping', '$total', '$address', DEFAULT, '$payment', DEFAULT)";
   // echo $sql;
 
@@ -34,8 +37,19 @@ if (isset($data)) {
       mysqli_query($db_conn, "UPDATE products SET stock = stock - $value WHERE id='$key'");
     }
 
-    echo json_encode(['success' => true, 'msg' => 'Order Placed']);
-    return;
+    mysqli_query($db_conn, "UPDATE products SET status = 'unavailable' WHERE stock=0");
+
+    if ($db_conn->affected_rows > 0) {
+      $db_conn->commit();
+
+      echo json_encode(['success' => true, 'msg' => 'Order Placed']);
+      return;
+    } else {
+      $db_conn->rollback();
+
+      echo json_encode(['success' => false, 'msg' => 'Failed! Try again']);
+      return;
+    }
   } else {
     echo json_encode(['success' => false, 'msg' => 'Failed! Try again']);
     return;
