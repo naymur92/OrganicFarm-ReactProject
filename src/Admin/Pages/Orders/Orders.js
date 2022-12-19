@@ -3,8 +3,18 @@ import { Link, useOutletContext } from 'react-router-dom';
 import DateTime from '../../../Components/DateTime';
 
 function Orders() {
-  const [loginInfo, setLoginInfo, users, products, changeStatus, delProd, orders, cancelOrder] =
-    useOutletContext();
+  const [
+    loginInfo,
+    setLoginInfo,
+    users,
+    changeUserStatus,
+    changeEmpRole,
+    products,
+    changeStatus,
+    delProd,
+    orders,
+    cancelOrder,
+  ] = useOutletContext();
 
   return (
     <div className="container-fluid cleartop">

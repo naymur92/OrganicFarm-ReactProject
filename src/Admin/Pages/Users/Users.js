@@ -1,10 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useOutletContext } from 'react-router-dom';
 import DateTime from '../../../Components/DateTime';
 
 function Users() {
-  const [loginInfo, setLoginInfo, users, products, changeStatus, delProd, orders, cancelOrder] =
-    useOutletContext();
+  const [
+    loginInfo,
+    setLoginInfo,
+    users,
+    changeUserStatus,
+    changeEmpRole,
+    products,
+    changeStatus,
+    delProd,
+    orders,
+    cancelOrder,
+  ] = useOutletContext();
+
+  const [usersList, setUsersList] = useState(users);
+
+  const showAllUsers = () => {
+    setUsersList(users);
+  };
+
+  // Filter users using role
+  const filterEmployees = (role) => {
+    if (role === 'employee') {
+      setUsersList(users.filter((user) => user.role !== 'user'));
+    } else if (role === 'user') {
+      setUsersList(users.filter((user) => user.role === 'user'));
+    }
+  };
+
+  // Filter users using status
+  const filterStatus = (status) => {
+    setUsersList(users.filter((user) => user.status === status));
+  };
+
+  // Searching
+  const [searchUsers, setSearchUsers] = useState('');
+  const onSearch = (e) => {
+    setSearchUsers(e.target.value);
+  };
+  // Search Method
+  let searchedUsers = usersList;
+  searchedUsers = usersList.filter(
+    (user) =>
+      user.firstname.toLowerCase().includes(searchUsers.toLowerCase()) ||
+      user.lastname.toLowerCase().includes(searchUsers.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchUsers.toLowerCase())
+  );
+
+  useEffect(() => {
+    showAllUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="container-fluid cleartop">
       <div className="row">
@@ -21,23 +71,57 @@ function Users() {
             <div className="card-body minheight">
               <ul className="menu">
                 <li>
-                  <button type="button" className="left-menu btn btn-outline-primary">
-                    All Employees
-                  </button>
-                </li>
-                <li>
-                  <button type="button" className="left-menu btn btn-outline-primary">
+                  <button
+                    type="button"
+                    onClick={() => showAllUsers()}
+                    className="left-menu btn btn-primary"
+                  >
                     All Users
                   </button>
                 </li>
                 <li>
-                  <button type="button" className="left-menu btn btn-outline-primary">
-                    All Pendings
+                  <button
+                    type="button"
+                    onClick={() => filterEmployees('employee')}
+                    className="left-menu btn btn-outline-primary mt-2"
+                  >
+                    Employees
                   </button>
                 </li>
                 <li>
-                  <button type="button" className="left-menu btn btn-outline-primary">
-                    All Muted
+                  <button
+                    type="button"
+                    onClick={() => filterEmployees('user')}
+                    className="left-menu btn btn-outline-primary"
+                  >
+                    Users
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => filterStatus('pending')}
+                    className="left-menu btn btn-outline-primary"
+                  >
+                    Pendings
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => filterStatus('muted')}
+                    className="left-menu btn btn-outline-primary"
+                  >
+                    Muted
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => filterStatus('blocked')}
+                    className="left-menu btn btn-outline-primary"
+                  >
+                    Blocked
                   </button>
                 </li>
                 <li>
@@ -64,9 +148,10 @@ function Users() {
                   <input
                     type="text"
                     name="search"
+                    onChange={onSearch}
                     id="_search"
                     className="form-control"
-                    placeholder="enter name"
+                    placeholder="Enter Name or Email"
                   />
                 </div>
               </div>
@@ -85,7 +170,7 @@ function Users() {
                   </tr>
                 </thead>
                 <tbody>
-                  {users?.map((user, index) => (
+                  {searchedUsers?.map((user, index) => (
                     <tr key={user.id.toString()}>
                       <td>{index + 1}</td>
                       <td>
@@ -114,7 +199,9 @@ function Users() {
                                 <i className="fas fa-eye text-info" /> View
                               </Link>
                             </li>
-                            {user.role !== 'admin' ? (
+                            {user.role !== 'admin' &&
+                            user.status !== 'muted' &&
+                            user.status !== 'blocked' ? (
                               <li>
                                 <Link to={`edit-user/${user.id}`} className="dropdown-item">
                                   <i className="fas fa-pen text-success" /> Edit
@@ -126,20 +213,34 @@ function Users() {
                             {user.status === 'pending' ? (
                               <>
                                 <li>
-                                  <button type="button" className="dropdown-item">
+                                  <button
+                                    type="button"
+                                    onClick={() => changeUserStatus(user.id, 'active')}
+                                    className="dropdown-item"
+                                  >
                                     <i className="fas fa-check text-primary" /> Active
                                   </button>
                                 </li>
-                                <li>
-                                  <button type="button" className="dropdown-item">
-                                    <i className="fas fa-times text-danger" /> Block User
-                                  </button>
-                                </li>
+                                {user.status !== 'pending' ? (
+                                  <li>
+                                    <button
+                                      type="button"
+                                      onClick={() => changeUserStatus(user.id, 'blocked')}
+                                      className="dropdown-item"
+                                    >
+                                      <i className="fas fa-times text-danger" /> Block User
+                                    </button>
+                                  </li>
+                                ) : null}
                               </>
                             ) : null}
-                            {user.role === 'user' && user.status !== 'pending' ? (
+                            {user.role === 'user' && user.status === 'active' ? (
                               <li>
-                                <button type="button" className="dropdown-item">
+                                <button
+                                  type="button"
+                                  onClick={() => changeUserStatus(user.id, 'muted')}
+                                  className="dropdown-item"
+                                >
                                   <i className="fas fa-ban text-danger" /> Mute User
                                 </button>
                               </li>
@@ -147,12 +248,20 @@ function Users() {
                             {user.role === 'employee' ? (
                               <>
                                 <li>
-                                  <button type="button" className="dropdown-item">
+                                  <button
+                                    type="button"
+                                    onClick={() => changeEmpRole(user.id, 'manager')}
+                                    className="dropdown-item"
+                                  >
                                     <i className="fas fa-check text-success" /> Promote to Manager
                                   </button>
                                 </li>
                                 <li>
-                                  <button type="button" className="dropdown-item">
+                                  <button
+                                    type="button"
+                                    onClick={() => changeUserStatus(user.id, 'closed')}
+                                    className="dropdown-item"
+                                  >
                                     <i className="fas fa-times text-danger" /> Close Employee
                                   </button>
                                 </li>
@@ -160,7 +269,11 @@ function Users() {
                             ) : null}
                             {user.role === 'manager' ? (
                               <li>
-                                <button type="button" className="dropdown-item">
+                                <button
+                                  type="button"
+                                  onClick={() => changeEmpRole(user.id, 'employee')}
+                                  className="dropdown-item"
+                                >
                                   <i className="fas fa-arrow-down text-warning" /> Demote to
                                   Employee
                                 </button>
@@ -173,6 +286,11 @@ function Users() {
                   ))}
                 </tbody>
               </table>
+              {searchedUsers?.length === 0 ? (
+                <div className="alert alert-warning text-center">
+                  <strong>No Data</strong>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

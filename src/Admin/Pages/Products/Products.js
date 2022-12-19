@@ -2,8 +2,18 @@ import React, { useState } from 'react';
 import { Link, NavLink, useOutletContext } from 'react-router-dom';
 
 function Products() {
-  const [loginInfo, setLoginInfo, users, products, changeStatus, delProd, orders, cancelOrder] =
-    useOutletContext();
+  const [
+    loginInfo,
+    setLoginInfo,
+    users,
+    changeUserStatus,
+    changeEmpRole,
+    products,
+    changeStatus,
+    delProd,
+    orders,
+    cancelOrder,
+  ] = useOutletContext();
 
   const delProdConfirm = (id) => {
     // eslint-disable-next-line no-alert

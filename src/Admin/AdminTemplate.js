@@ -30,6 +30,26 @@ function AdminTemplate() {
       setUsers(res.data.users);
     });
   };
+  const changeUserStatus = async (id, status) => {
+    await axios
+      .put(`${API_PATH}/users/change_u_status.php`, { params: { id, status } })
+      .then((res) => {
+        if (res.data.success) {
+          allUsers();
+        }
+        alert(res.data.msg);
+      });
+  };
+  const changeEmpRole = async (id, role) => {
+    await axios
+      .put(`${API_PATH}/users/change_emp_role.php`, { params: { id, role } })
+      .then((res) => {
+        if (res.data.success) {
+          allUsers();
+        }
+        alert(res.data.msg);
+      });
+  };
 
   // Product area
   const [products, setProducts] = useState([]);
@@ -114,6 +134,8 @@ function AdminTemplate() {
           loginInfo,
           setLoginInfo,
           users,
+          changeUserStatus,
+          changeEmpRole,
           products,
           changeStatus,
           delProd,
