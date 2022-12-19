@@ -5,7 +5,6 @@ import Newsletter from '../Components/Newsletter';
 function Cart() {
   const navigate = useNavigate();
   const [
-    API_PATH,
     products,
     cartItems,
     onAdd,
@@ -39,7 +38,7 @@ function Cart() {
     if (itemsPrice < 2000) {
       if (shipping.area === 'dhaka') {
         updateShippingCharge(50);
-      } else if (shipping.area === 'others') {
+      } else if (shipping.area === 'outside') {
         updateShippingCharge(150);
       }
     }
@@ -173,7 +172,7 @@ function Cart() {
                             Select Area
                           </option>
                           <option value="dhaka">Dhaka</option>
-                          <option value="others">Outside Dhaka</option>
+                          <option value="outside">Outside Dhaka</option>
                         </select>
                         <span className="select-icon">
                           <i className="icofont-caret-down" />

@@ -25,7 +25,7 @@ if (isset($data)) {
   if ($db_conn->affected_rows > 0) {
     // Update stock in database
     foreach ($stock_mg as $key => $value) {
-      mysqli_query($db_conn, "UPDATE products SET stock=stock + $value WHERE id='$key'");
+      mysqli_query($db_conn, "UPDATE products SET stock=stock + $value, status='available' WHERE id='$key'");
     }
     echo json_encode(['success' => true, 'msg' => 'Order cancelled']);
     return;

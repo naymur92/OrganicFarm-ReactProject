@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import { API_PATH } from '../../API_PATH';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import Newsletter from '../Components/Newsletter';
 
 function Checkout() {
   const [
-    API_PATH,
     products,
     cartItems,
     onAdd,
@@ -39,7 +39,7 @@ function Checkout() {
     if (itemsPrice < 2000) {
       if (e.target.value === 'dhaka') {
         updateShippingCharge(50);
-      } else if (e.target.value === 'others') {
+      } else if (e.target.value === 'outside') {
         updateShippingCharge(150);
       }
     }
@@ -57,9 +57,9 @@ function Checkout() {
 
   // Handle Shipping Charge
   const [shipping, setShipping] = useState({
-    area: '',
-    zipcode: '',
-    address: '',
+    area: '(none)',
+    zipcode: '(none)',
+    address: '(none)',
     phone: '',
   });
 
@@ -172,7 +172,7 @@ function Checkout() {
                             Select Area
                           </option>
                           <option value="dhaka">Dhaka</option>
-                          <option value="others">Outside Dhaka</option>
+                          <option value="outside">Outside Dhaka</option>
                         </select>
                         <span className="select-icon">
                           <i className="icofont-caret-down" />

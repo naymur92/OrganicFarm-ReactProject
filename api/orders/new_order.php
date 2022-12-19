@@ -16,7 +16,7 @@ if (isset($data)) {
     $stock_mg[$product->id] = $product->qty;
 
     // If stock === quantity then set $empty_stock true
-    if ($product->stock === $product->qty) $empty_stock = true;
+    if ($product->stock == $product->qty) $empty_stock = true;
   }
   // print_r($stock_mg);
 

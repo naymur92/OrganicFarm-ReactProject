@@ -5,7 +5,7 @@ import DateTime from '../../Components/DateTime';
 import './ViewUserOrder.css';
 
 function ViewUserOrder() {
-  const [API_PATH, loginInfo, cancelOrder, orders] = useOutletContext();
+  const [loginInfo, cancelOrder, orders] = useOutletContext();
   const params = useParams();
 
   const order = orders.find((item) => item.id === params.id);

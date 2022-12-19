@@ -1,44 +1,14 @@
 import React, { useState } from 'react';
-import { Link, NavLink, useOutletContext } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
-function Products() {
-  const [loginInfo, setLoginInfo, products, changeStatus, delProd, orders, cancelOrder] =
-    useOutletContext();
-
-  const delProdConfirm = (id) => {
-    // eslint-disable-next-line no-alert
-    if (window.confirm('Are You Sure?')) {
-      delProd(id);
-    }
-  };
-
-  // Filter Method
-  const [category, setCategory] = useState('');
-  const filteredProducts = products.filter((product) => product.category.includes(category));
-
-  const [prodStatus, setStatus] = useState('');
-  // console.log(prodStatus);
-
-  // const filteredByAvailability = filteredProducts.filter((product) =>
-  //   product.status.includes(prodStatus)
-  // );
-
-  // Search Method start
-  const [searchItems, setSearchItems] = useState('');
-  const onSearch = (event) => {
-    setSearchItems(event.target.value);
-  };
-
-  const searchedProducts = filteredProducts.filter((product) =>
-    product.name.toLowerCase().includes(searchItems.toLocaleLowerCase())
-  ); // search method ends
-
+function Employees() {
+  const [employee, setEmployee] = useState([]);
   return (
     <div className="container-fluid cleartop">
       <div className="row">
         <div className="col-12">
           <div className="mt-4 p-5 bg-primary text-white rounded">
-            <h1 className="display-5 fw-bold text-center text-light">Products Area</h1>
+            <h1 className="display-5 fw-bold text-center text-light">Employee Area</h1>
           </div>
         </div>
         <div className="col-sm-3 col-md-2">
@@ -49,39 +19,18 @@ function Products() {
             <div className="card-body minheight">
               <ul className="menu">
                 <li>
-                  <button
-                    type="button"
-                    onClick={() => setCategory('')}
-                    className="left-menu btn btn-outline-primary"
-                  >
-                    All Products
+                  <button type="button" className="left-menu btn btn-outline-primary">
+                    All Employees
                   </button>
                 </li>
                 <li>
-                  <button
-                    type="button"
-                    onClick={() => setCategory('vegetable')}
-                    className="left-menu btn btn-outline-primary"
-                  >
-                    Vegetables
+                  <button type="button" className="left-menu btn btn-outline-primary">
+                    Managers
                   </button>
                 </li>
                 <li>
-                  <button
-                    type="button"
-                    onClick={() => setCategory('fruit')}
-                    className="left-menu btn btn-outline-primary"
-                  >
-                    Fruits
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => setCategory('honey')}
-                    className="left-menu btn btn-outline-primary"
-                  >
-                    Honey
+                  <button type="button" className="left-menu btn btn-outline-primary">
+                    Users
                   </button>
                 </li>
                 {/* <li>
@@ -133,7 +82,6 @@ function Products() {
                     type="text"
                     name="search"
                     id="_search"
-                    onChange={onSearch}
                     className="form-control"
                     placeholder="enter product name"
                   />
@@ -154,7 +102,7 @@ function Products() {
                   </tr>
                 </thead>
                 <tbody>
-                  {searchedProducts.map((item, index) => (
+                  {employee?.map((item, index) => (
                     <tr key={item.id.toString()}>
                       <td>{index + 1}</td>
                       <td>{item.name}</td>
@@ -187,31 +135,19 @@ function Products() {
                             {/* Conditional part */}
                             {item.status !== 'available' ? (
                               <li>
-                                <button
-                                  type="button"
-                                  onClick={() => changeStatus(item.id, 'available')}
-                                  className="dropdown-item"
-                                >
+                                <button type="button" className="dropdown-item">
                                   <i className="fas fa-check text-primary" /> Make Available
                                 </button>
                               </li>
                             ) : (
                               <li>
-                                <button
-                                  type="button"
-                                  onClick={() => changeStatus(item.id, 'unavailable')}
-                                  className="dropdown-item"
-                                >
+                                <button type="button" className="dropdown-item">
                                   <i className="fas fa-ban text-danger" /> Make unavailable
                                 </button>
                               </li>
                             )}
                             <li>
-                              <button
-                                type="button"
-                                onClick={() => delProdConfirm(item.id)}
-                                className="dropdown-item"
-                              >
+                              <button type="button" className="dropdown-item">
                                 <i className="fas fa-trash text-danger" /> Delete Product
                               </button>
                             </li>
@@ -230,4 +166,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default Employees;

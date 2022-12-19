@@ -4,7 +4,7 @@ import { Link, useOutletContext } from 'react-router-dom';
 import DateTime from '../../Components/DateTime';
 
 function UserOrders() {
-  const [API_PATH, loginInfo, cancelOrder, orders] = useOutletContext();
+  const [loginInfo, cancelOrder, orders] = useOutletContext();
   // console.log(orders);
 
   useEffect(() => {

@@ -1,37 +1,10 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import DateTime from '../../../Components/DateTime';
 
 function Orders() {
-  const [API_PATH] = useOutletContext();
-  const [orders, setOrders] = useState([]);
-
-  // Get Orders
-  const getOrders = async () => {
-    await axios.get(`${API_PATH}/orders/orders.php`).then((res) => {
-      if (res.data.success) {
-        setOrders(res.data.orders);
-      }
-      // console.log(res.data);
-    });
-  };
-
-  const cancelOrder = async (orderid, prodlist) => {
-    await axios
-      .put(`${API_PATH}/orders/cancel_order.php`, {
-        id: orderid,
-        products: prodlist,
-      })
-      .then((res) => {
-        // console.log(res.data);
-        getOrders();
-      });
-  };
-
-  useEffect(() => {
-    getOrders();
-  });
+  const [loginInfo, setLoginInfo, products, changeStatus, delProd, orders, cancelOrder] =
+    useOutletContext();
 
   return (
     <div className="container-fluid cleartop">
@@ -166,32 +139,39 @@ function Orders() {
                           </button>
                           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li>
-                              <Link to={`viewproduct/${order.id}`} className="dropdown-order">
+                              <Link to={`view-order/${order.id}`} className="dropdown-item">
                                 <i className="fas fa-eye text-info" /> View
                               </Link>
                             </li>
-                            <li>
-                              <Link to={`editproduct/${order.id}`} className="dropdown-order">
-                                <i className="fas fa-pen text-success" /> Edit
-                              </Link>
-                            </li>
                             {/* Conditional part */}
-                            {order.status !== 'available' ? (
+                            {order.status === 'pending' ? (
+                              <>
+                                <li>
+                                  <button type="button" className="dropdown-item">
+                                    <i className="fas fa-check text-primary" /> Confirm
+                                  </button>
+                                </li>
+                                <li>
+                                  <button
+                                    type="button"
+                                    onClick={() => cancelOrder(order.id, order.products)}
+                                    className="dropdown-item"
+                                  >
+                                    <i className="fas fa-times text-warning" /> Cancel
+                                  </button>
+                                </li>
+                              </>
+                            ) : null}
+                            {order.status === 'confirmed' ? (
                               <li>
-                                <button type="button" className="dropdown-order">
-                                  <i className="fas fa-check text-primary" /> Make Available
+                                <button type="button" className="dropdown-item">
+                                  <i className="fas fa-check text-primary" /> Delivered
                                 </button>
                               </li>
-                            ) : (
-                              <li>
-                                <button type="button" className="dropdown-order">
-                                  <i className="fas fa-ban text-danger" /> Make unavailable
-                                </button>
-                              </li>
-                            )}
+                            ) : null}
                             <li>
-                              <button type="button" className="dropdown-order">
-                                <i className="fas fa-trash text-danger" /> Delete Product
+                              <button type="button" className="dropdown-item">
+                                <i className="fas fa-trash text-danger" /> Delete Order
                               </button>
                             </li>
                           </ul>

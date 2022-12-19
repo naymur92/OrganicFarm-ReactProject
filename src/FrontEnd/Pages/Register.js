@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { API_PATH } from '../../API_PATH';
 
 function Register() {
-  const [API_PATH] = useOutletContext();
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     firstname: '',

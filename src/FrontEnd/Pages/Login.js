@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import { API_PATH } from '../../API_PATH';
 
 function Login() {
   const navigate = useNavigate();
   const [
-    API_PATH,
     products,
     cartItems,
     onAdd,

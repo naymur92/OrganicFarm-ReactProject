@@ -6,9 +6,10 @@ import useSessionStorage from '../hooks/useSessionStorage';
 import Footer from './Components/Footer';
 import Header from './Components/Header';
 
+import { API_PATH } from '../API_PATH';
 import Search from './Components/Search';
 
-function FrontTemplate({ API_PATH }) {
+function FrontTemplate() {
   const [products, setProducts] = useLocalStorage('products', []);
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
 
@@ -116,7 +117,6 @@ function FrontTemplate({ API_PATH }) {
       />
       <Outlet
         context={[
-          API_PATH,
           products,
           cartItems,
           onAdd,

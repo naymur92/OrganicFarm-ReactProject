@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
+import { API_PATH } from '../../API_PATH';
 import DateTime from '../../Components/DateTime';
 
 function UserFavourites() {
-  const [API_PATH, loginInfo, cancelOrder] = useOutletContext();
+  const [loginInfo, cancelOrder] = useOutletContext();
   const [fav, setFav] = useState([]);
 
   const getFavourites = async (userid) => {

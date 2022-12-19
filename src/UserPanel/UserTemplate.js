@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
-import useLocalStorage from '../hooks/useLocalStorage';
+import { API_PATH } from '../API_PATH';
 import useSessionStorage from '../hooks/useSessionStorage';
 
-function UserTemplate({ API_PATH }) {
+function UserTemplate() {
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
   const pendingCheckout = JSON.parse(localStorage.getItem('pendingcheckout'));
@@ -34,6 +34,7 @@ function UserTemplate({ API_PATH }) {
       });
   };
 
+  // Order cancellation (here prodlist for updating product stock)
   const cancelOrder = async (orderid, prodlist) => {
     await axios
       .put(`${API_PATH}/orders/cancel_order.php`, {
@@ -92,7 +93,7 @@ function UserTemplate({ API_PATH }) {
           </div>
         </div>
         <div className="col-sm-9 col-md-10 border-left">
-          <Outlet context={[API_PATH, loginInfo, cancelOrder, orders]} />
+          <Outlet context={[loginInfo, cancelOrder, orders]} />
         </div>
       </div>
     </div>

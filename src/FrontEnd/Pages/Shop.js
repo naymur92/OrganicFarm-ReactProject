@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
+import { API_PATH } from '../../API_PATH';
 import DateTime from '../../Components/DateTime';
 import useSessionStorage from '../../hooks/useSessionStorage';
 import Newsletter from '../Components/Newsletter';
@@ -8,7 +9,7 @@ import './Shop.css';
 
 function Shop() {
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
-  const [API_PATH, products, cartItems, onAdd] = useOutletContext();
+  const [products, cartItems, onAdd] = useOutletContext();
   const [productList, setProductList] = useState(products);
 
   useEffect(() => {
