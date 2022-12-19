@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdminTemplate from './Admin/AdminTemplate';
 import Dashboard from './Admin/Pages/Dashboard/Dashboard';
-import Employees from './Admin/Pages/Employees/Employees';
+import Users from './Admin/Pages/Employees/Users';
 import Orders from './Admin/Pages/Orders/Orders';
 import AddProduct from './Admin/Pages/Products/AddProduct';
 import Products from './Admin/Pages/Products/Products';
@@ -17,11 +17,11 @@ import Login from './FrontEnd/Pages/Login';
 import Register from './FrontEnd/Pages/Register';
 import Shop from './FrontEnd/Pages/Shop';
 import ViewProduct from './FrontEnd/Pages/ViewProduct';
-import UserTemplate from './UserPanel/UserTemplate';
 import UserDashboard from './UserPanel/pages/UserDashboard';
 import UserFavourites from './UserPanel/pages/UserFavourites';
 import UserOrders from './UserPanel/pages/UserOrders';
 import ViewUserOrder from './UserPanel/pages/ViewUserOrder';
+import UserTemplate from './UserPanel/UserTemplate';
 
 function App() {
   return (
@@ -47,7 +47,7 @@ function App() {
         </Route>
         <Route path="admin" element={<AdminTemplate />}>
           <Route index element={<Dashboard />} />
-          <Route path="employees" element={<Employees />} />
+          <Route path="users" element={<Users />} />
           <Route path="products" element={<Products />} />
           <Route path="products/addproduct" element={<AddProduct />} />
           <Route path="orders" element={<Orders />} />

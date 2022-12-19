@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, NavLink, useOutletContext } from 'react-router-dom';
 
 function Products() {
-  const [loginInfo, setLoginInfo, products, changeStatus, delProd, orders, cancelOrder] =
+  const [loginInfo, setLoginInfo, users, products, changeStatus, delProd, orders, cancelOrder] =
     useOutletContext();
 
   const delProdConfirm = (id) => {
@@ -109,7 +109,7 @@ function Products() {
                   </div>
                 </li> */}
                 <li>
-                  <NavLink to="addproduct" className="left-menu btn btn-primary my-3">
+                  <NavLink to="addproduct" className="left-menu btn btn-primary mt-3">
                     Add Product
                   </NavLink>
                 </li>

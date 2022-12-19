@@ -1,17 +1,16 @@
 import React from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link, NavLink, useOutletContext } from 'react-router-dom';
 import DateTime from '../../../Components/DateTime';
 
-function Orders() {
+function Users() {
   const [loginInfo, setLoginInfo, users, products, changeStatus, delProd, orders, cancelOrder] =
     useOutletContext();
-
   return (
     <div className="container-fluid cleartop">
       <div className="row">
         <div className="col-12">
           <div className="mt-4 p-5 bg-primary text-white rounded">
-            <h1 className="display-5 fw-bold text-center text-light">Orders Area</h1>
+            <h1 className="display-5 fw-bold text-center text-light">Users Area</h1>
           </div>
         </div>
         <div className="col-sm-3 col-md-2">
@@ -23,23 +22,28 @@ function Orders() {
               <ul className="menu">
                 <li>
                   <button type="button" className="left-menu btn btn-outline-primary">
-                    All Orders
+                    All Employees
                   </button>
                 </li>
                 <li>
                   <button type="button" className="left-menu btn btn-outline-primary">
-                    Pending
+                    All Users
                   </button>
                 </li>
                 <li>
                   <button type="button" className="left-menu btn btn-outline-primary">
-                    Confirmed
+                    All Pendings
                   </button>
                 </li>
                 <li>
                   <button type="button" className="left-menu btn btn-outline-primary">
-                    Delivered
+                    All Muted
                   </button>
+                </li>
+                <li>
+                  <NavLink to="add-employee" className="left-menu btn btn-primary mt-3">
+                    Add Employee
+                  </NavLink>
                 </li>
               </ul>
             </div>
@@ -51,18 +55,18 @@ function Orders() {
             <div className="card-header bg-warning">
               <div className="row justify-content-end">
                 <div className="col-sm-6 col-md-7 col-lg-8">
-                  <h5 className="text-light pt-1">Order Table</h5>
+                  <h5 className="text-light pt-1">Users Table</h5>
                 </div>
                 <div className="col-sm-6 col-md-5 col-lg-4 search-box">
                   <label htmlFor="_search">
-                    <strong>Search Order:</strong>
+                    <strong>Search here:</strong>
                   </label>
                   <input
                     type="text"
                     name="search"
                     id="_search"
                     className="form-control"
-                    placeholder="enter product name"
+                    placeholder="enter name"
                   />
                 </div>
               </div>
@@ -70,62 +74,29 @@ function Orders() {
             <div className="card-body">
               <table className="table table-striped">
                 <thead>
-                  <tr className="text-center">
+                  <tr>
                     <th>Sl No.</th>
                     <th>Name</th>
-                    <th>Location</th>
-                    <th>Cost</th>
-                    <th>Time</th>
+                    <th>Email</th>
+                    <th>Role</th>
                     <th>Status</th>
+                    <th>Since From</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {orders?.map((order, index) => (
-                    <tr key={order.id.toString()} className="align-middle">
+                  {users?.map((user, index) => (
+                    <tr key={user.id.toString()}>
                       <td>{index + 1}</td>
                       <td>
-                        <ol>
-                          {order.products.map((product) => (
-                            <li className="my-2" key={product.id}>
-                              {product.name} ({product.qty})
-                            </li>
-                          ))}
-                        </ol>
+                        {user.firstname} {user.lastname}
                       </td>
+                      <td>{user.email}</td>
+                      <td>{user.role}</td>
+                      <td>{user.status}</td>
                       <td>
-                        <address>
-                          {order.address?.name} <br />
-                          {order.address?.area} <br />
-                          {order.address?.address} <br />
-                          {order.address?.zipcode} <br />
-                          {order.address?.phone} <br />
-                        </address>
+                        <DateTime time={user.creation_time} />
                       </td>
-                      <td>
-                        <div className="d-flex justify-content-between">
-                          <div>
-                            <strong>Subtotal:</strong>
-                          </div>
-                          <div>Tk. {order.subtotal}</div>
-                        </div>
-                        <div className="d-flex justify-content-between my-2">
-                          <div>
-                            <strong>Shipping:</strong>
-                          </div>
-                          <div>Tk. {order.shipping}</div>
-                        </div>
-                        <div className="d-flex justify-content-between">
-                          <div>
-                            <strong>Total:</strong>
-                          </div>
-                          <div>Tk. {order.total}</div>
-                        </div>
-                      </td>
-                      <td>
-                        <DateTime time={order.order_time} />
-                      </td>
-                      <td>{order.status}</td>
                       <td>
                         <div className="dropdown">
                           <button
@@ -139,41 +110,62 @@ function Orders() {
                           </button>
                           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li>
-                              <Link to={`view-order/${order.id}`} className="dropdown-item">
+                              <Link to={`view-user/${user.id}`} className="dropdown-item">
                                 <i className="fas fa-eye text-info" /> View
                               </Link>
                             </li>
+                            {user.role !== 'admin' ? (
+                              <li>
+                                <Link to={`edit-user/${user.id}`} className="dropdown-item">
+                                  <i className="fas fa-pen text-success" /> Edit
+                                </Link>
+                              </li>
+                            ) : null}
+
                             {/* Conditional part */}
-                            {order.status === 'pending' ? (
+                            {user.status === 'pending' ? (
                               <>
                                 <li>
                                   <button type="button" className="dropdown-item">
-                                    <i className="fas fa-check text-primary" /> Confirm
+                                    <i className="fas fa-check text-primary" /> Active
                                   </button>
                                 </li>
                                 <li>
-                                  <button
-                                    type="button"
-                                    onClick={() => cancelOrder(order.id, order.products)}
-                                    className="dropdown-item"
-                                  >
-                                    <i className="fas fa-times text-warning" /> Cancel
+                                  <button type="button" className="dropdown-item">
+                                    <i className="fas fa-times text-danger" /> Block User
                                   </button>
                                 </li>
                               </>
                             ) : null}
-                            {order.status === 'confirmed' ? (
+                            {user.role === 'user' && user.status !== 'pending' ? (
                               <li>
                                 <button type="button" className="dropdown-item">
-                                  <i className="fas fa-check text-primary" /> Delivered
+                                  <i className="fas fa-ban text-danger" /> Mute User
                                 </button>
                               </li>
                             ) : null}
-                            <li>
-                              <button type="button" className="dropdown-item">
-                                <i className="fas fa-trash text-danger" /> Delete Order
-                              </button>
-                            </li>
+                            {user.role === 'employee' ? (
+                              <>
+                                <li>
+                                  <button type="button" className="dropdown-item">
+                                    <i className="fas fa-check text-success" /> Promote to Manager
+                                  </button>
+                                </li>
+                                <li>
+                                  <button type="button" className="dropdown-item">
+                                    <i className="fas fa-times text-danger" /> Close Employee
+                                  </button>
+                                </li>
+                              </>
+                            ) : null}
+                            {user.role === 'manager' ? (
+                              <li>
+                                <button type="button" className="dropdown-item">
+                                  <i className="fas fa-arrow-down text-warning" /> Demote to
+                                  Employee
+                                </button>
+                              </li>
+                            ) : null}
                           </ul>
                         </div>
                       </td>
@@ -189,4 +181,4 @@ function Orders() {
   );
 }
 
-export default Orders;
+export default Users;

@@ -37,8 +37,8 @@ function AdminHeader(props) {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="employees">
-                Employees
+              <NavLink className="nav-link" to="users">
+                Users
               </NavLink>
             </li>
             <li className="nav-item">

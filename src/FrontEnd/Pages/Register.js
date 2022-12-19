@@ -92,7 +92,7 @@ function Register() {
                             <input
                               type="text"
                               id="_lname"
-                              name="lasttname"
+                              name="lastname"
                               onChange={onChangeValue}
                               placeholder="Enter lastname"
                               className="form-control"

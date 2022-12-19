@@ -22,6 +22,15 @@ function AdminTemplate() {
     }
   };
 
+  // Users area
+  const [users, setUsers] = useState([]);
+  const allUsers = async () => {
+    await axios.get(`${API_PATH}/users/users.php`).then((res) => {
+      // console.log(res.data.users);
+      setUsers(res.data.users);
+    });
+  };
+
   // Product area
   const [products, setProducts] = useState([]);
 
@@ -91,6 +100,7 @@ function AdminTemplate() {
 
   useEffect(() => {
     authenticate();
+    allUsers();
     allProducts();
     getOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -100,7 +110,16 @@ function AdminTemplate() {
     <>
       <AdminHeader loginInfo={loginInfo} setLoginInfo={setLoginInfo} />
       <Outlet
-        context={[loginInfo, setLoginInfo, products, changeStatus, delProd, orders, cancelOrder]}
+        context={[
+          loginInfo,
+          setLoginInfo,
+          users,
+          products,
+          changeStatus,
+          delProd,
+          orders,
+          cancelOrder,
+        ]}
       />
       <AdminFooter />
     </>
