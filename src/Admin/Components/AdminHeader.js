@@ -52,6 +52,11 @@ function AdminHeader(props) {
                 Orders
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="harvesting">
+                Harvesting
+              </NavLink>
+            </li>
             {/* <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -77,11 +82,6 @@ function AdminHeader(props) {
                 </a>
               </div>
             </li> */}
-            <li className="nav-item">
-              <a className="nav-link disabled" href="#">
-                Disabled
-              </a>
-            </li>
           </ul>
         </div>
         <div className="float-end">

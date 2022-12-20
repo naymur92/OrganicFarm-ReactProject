@@ -135,6 +135,16 @@ function AdminTemplate() {
       });
   };
 
+  const deleteOrder = async (id) => {
+    await axios.put(`${API_PATH}/orders/delete_order.php`, { params: { id } }).then((res) => {
+      if (res.data.success) {
+        getOrders();
+      }
+      alert(res.data.msg);
+      console.log(res.data);
+    });
+  };
+
   useEffect(() => {
     authenticate();
     allUsers();
@@ -159,6 +169,7 @@ function AdminTemplate() {
           orders,
           cancelOrder,
           changeOrderStatus,
+          deleteOrder,
         ]}
       />
       <AdminFooter />

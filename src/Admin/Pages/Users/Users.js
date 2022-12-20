@@ -166,7 +166,7 @@ function Users() {
                 </thead>
                 <tbody>
                   {searchedUsers?.map((user, index) => (
-                    <tr key={user.id.toString()}>
+                    <tr key={user.id.toString()} className="align-middle">
                       <td>{index + 1}</td>
                       <td>
                         {user.thumbnail !== '' ? (

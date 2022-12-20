@@ -15,16 +15,33 @@ function Orders() {
     orders,
     cancelOrder,
     changeOrderStatus,
+    deleteOrder,
   ] = useOutletContext();
 
   const [status, setStatus] = useState('');
-
   let orderLists = orders;
   if (status === '') {
     orderLists = orders;
   } else {
     orderLists = orders.filter((order) => order.status === status);
   }
+  // console.log(orderLists);
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const onSearch = (e) => {
+    setSearchTerm(e.target.value);
+    // console.log(searchTerm);
+  };
+
+  // const searchedOrders = orderLists.filter((order) =>
+  //   // eslint-disable-next-line array-callback-return, consistent-return
+  //   order.products.filter((product) => {
+  //     if (product.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+  //       return true;
+  //     }
+  //   })
+  // );
+  // console.log(searchedOrders);
 
   return (
     <div className="container-fluid cleartop">
@@ -105,9 +122,10 @@ function Orders() {
                   <input
                     type="text"
                     name="search"
+                    onChange={onSearch}
                     id="_search"
                     className="form-control"
-                    placeholder="enter product name"
+                    placeholder="search here"
                   />
                 </div>
               </div>
@@ -223,7 +241,11 @@ function Orders() {
                               </li>
                             ) : null}
                             <li>
-                              <button type="button" className="dropdown-item">
+                              <button
+                                type="button"
+                                onClick={() => deleteOrder(order.id)}
+                                className="dropdown-item"
+                              >
                                 <i className="fas fa-trash text-danger" /> Delete Order
                               </button>
                             </li>
