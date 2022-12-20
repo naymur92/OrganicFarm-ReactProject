@@ -10,6 +10,7 @@ import AdminFooter from './Components/AdminFooter';
 import AdminHeader from './Components/AdminHeader';
 
 function AdminTemplate() {
+  const pathName = window.location.pathname;
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
 
@@ -151,7 +152,7 @@ function AdminTemplate() {
     allProducts();
     getOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginInfo]);
+  }, [pathName]);
 
   return loginInfo?.id ? (
     <>

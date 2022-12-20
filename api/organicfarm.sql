@@ -2,8 +2,8 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Dec 18, 2022 at 01:04 PM
+-- Host: 127.0.0.1
+-- Generation Time: Dec 20, 2022 at 07:04 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -43,7 +43,41 @@ INSERT INTO `favourites` (`fv_id`, `user_id`, `prod_id`, `time`) VALUES
 (2, 3, 29, '2022-12-14 00:04:56'),
 (5, 3, 31, '2022-12-17 12:42:44'),
 (6, 3, 32, '2022-12-17 12:42:46'),
-(9, 3, 39, '2022-12-17 12:42:54');
+(7, 3, 33, '2022-12-17 12:42:48'),
+(9, 3, 39, '2022-12-17 12:42:54'),
+(10, 3, 40, '2022-12-17 12:42:56'),
+(12, 0, 31, '2022-12-17 22:25:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `harvests`
+--
+
+CREATE TABLE `harvests` (
+  `id` mediumint(6) NOT NULL,
+  `product_id` smallint(3) NOT NULL,
+  `product_name` varchar(100) NOT NULL,
+  `product_category` varchar(15) NOT NULL,
+  `amount` mediumint(6) NOT NULL,
+  `harvest_time` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `harvests`
+--
+
+INSERT INTO `harvests` (`id`, `product_id`, `product_name`, `product_category`, `amount`, `harvest_time`) VALUES
+(1, 46, 'Banana', 'fruit', 120, '2022-12-20 23:09:17'),
+(2, 39, 'Guava', 'fruit', 200, '2022-12-20 23:12:48'),
+(3, 40, 'Orange', 'fruit', 2500, '2022-12-20 23:14:04'),
+(4, 42, 'Mustured Flower Honey', 'honey', 70, '2022-12-20 23:19:45'),
+(5, 43, 'Pahari Flower Honey', 'honey', 20, '2022-12-20 23:19:55'),
+(6, 30, 'Carrot', 'vegetable', 1500, '2022-12-20 23:20:15'),
+(7, 29, 'Fresh Tomato', 'vegetable', 2400, '2022-12-20 23:20:23'),
+(8, 31, 'Onion', 'vegetable', 270, '2022-12-20 23:21:25'),
+(9, 32, 'Potato', 'vegetable', 2000, '2022-12-20 23:21:35'),
+(10, 33, 'Kacha Kola (Green Banana)', 'vegetable', 240, '2022-12-20 23:21:47');
 
 -- --------------------------------------------------------
 
@@ -69,10 +103,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `products`, `subtotal`, `shipping`, `total`, `address`, `status`, `payment`, `order_time`) VALUES
-(27, 3, '[{\"id\":\"40\",\"name\":\"Orange\",\"description\":\"The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.\",\"price\":\"150\",\"category\":\"fruit\",\"status\":\"available\",\"thumbnail\":\"orange.jpg\",\"stock\":\"4499\",\"creation_time\":\"2022-12-01 13:14:58\",\"qty\":5}]', 750, 50, 800, '{\"name\":\"Alauddin \",\"area\":\"dhaka\",\"zipcode\":\"\",\"address\":\"Banasree\",\"phone\":\"0155\"}', 'pending', '{\"method\":\"cashondelivery\"}', '2022-12-18 16:33:49'),
-(28, 3, '[{\"id\":\"46\",\"name\":\"Banana\",\"description\":\"Fresh Banana\",\"price\":\"55\",\"category\":\"fruit\",\"status\":\"available\",\"thumbnail\":\"banana.jpg\",\"stock\":\"200\",\"creation_time\":\"2022-12-01 15:01:13\",\"qty\":2},{\"id\":\"45\",\"name\":\"Lichi Flower Honey\",\"description\":\"The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.\",\"price\":\"600\",\"category\":\"honey\",\"status\":\"available\",\"thumbnail\":\"lichi-flower-honey.jpg\",\"stock\":\"298\",\"creation_time\":\"2022-12-01 13:17:35\",\"qty\":2},{\"id\":\"40\",\"name\":\"Orange\",\"description\":\"The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.\",\"price\":\"150\",\"category\":\"fruit\",\"status\":\"available\",\"thumbnail\":\"orange.jpg\",\"stock\":\"4494\",\"creation_time\":\"2022-12-01 13:14:58\",\"qty\":2},{\"id\":\"38\",\"name\":\"Jack Fruit\",\"description\":\"The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.\",\"price\":\"70\",\"category\":\"fruit\",\"status\":\"available\",\"thumbnail\":\"jackfruit.jpg\",\"stock\":\"153\",\"creation_time\":\"2022-12-01 13:13:51\",\"qty\":3}]', 1820, 150, 1970, '{\"name\":\"Alauddin \",\"area\":\"others\",\"zipcode\":\"\",\"address\":\"Chuadanga\",\"phone\":\"0155\"}', 'pending', '{\"method\":\"cashondelivery\"}', '2022-12-18 16:34:32'),
-(31, 3, '[{\"id\":\"40\",\"name\":\"Orange\",\"description\":\"The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.\",\"price\":\"150\",\"category\":\"fruit\",\"status\":\"available\",\"thumbnail\":\"orange.jpg\",\"stock\":\"4492\",\"creation_time\":\"2022-12-01 13:14:58\",\"qty\":1}]', 150, 150, 300, '{\"name\":\"Alauddin \",\"area\":\"others\",\"zipcode\":\"7210\",\"address\":\"Alamdanga\",\"phone\":\"0155\"}', 'pending', '{\"method\":\"cashondelivery\"}', '2022-12-18 17:02:35'),
-(32, 3, '[{\"id\":\"29\",\"name\":\"Fresh Tomato\",\"description\":\"The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.\",\"price\":\"50\",\"category\":\"vegetable\",\"status\":\"available\",\"thumbnail\":\"tomatoes.jpg\",\"stock\":\"247\",\"creation_time\":\"2022-12-01 13:03:06\",\"qty\":2}]', 100, 50, 150, '{\"name\":\"Alauddin \",\"area\":\"dhaka\",\"zipcode\":\"\",\"address\":\"Palton\",\"phone\":\"0155\"}', 'pending', '{\"method\":\"cashondelivery\"}', '2022-12-18 17:20:21');
+(24, 3, '[{\"id\":\"41\",\"name\":\"Black Seed Honey\",\"description\":\"The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.\",\"price\":\"1400\",\"category\":\"honey\",\"status\":\"available\",\"thumbnail\":\"black-seed-honey.jpg\",\"stock\":\"3\",\"creation_time\":\"2022-12-01 13:15:33\",\"qty\":3}]', 4200, 0, 4200, '{\"name\":\"Alauddin \",\"area\":\"dhaka\",\"zipcode\":\"1206\",\"address\":\"Mirpur 10\",\"phone\":\"01557\"}', 'cancelled', '{\"method\":\"cashondelivery\"}', '2022-12-19 11:42:20'),
+(25, 3, '[{\"id\":\"41\",\"name\":\"Black Seed Honey\",\"description\":\"The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.\",\"price\":\"1400\",\"category\":\"honey\",\"status\":\"available\",\"thumbnail\":\"black-seed-honey.jpg\",\"stock\":\"3\",\"creation_time\":\"2022-12-01 13:15:33\",\"qty\":3}]', 4200, 0, 4200, '{\"name\":\"Alauddin \",\"area\":\"dhaka\",\"zipcode\":\"1206\",\"address\":\"Mirpur 10\",\"phone\":\"0178\"}', 'cancelled', '{\"method\":\"cashondelivery\"}', '2022-12-19 11:46:11'),
+(26, 4, '[{\"id\":\"46\",\"name\":\"Banana\",\"description\":\"Fresh Banana\",\"price\":\"55\",\"category\":\"fruit\",\"status\":\"available\",\"thumbnail\":\"banana.jpg\",\"stock\":\"200\",\"creation_time\":\"2022-12-01 15:01:13\",\"qty\":2},{\"id\":\"45\",\"name\":\"Lichi Flower Honey\",\"description\":\"The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.\",\"price\":\"600\",\"category\":\"honey\",\"status\":\"available\",\"thumbnail\":\"lichi-flower-honey.jpg\",\"stock\":\"300\",\"creation_time\":\"2022-12-01 13:17:35\",\"qty\":2},{\"id\":\"43\",\"name\":\"Pahari Flower Honey\",\"description\":\"The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.\",\"price\":\"800\",\"category\":\"honey\",\"status\":\"available\",\"thumbnail\":\"mustured-flower-honey.jpg\",\"stock\":\"20\",\"creation_time\":\"2022-12-01 13:16:43\",\"qty\":2},{\"id\":\"39\",\"name\":\"Guava\",\"description\":\"The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.\",\"price\":\"80\",\"category\":\"fruit\",\"status\":\"available\",\"thumbnail\":\"guava.jpg\",\"stock\":\"500\",\"creation_time\":\"2022-12-01 13:14:36\",\"qty\":2},{\"id\":\"41\",\"name\":\"Black Seed Honey\",\"description\":\"The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.\",\"price\":\"1400\",\"category\":\"honey\",\"status\":\"available\",\"thumbnail\":\"black-seed-honey.jpg\",\"stock\":\"3\",\"creation_time\":\"2022-12-01 13:15:33\",\"qty\":2}]', 5870, 0, 5870, '{\"name\":\"Fayzullah Aman\",\"area\":\"dhaka\",\"zipcode\":\"(none)\",\"address\":\"Rampura\",\"phone\":\"01746544\"}', 'delivered', '{\"method\":\"cashondelivery\"}', '2022-12-20 13:03:54');
 
 -- --------------------------------------------------------
 
@@ -97,24 +130,24 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `category`, `status`, `thumbnail`, `stock`, `creation_time`) VALUES
-(29, 'Fresh Tomato', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 50, 'vegetable', 'available', 'tomatoes.jpg', 245, '2022-12-01 13:03:06'),
-(30, 'Carrot', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 80, 'vegetable', 'available', 'carrots.jpg', 302, '2022-12-01 13:04:51'),
-(31, 'Onion', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 45, 'vegetable', 'available', 'onion.jpg', 349, '2022-12-01 13:07:16'),
-(32, 'Potato', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 25, 'vegetable', 'available', 'potato.jpg', 450, '2022-12-01 13:10:01'),
-(33, 'Kacha Kola (Green Banana)', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 40, 'vegetable', 'available', 'kacha_kola.jpg', 400, '2022-12-01 13:10:46'),
+(29, 'Fresh Tomato', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 50, 'vegetable', 'available', 'tomatoes.jpg', 2400, '2022-12-01 13:03:06'),
+(30, 'Carrot', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 80, 'vegetable', 'available', 'carrots.jpg', 1500, '2022-12-01 13:04:51'),
+(31, 'Onion', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 45, 'vegetable', 'available', 'onion.jpg', 270, '2022-12-01 13:07:16'),
+(32, 'Potato', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 25, 'vegetable', 'available', 'potato.jpg', 2000, '2022-12-01 13:10:01'),
+(33, 'Kacha Kola (Green Banana)', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 40, 'vegetable', 'upcoming', 'kacha_kola.jpg', 240, '2022-12-01 13:10:46'),
 (34, 'Himsagor Mango', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 150, 'fruit', 'unavailable', 'himsagor_mango.jpg', 0, '2022-12-01 13:11:24'),
 (35, 'Langra Mango', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 120, 'fruit', 'unavailable', 'Langra-mango.jpg', 0, '2022-12-01 13:12:07'),
 (36, 'Harivanga Mango', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 130, 'fruit', 'unavailable', 'Harivanga-Mango.png', 0, '2022-12-01 13:12:41'),
 (37, 'Lichi', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 200, 'fruit', 'unavailable', 'Lichi.png', 0, '2022-12-01 13:13:05'),
-(38, 'Jack Fruit', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 70, 'fruit', 'available', 'jackfruit.jpg', 150, '2022-12-01 13:13:51'),
-(39, 'Guava', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 80, 'fruit', 'available', 'guava.jpg', 499, '2022-12-01 13:14:36'),
-(40, 'Orange', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 150, 'fruit', 'available', 'orange.jpg', 4491, '2022-12-01 13:14:58'),
-(41, 'Black Seed Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 1400, 'honey', 'unavailable', 'black-seed-honey.jpg', 0, '2022-12-01 13:15:33'),
-(42, 'Mustured Flower Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 450, 'honey', 'unavailable', 'mustured-flower-honey.jpg', 0, '2022-12-01 13:15:54'),
-(43, 'Pahari Flower Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 800, 'honey', 'unavailable', 'mustured-flower-honey.jpg', 0, '2022-12-01 13:16:43'),
+(38, 'Jack Fruit', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 70, 'fruit', 'available', 'jackfruit.jpg', 0, '2022-12-01 13:13:51'),
+(39, 'Guava', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 80, 'fruit', 'available', 'guava.jpg', 200, '2022-12-01 13:14:36'),
+(40, 'Orange', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 150, 'fruit', 'available', 'orange.jpg', 2500, '2022-12-01 13:14:58'),
+(41, 'Black Seed Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 1400, 'honey', 'available', 'black-seed-honey.jpg', 0, '2022-12-01 13:15:33'),
+(42, 'Mustured Flower Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 450, 'honey', 'upcoming', 'mustured-flower-honey.jpg', 70, '2022-12-01 13:15:54'),
+(43, 'Pahari Flower Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 800, 'honey', 'available', 'mustured-flower-honey.jpg', 20, '2022-12-01 13:16:43'),
 (44, 'Sundarban Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 900, 'honey', 'unavailable', 'sundarban-honey.jpg', 0, '2022-12-01 13:17:13'),
-(45, 'Lichi Flower Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 600, 'honey', 'available', 'lichi-flower-honey.jpg', 296, '2022-12-01 13:17:35'),
-(46, 'Banana', 'Fresh Banana', 55, 'fruit', 'available', 'banana.jpg', 198, '2022-12-01 15:01:13');
+(45, 'Lichi Flower Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 600, 'honey', 'available', 'lichi-flower-honey.jpg', 0, '2022-12-01 13:17:35'),
+(46, 'Banana', 'Fresh Banana', 55, 'fruit', 'available', 'banana.jpg', 120, '2022-12-01 15:01:13');
 
 -- --------------------------------------------------------
 
@@ -126,10 +159,11 @@ CREATE TABLE `users` (
   `id` mediumint(5) NOT NULL,
   `firstname` varchar(15) NOT NULL,
   `lastname` varchar(15) NOT NULL,
-  `email` varchar(20) NOT NULL,
+  `email` varchar(30) NOT NULL,
   `password` varchar(64) NOT NULL,
   `role` varchar(10) NOT NULL DEFAULT 'user',
   `status` varchar(10) NOT NULL DEFAULT 'pending',
+  `thumbnail` varchar(100) NOT NULL,
   `creation_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -137,10 +171,17 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `password`, `role`, `status`, `creation_time`) VALUES
-(1, 'Naymur', 'Rahman', 'naymur@example.com', 'abcd1234', 'admin', 'active', '2022-11-30 23:55:21'),
-(2, 'Kamrul', 'Hasan', 'kamrul@example.com', 'abcd1234', 'manager', 'active', '2022-11-30 23:55:21'),
-(3, 'Alauddin', '', 'alo@example.com', 'abcd1234', 'user', 'pending', '2022-12-11 15:15:01');
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `password`, `role`, `status`, `thumbnail`, `creation_time`) VALUES
+(1, 'Naymur', 'Rahman', 'naymur@example.com', 'abcd1234', 'admin', 'active', '', '2022-11-30 23:55:21'),
+(2, 'Kamrul', 'Hasan', 'kamrul@example.com', 'abcd1234', 'manager', 'active', '', '2022-11-30 23:55:21'),
+(3, 'Alauddin', '', 'alo@example.com', 'abcd1234', 'user', 'active', '', '2022-12-11 15:15:01'),
+(4, 'Fayzullah', 'Aman', 'fayzullah@example.com', 'abcd1234', 'user', 'blocked', '', '2022-12-19 21:41:32'),
+(5, 'Amjad', 'Hossain', 'amjad@example.com', 'abcd1234', 'user', 'muted', '', '2022-12-19 21:42:09'),
+(13, 'Naymur', 'Rahman', 'naymurrahman@yahoo.com', '1234', 'employee', 'active', 'Naymur-(13).jpg', '2022-12-20 10:40:20'),
+(14, 'Mahmud', 'Hasan', 'mahmud@example.com', '1234', 'employee', 'active', '', '2022-12-20 23:53:23'),
+(15, 'Ejaj', 'Ahmed', 'ejaj@example.com', '1234', 'manager', 'active', '', '2022-12-20 23:55:00'),
+(16, 'Abdur', 'Rahman', 'abdrahman@example.com', '1234', 'employee', 'active', '', '2022-12-20 23:59:09'),
+(17, 'Meshkat', 'Ali', 'meshkat@example.com', 'abcd1234', 'user', 'pending', '', '2022-12-20 23:59:58');
 
 --
 -- Indexes for dumped tables
@@ -151,6 +192,12 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `password`, `role`,
 --
 ALTER TABLE `favourites`
   ADD PRIMARY KEY (`fv_id`);
+
+--
+-- Indexes for table `harvests`
+--
+ALTER TABLE `harvests`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `orders`
@@ -179,25 +226,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `favourites`
 --
 ALTER TABLE `favourites`
-  MODIFY `fv_id` mediumint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `fv_id` mediumint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `harvests`
+--
+ALTER TABLE `harvests`
+  MODIFY `id` mediumint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` mediumint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` mediumint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` mediumint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` mediumint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` mediumint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` mediumint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

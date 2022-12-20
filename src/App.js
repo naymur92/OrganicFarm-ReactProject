@@ -5,6 +5,7 @@ import Harvesting from './Admin/Pages/Harvesting/Harvesting';
 import Orders from './Admin/Pages/Orders/Orders';
 import AddProduct from './Admin/Pages/Products/AddProduct';
 import Products from './Admin/Pages/Products/Products';
+import Reporting from './Admin/Pages/Reporting/Reporting';
 import AddEmployee from './Admin/Pages/Users/AddEmployee';
 import Users from './Admin/Pages/Users/Users';
 import ViewUser from './Admin/Pages/Users/ViewUser';
@@ -20,11 +21,11 @@ import Login from './FrontEnd/Pages/Login';
 import Register from './FrontEnd/Pages/Register';
 import Shop from './FrontEnd/Pages/Shop';
 import ViewProduct from './FrontEnd/Pages/ViewProduct';
+import UserTemplate from './UserPanel/UserTemplate';
 import UserDashboard from './UserPanel/pages/UserDashboard';
 import UserFavourites from './UserPanel/pages/UserFavourites';
 import UserOrders from './UserPanel/pages/UserOrders';
 import ViewUserOrder from './UserPanel/pages/ViewUserOrder';
-import UserTemplate from './UserPanel/UserTemplate';
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
           <Route path="orders" element={<Orders />} />
           <Route path="orders/view-order/:id" element={<Orders />} />
           <Route path="harvesting" element={<Harvesting />} />
+          <Route path="reporting" element={<Reporting />} />
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>

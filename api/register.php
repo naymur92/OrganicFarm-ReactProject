@@ -2,7 +2,7 @@
 include 'dbconfig.php';
 
 // print_r($_FILES['thumb']);
-$userData = json_decode($_POST['empInfo']);
+$userData = json_decode($_POST['info']);
 // print_r($userData);
 $firstname = mysqli_escape_string($db_conn, trim($userData->firstname));
 $lastname = mysqli_escape_string($db_conn, trim($userData->lastname));
@@ -31,7 +31,7 @@ if ($firstname !== '' && $email !== '' && $password !== '') {
 
     if (mysqli_affected_rows($db_conn) > 0) {
       // File upload process
-      if (isset($_FILES)) {
+      if (isset($_FILES['thumb'])) {
         $filename = $_FILES['thumb']['name'];
         $tmp_name = $_FILES['thumb']['tmp_name'];
 
@@ -53,7 +53,7 @@ if ($firstname !== '' && $email !== '' && $password !== '') {
         }
       } // End file upload
 
-      echo json_encode(['success' => true, 'msg' => 'Successfully Added']);
+      echo json_encode(['success' => true, 'msg' => 'Success']);
       return;
     } else {
       echo json_encode(['success' => false, 'msg' => 'Server Problem']);

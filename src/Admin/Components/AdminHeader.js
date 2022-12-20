@@ -57,6 +57,11 @@ function AdminHeader(props) {
                 Harvesting
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="reporting">
+                Reporting
+              </NavLink>
+            </li>
             {/* <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
