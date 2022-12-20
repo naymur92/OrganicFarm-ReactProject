@@ -6,13 +6,14 @@ function AdminHeader(props) {
   const navigate = useNavigate();
 
   const logOut = () => {
-    sessionStorage.removeItem('logininfo');
+    sessionStorage.clear();
+    localStorage.clear();
     setLoginInfo([]);
     navigate('/');
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav className="admin-navbar navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <img src="/assets/images/logo/01.png" alt="" />
@@ -31,8 +32,8 @@ function AdminHeader(props) {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="">
+            <li className="nav-item ">
+              <NavLink className="nav-link" to="/admin/">
                 Dashboard
               </NavLink>
             </li>

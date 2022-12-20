@@ -53,8 +53,8 @@ function AddProduct() {
             <div className="card-header bg-warning">
               <h3 className="text-center">Product Entry Form</h3>
             </div>
-            <div className="card-body minheight">
-              <form onSubmit={submitData}>
+            <form onSubmit={submitData}>
+              <div className="card-body">
                 <div className="row">
                   <div className="col-6">
                     <div className="form-group">
@@ -172,6 +172,8 @@ function AddProduct() {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="card-footer">
                 <div className="d-flex justify-content-between">
                   <input
                     type="submit"
@@ -184,8 +186,8 @@ function AddProduct() {
                     Cancel
                   </Link>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

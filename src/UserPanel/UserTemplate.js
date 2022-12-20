@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { API_PATH } from '../API_PATH';
 import useSessionStorage from '../hooks/useSessionStorage';
 
@@ -68,17 +68,17 @@ function UserTemplate() {
             <div className="card-body">
               <ul className="nav nav-pills flex-column">
                 <li className="nav-item">
-                  <Link className="nav-link" to="/user">
+                  <NavLink className="nav-link" to="/user/">
                     Dashboard
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="orders">
+                  <NavLink className="nav-link" to="orders/">
                     Orders
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="wishlists">
+                  <NavLink className="nav-link" to="wishlists/">
                     Wishlists
                   </NavLink>
                 </li>

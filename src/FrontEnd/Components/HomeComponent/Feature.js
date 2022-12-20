@@ -15,7 +15,7 @@ function Feature() {
               <div className="feature-item-2">
                 <div className="feature-inner">
                   <div className="feature-thumb">
-                    <img src="assets/images/feature/07.png" alt="feature" />
+                    <img src="/assets/images/feature/07.png" alt="feature" />
                   </div>
                   <div className="feature-content">
                     <Link to="shop">
@@ -30,7 +30,7 @@ function Feature() {
               <div className="feature-item-2">
                 <div className="feature-inner">
                   <div className="feature-thumb">
-                    <img src="assets/images/feature/mango.jpg" alt="feature" />
+                    <img src="/assets/images/feature/mango.jpg" alt="feature" />
                   </div>
                   <div className="feature-content">
                     <Link to="shop">
@@ -45,7 +45,7 @@ function Feature() {
               <div className="feature-item-2">
                 <div className="feature-inner">
                   <div className="feature-thumb">
-                    <img src="assets/images/feature/honey.jpg" alt="feature" />
+                    <img src="/assets/images/feature/honey.jpg" alt="feature" />
                   </div>
                   <div className="feature-content">
                     <Link to="shop">
@@ -60,7 +60,7 @@ function Feature() {
               <div className="feature-item-2">
                 <div className="feature-inner">
                   <div className="feature-thumb">
-                    <img src="assets/images/feature/banana.jpg" alt="feature" />
+                    <img src="/assets/images/feature/banana.jpg" alt="feature" />
                   </div>
                   <div className="feature-content">
                     <Link to="shop">

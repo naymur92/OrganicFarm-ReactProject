@@ -109,7 +109,7 @@ function Shop() {
                       <div className="col-lg-4 col-md-6 col-12" key={item.id}>
                         <div className="product-item">
                           <div className="product-thumb">
-                            <img src={`assets/images/product/${item.thumbnail}`} alt="shope" />
+                            <img src={`/assets/images/product/${item.thumbnail}`} alt="shope" />
                             <div className="product-action-link">
                               <Link to={`view-product/${item.id}`}>
                                 <i className="icofont-eye" />
@@ -246,7 +246,7 @@ function Shop() {
                         <li className="d-flex flex-wrap justify-content-between" key={item.id}>
                           <div className="post-thumb">
                             <Link to={`/shop/view-product/${item.id}`}>
-                              <img src={`assets/images/product/${item.thumbnail}`} alt="product" />
+                              <img src={`/assets/images/product/${item.thumbnail}`} alt="product" />
                             </Link>
                           </div>
                           <div className="post-content">

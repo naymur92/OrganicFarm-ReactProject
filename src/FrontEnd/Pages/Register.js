@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { API_PATH } from '../../API_PATH';
 
@@ -10,26 +10,40 @@ function Register() {
     lastname: '',
     email: '',
     password: '',
+    role: '',
   });
-
-  useEffect(() => {
-    document.getElementsByClassName('contact-section')[0].scrollIntoView();
-  }, []);
-
-  const onChangeValue = (e) => {
+  const onChangeInfo = (e) => {
     setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
   };
 
-  const submitForm = async (e) => {
-    e.preventDefault();
+  const [empThumb, setEmpThumb] = useState('');
+  const onSelectThumb = (e) => {
+    setEmpThumb(e.target.files[0]);
+  };
 
-    await axios.post(`${API_PATH}/register.php`, userInfo).then((res) => {
-      if (res.data.success) {
-        navigate('/login');
-      }
-      alert(res.data.msg);
-      // console.log(res.data);
-    });
+  const createEmployee = async (info, thumb) => {
+    const formData = new FormData();
+    formData.append('info', JSON.stringify(info));
+    formData.append('thumb', thumb);
+
+    await axios
+      .post(`${API_PATH}/register.php`, formData, {
+        headers: { 'content-type': 'multipart/form-data' },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          navigate('/login');
+        }
+        alert(res.data.msg);
+        // console.log(res.data);
+      });
+  };
+
+  const onSubmitForm = (e) => {
+    e.preventDefault();
+    createEmployee(userInfo, empThumb);
+    // console.log(userInfo);
+    // console.log(empThumb);
   };
 
   return (
@@ -59,90 +73,114 @@ function Register() {
       <div className="contact-section padding-tb">
         <div className="container">
           <div className="contac-top">
-            <div className="row justify-content-center">
-              <div className="col-xl-6 col-lg-8 col-12">
+            <div className="row mt-4 justify-content-center">
+              <div className="col-8">
                 <div className="card">
                   <div className="card-header bg-warning">
                     <h3 className="text-center">Registration Form</h3>
                   </div>
-                  <div className="card-body">
-                    <form onSubmit={submitForm} method="POST">
+                  <form onSubmit={onSubmitForm}>
+                    <div className="card-body">
                       <div className="row">
                         <div className="col-6">
-                          <div className="form-group my-2">
+                          <div className="form-group">
                             <label htmlFor="_fname">
                               <strong>First Name:</strong>
                             </label>
                             <input
                               type="text"
-                              id="_fname"
                               name="firstname"
-                              onChange={onChangeValue}
-                              placeholder="Enter firstname"
+                              onChange={onChangeInfo}
+                              id="_fname"
                               className="form-control"
+                              placeholder="Enter firstname"
                               required
                             />
                           </div>
                         </div>
                         <div className="col-6">
-                          <div className="form-group my-2">
+                          <div className="form-group">
                             <label htmlFor="_lname">
                               <strong>Last Name:</strong>
                             </label>
                             <input
                               type="text"
-                              id="_lname"
                               name="lastname"
-                              onChange={onChangeValue}
-                              placeholder="Enter lastname"
+                              onChange={onChangeInfo}
+                              id="_lname"
                               className="form-control"
+                              placeholder="Enter lastname"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-6">
+                          <div className="form-group my-3">
+                            <label htmlFor="_email">
+                              <strong>Email:</strong>
+                            </label>
+                            <input
+                              type="text"
+                              name="email"
+                              onChange={onChangeInfo}
+                              id="_email"
+                              className="form-control"
+                              placeholder="Enter email"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="col-6">
+                          <div className="form-group my-3">
+                            <label htmlFor="_password">
+                              <strong>Password:</strong>
+                            </label>
+                            <input
+                              type="password"
+                              name="password"
+                              onChange={onChangeInfo}
+                              id="_password"
+                              className="form-control"
+                              placeholder="Enter password"
+                              required
                             />
                           </div>
                         </div>
                       </div>
 
-                      <div className="form-group my-2">
-                        <label htmlFor="_email">
-                          <strong>Email:</strong>
+                      <div className="form-group">
+                        <label htmlFor="_thumb">
+                          <strong>Profile Picture:</strong>
                         </label>
                         <input
-                          type="email"
-                          id="_email"
-                          name="email"
-                          onChange={onChangeValue}
-                          placeholder="Enter Email"
+                          type="file"
+                          accept="image/**"
+                          name="thumbnail"
+                          onChange={onSelectThumb}
+                          id="_thumb"
                           className="form-control"
-                          required
                         />
                       </div>
-                      <div className="form-group my-2">
-                        <label htmlFor="_password">
-                          <strong>Password:</strong>
-                        </label>
+                    </div>
+                    <div className="card-footer">
+                      <div className="d-flex justify-content-between">
+                        <div>
+                          <span>Already a user?</span>
+                          <Link to="/login" className="btn btn-outline-primary mx-3">
+                            Login
+                          </Link>
+                        </div>
+                        <input type="reset" className="btn btn-danger" />
                         <input
-                          type="password"
-                          id="_password"
-                          name="password"
-                          onChange={onChangeValue}
-                          placeholder="Enter Password"
-                          className="form-control"
-                          required
+                          type="submit"
+                          name="submit"
+                          value="Register"
+                          className="btn btn-warning"
                         />
                       </div>
-                      <input
-                        type="submit"
-                        name="submit"
-                        value="Register"
-                        className="btn btn-warning"
-                      />
-                    </form>
-                  </div>
-                  <div className="card-footer">
-                    <span className="text-warning">Already a user? </span>
-                    <Link to="/login" className="btn btn-outline-warning">
-                      Login Now
-                    </Link>
-                  </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>

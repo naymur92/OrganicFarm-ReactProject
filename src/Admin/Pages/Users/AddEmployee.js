@@ -1,7 +1,50 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { API_PATH } from '../../../API_PATH';
 
 function AddEmployee() {
+  const navigate = useNavigate();
+  const [empInfo, setEmpInfo] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    role: '',
+  });
+  const onChangeInfo = (e) => {
+    setEmpInfo({ ...empInfo, [e.target.name]: e.target.value });
+  };
+
+  const [empThumb, setEmpThumb] = useState('');
+  const onSelectThumb = (e) => {
+    setEmpThumb(e.target.files[0]);
+  };
+
+  const createEmployee = async (empinfo, empthumb) => {
+    const formData = new FormData();
+    formData.append('info', JSON.stringify(empinfo));
+    formData.append('thumb', empthumb);
+
+    await axios
+      .post(`${API_PATH}/register.php`, formData, {
+        headers: { 'content-type': 'multipart/form-data' },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          navigate('/admin/users/');
+        }
+        alert(res.data.msg);
+        // console.log(res.data);
+      });
+  };
+
+  const onSubmitForm = (e) => {
+    e.preventDefault();
+    createEmployee(empInfo, empThumb);
+    // console.log(empInfo);
+    // console.log(empThumb);
+  };
   return (
     <div className="container-fluid cleartop">
       <div className="row">
@@ -17,8 +60,8 @@ function AddEmployee() {
             <div className="card-header bg-warning">
               <h3 className="text-center">Employee Adding Form</h3>
             </div>
-            <div className="card-body minheight">
-              <form>
+            <form onSubmit={onSubmitForm}>
+              <div className="card-body">
                 <div className="row">
                   <div className="col-6">
                     <div className="form-group">
@@ -28,9 +71,10 @@ function AddEmployee() {
                       <input
                         type="text"
                         name="firstname"
+                        onChange={onChangeInfo}
                         id="_fname"
                         className="form-control"
-                        placeholder="Enter Firstname"
+                        placeholder="Enter firstname"
                         required
                       />
                     </div>
@@ -43,98 +87,100 @@ function AddEmployee() {
                       <input
                         type="text"
                         name="lastname"
+                        onChange={onChangeInfo}
                         id="_lname"
                         className="form-control"
-                        placeholder="Enter Lastname"
+                        placeholder="Enter lastname"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-6">
+                    <div className="form-group my-3">
+                      <label htmlFor="_email">
+                        <strong>Employee Email:</strong>
+                      </label>
+                      <input
+                        type="text"
+                        name="email"
+                        onChange={onChangeInfo}
+                        id="_email"
+                        className="form-control"
+                        placeholder="Enter email"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <div className="form-group my-3">
+                      <label htmlFor="_password">
+                        <strong>Employee Password:</strong>
+                      </label>
+                      <input
+                        type="password"
+                        name="password"
+                        onChange={onChangeInfo}
+                        id="_password"
+                        className="form-control"
+                        placeholder="Enter password"
                         required
                       />
                     </div>
                   </div>
                 </div>
-                <div className="form-group my-3">
-                  <label htmlFor="_email">
-                    <strong>Employee Email:</strong>
-                  </label>
-                  <input
-                    type="text"
-                    name="email"
-                    id="_email"
-                    className="form-control"
-                    placeholder="Enter Email"
-                  />
-                </div>
+
                 <div className="row my-3">
                   <div className="col-6">
-                    <label htmlFor="_cat">
-                      <strong>Category:</strong>
+                    <label htmlFor="_role">
+                      <strong>Position:</strong>
                     </label>
-                    <select name="category" id="_cat" className="form-control" required>
+                    <select
+                      name="role"
+                      onChange={onChangeInfo}
+                      id="_role"
+                      className="form-control"
+                      required
+                    >
                       <option value="" disabled selected>
                         Select One
                       </option>
-                      <option value="vegetable">Vegetable</option>
-                      <option value="fruit">Fruit</option>
-                      <option value="honey">Honey</option>
+                      <option value="manager">Manager</option>
+                      <option value="employee">Employee</option>
                     </select>
                   </div>
-                  <div className="col-6">
-                    <label htmlFor="_status">
-                      <strong>Status:</strong>
-                    </label>
-                    <select name="status" id="_status" className="form-control">
-                      <option value="" disabled selected>
-                        Select One
-                      </option>
-                      <option value="available">Available</option>
-                      <option value="unavailable">Unavailable</option>
-                      <option value="upcoming">Upcoming</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="row my-3">
                   <div className="col-6">
                     <div className="form-group">
                       <label htmlFor="_thumb">
-                        <strong>Thumbnail:</strong>
+                        <strong>Profile Picture:</strong>
                       </label>
                       <input
                         type="file"
                         accept="image/**"
                         name="thumbnail"
+                        onChange={onSelectThumb}
                         id="_thumb"
                         className="form-control"
                       />
                     </div>
                   </div>
-                  <div className="col-6">
-                    <div className="form-group">
-                      <label htmlFor="_stock">
-                        <strong>Product Stock:</strong>
-                      </label>
-                      <input
-                        type="stock"
-                        name="stock"
-                        id="_stock"
-                        className="form-control"
-                        placeholder="Enter Product Stock"
-                      />
-                    </div>
-                  </div>
                 </div>
+              </div>
+              <div className="card-footer">
                 <div className="d-flex justify-content-between">
+                  <Link to="../users" className="btn btn-outline-warning">
+                    Cancel
+                  </Link>
+                  <input type="reset" className="btn btn-danger" />
                   <input
                     type="submit"
                     name="submit"
-                    value="Add Product"
+                    value="Add Employee"
                     className="btn btn-success"
                   />
-                  <input type="reset" className="btn btn-danger" />
-                  <Link to="../products" className="btn btn-outline-warning">
-                    Cancel
-                  </Link>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

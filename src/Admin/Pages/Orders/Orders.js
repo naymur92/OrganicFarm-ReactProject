@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
 import DateTime from '../../../Components/DateTime';
 
@@ -14,7 +14,17 @@ function Orders() {
     delProd,
     orders,
     cancelOrder,
+    changeOrderStatus,
   ] = useOutletContext();
+
+  const [status, setStatus] = useState('');
+
+  let orderLists = orders;
+  if (status === '') {
+    orderLists = orders;
+  } else {
+    orderLists = orders.filter((order) => order.status === status);
+  }
 
   return (
     <div className="container-fluid cleartop">
@@ -32,22 +42,47 @@ function Orders() {
             <div className="card-body minheight">
               <ul className="menu">
                 <li>
-                  <button type="button" className="left-menu btn btn-outline-primary">
+                  <button
+                    type="button"
+                    onClick={() => setStatus('')}
+                    className="left-menu btn btn-primary"
+                  >
                     All Orders
                   </button>
                 </li>
                 <li>
-                  <button type="button" className="left-menu btn btn-outline-primary">
+                  <button
+                    type="button"
+                    onClick={() => setStatus('pending')}
+                    className="left-menu btn btn-outline-primary"
+                  >
                     Pending
                   </button>
                 </li>
                 <li>
-                  <button type="button" className="left-menu btn btn-outline-primary">
+                  <button
+                    type="button"
+                    onClick={() => setStatus('cancelled')}
+                    className="left-menu btn btn-outline-primary"
+                  >
+                    Cancelled
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setStatus('confirmed')}
+                    className="left-menu btn btn-outline-primary"
+                  >
                     Confirmed
                   </button>
                 </li>
                 <li>
-                  <button type="button" className="left-menu btn btn-outline-primary">
+                  <button
+                    type="button"
+                    onClick={() => setStatus('delivered')}
+                    className="left-menu btn btn-outline-primary"
+                  >
                     Delivered
                   </button>
                 </li>
@@ -91,7 +126,7 @@ function Orders() {
                   </tr>
                 </thead>
                 <tbody>
-                  {orders?.map((order, index) => (
+                  {orderLists?.map((order, index) => (
                     <tr key={order.id.toString()} className="align-middle">
                       <td>{index + 1}</td>
                       <td>
@@ -157,7 +192,11 @@ function Orders() {
                             {order.status === 'pending' ? (
                               <>
                                 <li>
-                                  <button type="button" className="dropdown-item">
+                                  <button
+                                    type="button"
+                                    onClick={() => changeOrderStatus(order.id, 'confirmed')}
+                                    className="dropdown-item"
+                                  >
                                     <i className="fas fa-check text-primary" /> Confirm
                                   </button>
                                 </li>
@@ -174,7 +213,11 @@ function Orders() {
                             ) : null}
                             {order.status === 'confirmed' ? (
                               <li>
-                                <button type="button" className="dropdown-item">
+                                <button
+                                  type="button"
+                                  onClick={() => changeOrderStatus(order.id, 'delivered')}
+                                  className="dropdown-item"
+                                >
                                   <i className="fas fa-check text-primary" /> Delivered
                                 </button>
                               </li>
@@ -191,6 +234,11 @@ function Orders() {
                   ))}
                 </tbody>
               </table>
+              {orderLists?.length === 0 ? (
+                <div className="alert alert-warning text-center">
+                  <strong>No Data</strong>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

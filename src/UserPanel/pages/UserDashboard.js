@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 
 function UserDashboard() {
   useEffect(() => {
-    document.getElementsByClassName('dashboard')[0].scrollIntoView();
+    window.scrollTo(0, 0);
+    // document.getElementsByClassName('dashboard')[0].scrollIntoView();
   });
   return (
     <div className="dashboard">

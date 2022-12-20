@@ -8,7 +8,8 @@ function UserOrders() {
   // console.log(orders);
 
   useEffect(() => {
-    document.getElementsByClassName('card')[0].scrollIntoView();
+    // document.getElementsByClassName('card')[0].scrollIntoView();
+    window.scrollTo(0, 0);
   });
 
   return (

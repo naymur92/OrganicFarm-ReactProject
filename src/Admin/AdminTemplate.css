@@ -60,3 +60,8 @@
 .cleartop {
   padding-top: 5rem;
 }
+
+.admin-navbar a.active {
+  color: #4e9b35 !important;
+  font-weight: bold;
+}

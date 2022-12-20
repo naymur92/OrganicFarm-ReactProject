@@ -32,7 +32,7 @@ function About() {
           <div className="row align-items-center">
             <div className="col-lg-6 col-12">
               <div className="about-thumb">
-                <img src="assets/images/about/01.png" alt="about-thumb" />
+                <img src="/assets/images/about/01.png" alt="about-thumb" />
               </div>
             </div>
             <div className="col-lg-6 col-12">
@@ -78,7 +78,7 @@ function About() {
             <div className="history-item">
               <div className="history-inner">
                 <div className="history-thumb">
-                  <img src="assets/images/history/01.jpg" alt="history" />
+                  <img src="/assets/images/history/01.jpg" alt="history" />
                 </div>
                 <div className="history-content">
                   <div className="hc-left">
@@ -118,7 +118,7 @@ function About() {
                     <div className="testi-inner">
                       <div className="testi-head">
                         <div className="testi-thumb">
-                          <img src="assets/images/testimonial/01.jpg" alt="testimonial" />
+                          <img src="/assets/images/testimonial/01.jpg" alt="testimonial" />
                         </div>
                         <div className="testi-clients">
                           <a href="#">
@@ -137,13 +137,13 @@ function About() {
                       <div className="testi-body">
                         <p>
                           <span className="img-left">
-                            <img src="assets/images/testimonial/qute.png" alt="quete" />
+                            <img src="/assets/images/testimonial/qute.png" alt="quete" />
                           </span>
                           Continually Onceptualizef Technically invs Professionally monetizeturkeyf
                           Testingdu Frofessionally oe-enablfunctaizede-come rce Onceptualize
                           Technically initiatives.
                           <span className="img-right">
-                            <img src="assets/images/testimonial/quete-left.png" alt="quete" />
+                            <img src="/assets/images/testimonial/quete-left.png" alt="quete" />
                           </span>
                         </p>
                       </div>
@@ -155,7 +155,7 @@ function About() {
                     <div className="testi-inner">
                       <div className="testi-head">
                         <div className="testi-thumb">
-                          <img src="assets/images/testimonial/02.jpg" alt="testimonial" />
+                          <img src="/assets/images/testimonial/02.jpg" alt="testimonial" />
                         </div>
                         <div className="testi-clients">
                           <a href="#">
@@ -174,13 +174,13 @@ function About() {
                       <div className="testi-body">
                         <p>
                           <span className="img-left">
-                            <img src="assets/images/testimonial/qute.png" alt="quete" />
+                            <img src="/assets/images/testimonial/qute.png" alt="quete" />
                           </span>
                           Continually Onceptualizef Technically invs Professionally monetizeturkeyf
                           Testingdu Frofessionally oe-enablfunctaizede-come rce Onceptualize
                           Technically initiatives.
                           <span className="img-right">
-                            <img src="assets/images/testimonial/quete-left.png" alt="quete" />
+                            <img src="/assets/images/testimonial/quete-left.png" alt="quete" />
                           </span>
                         </p>
                       </div>
@@ -192,7 +192,7 @@ function About() {
                     <div className="testi-inner">
                       <div className="testi-head">
                         <div className="testi-thumb">
-                          <img src="assets/images/testimonial/03.jpg" alt="testimonial" />
+                          <img src="/assets/images/testimonial/03.jpg" alt="testimonial" />
                         </div>
                         <div className="testi-clients">
                           <a href="#">
@@ -211,13 +211,13 @@ function About() {
                       <div className="testi-body">
                         <p>
                           <span className="img-left">
-                            <img src="assets/images/testimonial/qute.png" alt="quete" />
+                            <img src="/assets/images/testimonial/qute.png" alt="quete" />
                           </span>
                           Continually Onceptualizef Technically invs Professionally monetizeturkeyf
                           Testingdu Frofessionally oe-enablfunctaizede-come rce Onceptualize
                           Technically initiatives.
                           <span className="img-right">
-                            <img src="assets/images/testimonial/quete-left.png" alt="quete" />
+                            <img src="/assets/images/testimonial/quete-left.png" alt="quete" />
                           </span>
                         </p>
                       </div>

@@ -15,7 +15,7 @@ function Gallery() {
               <div className="product-item">
                 <div className="product-inner">
                   <div className="product-thumb">
-                    <img src="assets/images/product/lichi.jpg" alt="product" />
+                    <img src="/assets/images/product/lichi.jpg" alt="product" />
                   </div>
                   <div className="product-content">
                     <Link to="shop" className="product-name">
@@ -29,7 +29,7 @@ function Gallery() {
               <div className="product-item">
                 <div className="product-inner">
                   <div className="product-thumb">
-                    <img src="assets/images/product/vegitables.jpg" alt="product" />
+                    <img src="/assets/images/product/vegitables.jpg" alt="product" />
                   </div>
                   <div className="product-content">
                     <Link to="shop" className="product-name">
@@ -43,7 +43,7 @@ function Gallery() {
               <div className="product-item">
                 <div className="product-inner">
                   <div className="product-thumb">
-                    <img src="assets/images/product/mango.jpg" alt="product" />
+                    <img src="/assets/images/product/mango.jpg" alt="product" />
                   </div>
                   <div className="product-content">
                     <Link to="shop" className="product-name">
@@ -57,7 +57,7 @@ function Gallery() {
               <div className="product-item">
                 <div className="product-inner">
                   <div className="product-thumb">
-                    <img src="assets/images/product/honey.jpg" alt="product" />
+                    <img src="/assets/images/product/honey.jpg" alt="product" />
                   </div>
                   <div className="product-content">
                     <Link to="shop" className="product-name">

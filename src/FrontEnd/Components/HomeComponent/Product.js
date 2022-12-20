@@ -8,8 +8,8 @@ function Product(props) {
   return (
     <section className="product-section product-style2 padding-tb">
       <div className="shape-image">
-        <img src="assets/images/product/shape/01.png" alt="abs-thumb" className="shape-1" />
-        <img src="assets/images/product/shape/02.png" alt="abs-thumb" className="shape-2" />
+        <img src="/assets/images/product/shape/01.png" alt="abs-thumb" className="shape-1" />
+        <img src="/assets/images/product/shape/02.png" alt="abs-thumb" className="shape-2" />
       </div>
       <div className="container">
         <div className="section-header wow fadeInUp" data-wow-delay="0.3s">
@@ -30,7 +30,7 @@ function Product(props) {
                   <div className="product-item-2">
                     <div className="product-inner">
                       <div className="product-thumb">
-                        <img src={`assets/images/product/${item.thumbnail}`} alt="product" />
+                        <img src={`/assets/images/product/${item.thumbnail}`} alt="product" />
                       </div>
                       <div className="product-content">
                         <Link to={`shop/view-product/${item.id}`}>

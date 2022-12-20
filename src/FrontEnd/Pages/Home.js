@@ -21,8 +21,8 @@ function Home() {
       {/* <!-- about section start here --> */}
       <section className="about-us home-2 padding-tb">
         <div className="shape-image">
-          <img src="assets/images/about/shape/01.png" alt="abs-thumb" className="shape-1" />
-          <img src="assets/images/about/shape/02.png" alt="abs-thumb" className="shape-2" />
+          <img src="/assets/images/about/shape/01.png" alt="abs-thumb" className="shape-1" />
+          <img src="/assets/images/about/shape/02.png" alt="abs-thumb" className="shape-2" />
         </div>
         <div className="container">
           <div className="about-wrapper">
@@ -44,7 +44,7 @@ function Home() {
                       <div className="about-item">
                         <div className="about-inner">
                           <div className="about-thumb">
-                            <img src="assets/images/about/icon/01.png" alt="about" />
+                            <img src="/assets/images/about/icon/01.png" alt="about" />
                           </div>
                           <div className="about-content">
                             <a href="#">
@@ -62,7 +62,7 @@ function Home() {
                       <div className="about-item">
                         <div className="about-inner">
                           <div className="about-thumb">
-                            <img src="assets/images/about/icon/02.png" alt="about" />
+                            <img src="/assets/images/about/icon/02.png" alt="about" />
                           </div>
                           <div className="about-content">
                             <a href="#">
@@ -80,7 +80,7 @@ function Home() {
                       <div className="about-item">
                         <div className="about-inner">
                           <div className="about-thumb">
-                            <img src="assets/images/about/icon/03.png" alt="about" />
+                            <img src="/assets/images/about/icon/03.png" alt="about" />
                           </div>
                           <div className="about-content">
                             <a href="#">
@@ -98,7 +98,7 @@ function Home() {
                       <div className="about-item">
                         <div className="about-inner">
                           <div className="about-thumb">
-                            <img src="assets/images/about/icon/04.png" alt="about" />
+                            <img src="/assets/images/about/icon/04.png" alt="about" />
                           </div>
                           <div className="about-content">
                             <a href="#">
@@ -117,7 +117,7 @@ function Home() {
               </div>
               <div className="col-xl-4 col-12">
                 <div className="about-thumb-2 wow fadeInUp" data-wow-delay="0.4s">
-                  <img src="assets/images/about/03.png" alt="about-thumb" />
+                  <img src="/assets/images/about/03.png" alt="about-thumb" />
                 </div>
               </div>
             </div>
@@ -150,7 +150,7 @@ function Home() {
                   <div className="post-inner">
                     <div className="post-thumb">
                       <a href="blog-single.html">
-                        <img src="assets/images/blog/01.jpg" alt="blog" />
+                        <img src="/assets/images/blog/01.jpg" alt="blog" />
                       </a>
                       <div className="meta-date">
                         <div className="md-pre">
@@ -185,7 +185,7 @@ function Home() {
                   <div className="post-inner">
                     <div className="post-thumb">
                       <a href="blog-single.html">
-                        <img src="assets/images/blog/02.jpg" alt="blog" />
+                        <img src="/assets/images/blog/02.jpg" alt="blog" />
                       </a>
                       <div className="meta-date">
                         <div className="md-pre">
@@ -220,7 +220,7 @@ function Home() {
                   <div className="post-inner">
                     <div className="post-thumb">
                       <a href="blog-single.html">
-                        <img src="assets/images/blog/03.jpg" alt="blog" />
+                        <img src="/assets/images/blog/03.jpg" alt="blog" />
                       </a>
                       <div className="meta-date">
                         <div className="md-pre">

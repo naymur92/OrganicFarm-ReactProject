@@ -12,7 +12,8 @@ function ViewUserOrder() {
   // console.log(order);
 
   useEffect(() => {
-    document.getElementsByClassName('card')[0].scrollIntoView();
+    window.scrollTo(0, 0);
+    // document.getElementsByClassName('card')[0].scrollIntoView();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

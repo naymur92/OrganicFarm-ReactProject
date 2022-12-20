@@ -11,7 +11,7 @@ function Counter() {
               <div className="counter-item">
                 <div className="counter-inner">
                   <div className="counter-thumb">
-                    <img src="assets/images/counter/honey.jpg" alt="counter" />
+                    <img src="/assets/images/counter/honey.jpg" alt="counter" />
                   </div>
                   <div className="counter-content">
                     <h3 className="count-number">2040</h3>
@@ -24,7 +24,7 @@ function Counter() {
               <div className="counter-item">
                 <div className="counter-inner">
                   <div className="counter-thumb">
-                    <img src="assets/images/counter/mango.jpg" alt="counter" />
+                    <img src="/assets/images/counter/mango.jpg" alt="counter" />
                   </div>
                   <div className="counter-content">
                     <h3 className="count-number">6200</h3>
@@ -37,7 +37,7 @@ function Counter() {
               <div className="counter-item">
                 <div className="counter-inner">
                   <div className="counter-thumb">
-                    <img src="assets/images/counter/vegetables.jpg" alt="counter" />
+                    <img src="/assets/images/counter/vegetables.jpg" alt="counter" />
                   </div>
                   <div className="counter-content">
                     <h3 className="count-number">8100</h3>
@@ -50,7 +50,7 @@ function Counter() {
               <div className="counter-item">
                 <div className="counter-inner">
                   <div className="counter-thumb">
-                    <img src="assets/images/counter/lichi.jpg" alt="counter" />
+                    <img src="/assets/images/counter/lichi.jpg" alt="counter" />
                   </div>
                   <div className="counter-content">
                     <h3 className="count-number">6300</h3>

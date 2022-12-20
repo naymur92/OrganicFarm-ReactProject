@@ -6,6 +6,7 @@ import AddProduct from './Admin/Pages/Products/AddProduct';
 import Products from './Admin/Pages/Products/Products';
 import AddEmployee from './Admin/Pages/Users/AddEmployee';
 import Users from './Admin/Pages/Users/Users';
+import ViewUser from './Admin/Pages/Users/ViewUser';
 import ScrollToTop from './Components/ScroolToTop';
 import ErrorPage from './ErrorPage';
 import FrontTemplate from './FrontEnd/FrontTemplate';
@@ -49,6 +50,7 @@ function App() {
         <Route path="admin" element={<AdminTemplate />}>
           <Route index element={<Dashboard />} />
           <Route path="users" element={<Users />} />
+          <Route path="users/view-user/:id" element={<ViewUser />} />
           <Route path="users/add-employee" element={<AddEmployee />} />
           <Route path="products" element={<Products />} />
           <Route path="products/addproduct" element={<AddProduct />} />

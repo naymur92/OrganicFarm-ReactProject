@@ -167,7 +167,15 @@ function Products() {
                   {searchedProducts.map((item, index) => (
                     <tr key={item.id.toString()}>
                       <td>{index + 1}</td>
-                      <td>{item.name}</td>
+                      <td>
+                        <img
+                          src={`/assets/images/product/${item.thumbnail}`}
+                          style={{ width: '70px' }}
+                          alt=""
+                          className="img-thumbnail mx-3"
+                        />
+                        {item.name}
+                      </td>
                       <td>{item.price}</td>
                       <td>{item.category}</td>
                       <td>{item.status}</td>

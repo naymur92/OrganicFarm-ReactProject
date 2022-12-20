@@ -1,3 +1,8 @@
+.header-section .primary-menu .main-area .main-menu ul li a.active {
+  color: #4e9b35 !important;
+  font-weight: bold;
+}
+
 .search-cart li .user-panel.open .user-menu {
   transform: scaleY(1);
 }

@@ -91,7 +91,7 @@ function Header(props) {
                         <NavLink to="/">Home</NavLink>
                       </li>
                       <li>
-                        <NavLink to="about">About</NavLink>
+                        <NavLink to="about/">About</NavLink>
                       </li>
                     </ul>
                     <div className="logo px-4 d-none d-lg-block">
@@ -101,10 +101,10 @@ function Header(props) {
                     </div>
                     <ul className="agri-ul">
                       <li>
-                        <NavLink to="shop">Shop</NavLink>
+                        <NavLink to="shop/">Shop</NavLink>
                       </li>
                       <li>
-                        <NavLink to="contact">Contact</NavLink>
+                        <NavLink to="contact/">Contact</NavLink>
                       </li>
                     </ul>
                     <ul className="agri-ul search-cart">
@@ -187,11 +187,11 @@ function Header(props) {
                                     <strong>Welcome,</strong> {loginInfo.firstname}
                                   </span>
                                   {loginInfo.role === 'admin' || loginInfo.role === 'manager' ? (
-                                    <Link to="/admin" className="lab-btn">
+                                    <Link to="/admin/" className="lab-btn">
                                       <span>Dashboard</span>
                                     </Link>
                                   ) : (
-                                    <Link to="/user" className="lab-btn">
+                                    <Link to="/user/" className="lab-btn">
                                       <span>Dashboard</span>
                                     </Link>
                                   )}

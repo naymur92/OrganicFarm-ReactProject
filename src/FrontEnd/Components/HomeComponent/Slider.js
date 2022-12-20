@@ -11,7 +11,7 @@ function Slider() {
               <div className="banner-item">
                 <div className="banner-inner">
                   <div className="banner-thumb">
-                    <img src="assets/images/blog/mango.jpg" alt="banner-slider" />
+                    <img src="/assets/images/blog/mango.jpg" alt="banner-slider" />
                   </div>
                   <div className="banner-content">
                     <h3>Mango Farm</h3>
@@ -33,7 +33,7 @@ function Slider() {
               <div className="banner-item">
                 <div className="banner-inner">
                   <div className="banner-thumb">
-                    <img src="assets/images/blog/04.jpg" alt="banner-slider" />
+                    <img src="/assets/images/blog/04.jpg" alt="banner-slider" />
                   </div>
                   <div className="banner-content">
                     <h3>Vegitable Farm</h3>
@@ -55,7 +55,7 @@ function Slider() {
               <div className="banner-item">
                 <div className="banner-inner">
                   <div className="banner-thumb">
-                    <img src="assets/images/blog/05.jpg" alt="banner-slider" />
+                    <img src="/assets/images/blog/05.jpg" alt="banner-slider" />
                   </div>
                   <div className="banner-content">
                     <h3>Bee Farm</h3>

@@ -16,25 +16,19 @@ function Users() {
     cancelOrder,
   ] = useOutletContext();
 
-  const [usersList, setUsersList] = useState(users);
+  // Filtering starts
+  const [filter, setFilter] = useState('');
 
-  const showAllUsers = () => {
-    setUsersList(users);
-  };
-
-  // Filter users using role
-  const filterEmployees = (role) => {
-    if (role === 'employee') {
-      setUsersList(users.filter((user) => user.role !== 'user'));
-    } else if (role === 'user') {
-      setUsersList(users.filter((user) => user.role === 'user'));
-    }
-  };
-
-  // Filter users using status
-  const filterStatus = (status) => {
-    setUsersList(users.filter((user) => user.status === status));
-  };
+  let usersList = users;
+  if (filter === '') {
+    usersList = users;
+  } else if (filter === 'employee') {
+    usersList = users.filter((user) => user.role !== 'user');
+  } else if (filter === 'user') {
+    usersList = users.filter((user) => user.role === 'user');
+  } else {
+    usersList = users.filter((user) => user.status === filter);
+  }
 
   // Searching
   const [searchUsers, setSearchUsers] = useState('');
@@ -42,8 +36,8 @@ function Users() {
     setSearchUsers(e.target.value);
   };
   // Search Method
-  let searchedUsers = usersList;
-  searchedUsers = usersList.filter(
+  // let searchedUsers = usersList;
+  const searchedUsers = usersList.filter(
     (user) =>
       user.firstname.toLowerCase().includes(searchUsers.toLowerCase()) ||
       user.lastname.toLowerCase().includes(searchUsers.toLowerCase()) ||
@@ -51,7 +45,7 @@ function Users() {
   );
 
   useEffect(() => {
-    showAllUsers();
+    // showAllUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -73,7 +67,7 @@ function Users() {
                 <li>
                   <button
                     type="button"
-                    onClick={() => showAllUsers()}
+                    onClick={() => setFilter('')}
                     className="left-menu btn btn-primary"
                   >
                     All Users
@@ -82,7 +76,7 @@ function Users() {
                 <li>
                   <button
                     type="button"
-                    onClick={() => filterEmployees('employee')}
+                    onClick={() => setFilter('employee')}
                     className="left-menu btn btn-outline-primary mt-2"
                   >
                     Employees
@@ -91,7 +85,7 @@ function Users() {
                 <li>
                   <button
                     type="button"
-                    onClick={() => filterEmployees('user')}
+                    onClick={() => setFilter('user')}
                     className="left-menu btn btn-outline-primary"
                   >
                     Users
@@ -100,7 +94,7 @@ function Users() {
                 <li>
                   <button
                     type="button"
-                    onClick={() => filterStatus('pending')}
+                    onClick={() => setFilter('pending')}
                     className="left-menu btn btn-outline-primary"
                   >
                     Pendings
@@ -109,7 +103,7 @@ function Users() {
                 <li>
                   <button
                     type="button"
-                    onClick={() => filterStatus('muted')}
+                    onClick={() => setFilter('muted')}
                     className="left-menu btn btn-outline-primary"
                   >
                     Muted
@@ -118,7 +112,7 @@ function Users() {
                 <li>
                   <button
                     type="button"
-                    onClick={() => filterStatus('blocked')}
+                    onClick={() => setFilter('blocked')}
                     className="left-menu btn btn-outline-primary"
                   >
                     Blocked
@@ -161,6 +155,7 @@ function Users() {
                 <thead>
                   <tr>
                     <th>Sl No.</th>
+                    <th>Thumbnail</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
@@ -173,6 +168,18 @@ function Users() {
                   {searchedUsers?.map((user, index) => (
                     <tr key={user.id.toString()}>
                       <td>{index + 1}</td>
+                      <td>
+                        {user.thumbnail !== '' ? (
+                          <img
+                            src={`/assets/images/users/${user.thumbnail}`}
+                            className="img-thumbnail mx-3"
+                            style={{ width: '80px' }}
+                            alt=""
+                          />
+                        ) : (
+                          <span>No Picture</span>
+                        )}
+                      </td>
                       <td>
                         {user.firstname} {user.lastname}
                       </td>

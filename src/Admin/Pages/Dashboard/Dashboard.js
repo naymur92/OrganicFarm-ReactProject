@@ -30,8 +30,8 @@ function Dashboard() {
             <div className="card-body minheight">
               <ul className="menu">
                 <li>
-                  <NavLink to="employees" className="left-menu btn btn-outline-primary">
-                    Employees
+                  <NavLink to="users" className="left-menu btn btn-outline-primary">
+                    Users
                   </NavLink>
                 </li>
                 <li>

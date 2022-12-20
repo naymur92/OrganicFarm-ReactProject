@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { API_PATH } from '../API_PATH';
+import useLocalStorage from '../hooks/useLocalStorage';
 import useSessionStorage from '../hooks/useSessionStorage';
 import './AdminTemplate.css';
 import AdminFooter from './Components/AdminFooter';
@@ -23,7 +24,8 @@ function AdminTemplate() {
   };
 
   // Users area
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useLocalStorage('userlist', []);
+  // const [users, setUsers] = useState([]);
   const allUsers = async () => {
     await axios.get(`${API_PATH}/users/users.php`).then((res) => {
       // console.log(res.data.users);
@@ -118,6 +120,21 @@ function AdminTemplate() {
       });
   };
 
+  const changeOrderStatus = async (id, status) => {
+    await axios
+      .put(`${API_PATH}/orders/change_order_status.php`, {
+        id,
+        status,
+      })
+      .then((res) => {
+        if (res.data.success) {
+          getOrders();
+        }
+        alert(res.data.msg);
+        // console.log(res.data);
+      });
+  };
+
   useEffect(() => {
     authenticate();
     allUsers();
@@ -141,6 +158,7 @@ function AdminTemplate() {
           delProd,
           orders,
           cancelOrder,
+          changeOrderStatus,
         ]}
       />
       <AdminFooter />

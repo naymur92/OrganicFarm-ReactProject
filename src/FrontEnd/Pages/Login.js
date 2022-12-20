@@ -22,9 +22,9 @@ function Login() {
 
   const authenticate = () => {
     if (loginInfo?.role === 'admin' || loginInfo?.role === 'manager') {
-      navigate('/admin');
+      navigate('/admin/');
     } else if (loginInfo?.role === 'user') {
-      navigate('/user');
+      navigate('/user/');
     }
     // console.log(loginInfo);
   };
@@ -90,8 +90,8 @@ function Login() {
                   <div className="card-header bg-warning">
                     <h3 className="text-center">Login Form</h3>
                   </div>
-                  <div className="card-body">
-                    <form onSubmit={submitForm}>
+                  <form onSubmit={submitForm}>
+                    <div className="card-body">
                       <div className="form-group my-2">
                         <label htmlFor="_email">
                           <strong>Email:</strong>
@@ -118,20 +118,25 @@ function Login() {
                           className="form-control"
                         />
                       </div>
-                      <input
-                        type="submit"
-                        name="submit"
-                        value="LOGIN"
-                        className="btn btn-warning"
-                      />
-                    </form>
-                  </div>
-                  <div className="card-footer">
-                    <span className="text-warning">Not a user? </span>
-                    <Link to="/register" className="btn btn-outline-warning">
-                      Sign Up Now
-                    </Link>
-                  </div>
+                    </div>
+                    <div className="card-footer">
+                      <div className="d-flex justify-content-between">
+                        <div>
+                          <span className="text-warning">Not a user? </span>
+                          <Link to="/register" className="btn btn-outline-primary">
+                            Sign Up Now
+                          </Link>
+                        </div>
+
+                        <input
+                          type="submit"
+                          name="submit"
+                          value="LOGIN"
+                          className="btn btn-warning"
+                        />
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>

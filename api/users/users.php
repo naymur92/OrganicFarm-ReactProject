@@ -1,7 +1,7 @@
 <?php
 include '../dbconfig.php';
 
-$result = $db_conn->query("SELECT id, firstname, lastname, email, role, status, creation_time FROM users");
+$result = $db_conn->query("SELECT id, firstname, lastname, email, role, status, thumbnail, creation_time FROM users");
 
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
