@@ -73,12 +73,12 @@ function UserTemplate() {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="orders/">
+                  <NavLink className="nav-link" to="orders">
                     Orders
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="wishlists/">
+                  <NavLink className="nav-link" to="wishlists">
                     Wishlists
                   </NavLink>
                 </li>
