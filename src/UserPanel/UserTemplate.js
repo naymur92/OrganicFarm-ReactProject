@@ -2,11 +2,11 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { API_PATH } from '../API_PATH';
-import useSessionStorage from '../hooks/useSessionStorage';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 function UserTemplate() {
   const navigate = useNavigate();
-  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
+  const [loginInfo, setLoginInfo] = useLocalStorage('logininfo', []);
   const pendingCheckout = JSON.parse(localStorage.getItem('pendingcheckout'));
   const [orders, setOrders] = useState([]);
 

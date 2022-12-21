@@ -1,30 +1,49 @@
 <?php
 include '../dbconfig.php';
 
-$data = json_decode(file_get_contents('php://input'));
+$product = json_decode($_POST['prodinfo']);
 
-if (isset($data->product)) {
-  $product = $data->product;
+$name = mysqli_real_escape_string($db_conn, trim($product->name));
+$description = mysqli_real_escape_string($db_conn, trim($product->description));
+$price = mysqli_real_escape_string($db_conn, trim($product->price));
+$category = mysqli_real_escape_string($db_conn, trim($product->category));
+$status = mysqli_real_escape_string($db_conn, trim($product->status));
+$stock = mysqli_real_escape_string($db_conn, trim($product->stock));
 
-  $name = mysqli_real_escape_string($db_conn, trim($product->name));
-  $description = mysqli_real_escape_string($db_conn, trim($product->description));
-  $price = mysqli_real_escape_string($db_conn, trim($product->price));
-  $category = mysqli_real_escape_string($db_conn, trim($product->category));
-  $status = mysqli_real_escape_string($db_conn, trim($product->status));
-  $thumbnail = mysqli_real_escape_string($db_conn, trim($product->thumbnail));
-  $stock = mysqli_real_escape_string($db_conn, trim($product->stock));
+const DEST_FOLDER = '../../assets/images/product/';
 
-  if ($thumbnail != '') {
-    $filename = explode("\\", $product->thumbnail);
-    $thumbnail = end($filename);
-  }
+if ($name !== '' && $price !== '' && $status !== '') {
 
-  $sql = "INSERT INTO products VALUES(NULL, '$name', '$description', '$price', '$category', '$status', '$thumbnail', '$stock', DEFAULT)";
-  // echo $sql;
+  $sql = "INSERT INTO products VALUES(NULL, '$name', '$description', '$price', '$category', '$status', '', '$stock', DEFAULT)";
+  // // echo $sql;
 
   $result = $db_conn->query($sql);
 
   if ($db_conn->affected_rows > 0) {
+
+    // File upload process
+    if (isset($_FILES['thumb'])) {
+      $filename = $_FILES['thumb']['name'];
+      $tmp_name = $_FILES['thumb']['tmp_name'];
+
+      // generate new file name
+      $extArray = explode('.', $filename);
+      $ext = trim(end($extArray));
+
+      $result = mysqli_query($db_conn, 'SELECT LAST_INSERT_ID()');
+      $last_id = mysqli_fetch_assoc($result)['LAST_INSERT_ID()'];
+
+      $filename = $category . '-(' . $last_id . ').' . $ext;
+
+      if (move_uploaded_file($tmp_name, DEST_FOLDER . $filename)) {
+        mysqli_query($db_conn, "UPDATE products SET thumbnail='$filename' WHERE id='$last_id'");
+
+        if (mysqli_affected_rows($db_conn) === 0) {
+          unlink(DEST_FOLDER . $filename);
+        }
+      }
+    } // End file upload
+
     echo json_encode(['success' => true, 'msg' => 'Product Added']);
     return;
   } else {

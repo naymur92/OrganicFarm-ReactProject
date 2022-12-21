@@ -11,7 +11,6 @@ function AddProduct() {
     price: '',
     category: '',
     status: '',
-    thumbnail: '',
     stock: '',
   });
 
@@ -22,12 +21,19 @@ function AddProduct() {
     });
   };
 
-  const submitData = (event) => {
+  const [thumb, setThumb] = useState('');
+
+  const submitData = async (event) => {
     event.preventDefault();
     // console.log(product);
-    axios
-      .post(`${API_PATH}/products/addproduct.php`, {
-        product,
+
+    const formData = new FormData();
+    formData.append('thumb', thumb);
+    formData.append('prodinfo', JSON.stringify(product));
+
+    await axios
+      .post(`${API_PATH}/products/addproduct.php`, formData, {
+        headers: { 'content-type': 'multipart/form-data' },
       })
       .then((res) => {
         if (res.data.success) {
@@ -151,7 +157,7 @@ function AddProduct() {
                         accept="image/**"
                         name="thumbnail"
                         id="_thumb"
-                        onChange={onChangeValue}
+                        onChange={(e) => setThumb(e.target.files[0])}
                         className="form-control"
                       />
                     </div>

@@ -22,16 +22,15 @@ function Products() {
     }
   };
 
+  const [prodStatus, setStatus] = useState('');
+  let productList = products;
+  if (prodStatus !== '') {
+    productList = products.filter((product) => product.status === prodStatus);
+  }
+
   // Filter Method
   const [category, setCategory] = useState('');
-  const filteredProducts = products.filter((product) => product.category.includes(category));
-
-  const [prodStatus, setStatus] = useState('');
-  // console.log(prodStatus);
-
-  // const filteredByAvailability = filteredProducts.filter((product) =>
-  //   product.status.includes(prodStatus)
-  // );
+  const filteredProducts = productList.filter((product) => product.category.includes(category));
 
   // Search Method start
   const [searchItems, setSearchItems] = useState('');
@@ -42,6 +41,12 @@ function Products() {
   const searchedProducts = filteredProducts.filter((product) =>
     product.name.toLowerCase().includes(searchItems.toLocaleLowerCase())
   ); // search method ends
+
+  // show All product
+  const showAll = () => {
+    setStatus('');
+    setCategory('');
+  };
 
   return (
     <div className="container-fluid cleartop">
@@ -61,13 +66,31 @@ function Products() {
                 <li>
                   <button
                     type="button"
-                    onClick={() => setCategory('')}
-                    className="left-menu btn btn-outline-primary"
+                    onClick={() => showAll()}
+                    className="left-menu btn btn-primary"
                   >
                     All Products
                   </button>
                 </li>
                 <li>
+                  <button
+                    type="button"
+                    onClick={() => setStatus('available')}
+                    className="left-menu btn btn-outline-primary"
+                  >
+                    Available
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setStatus('unavailable')}
+                    className="left-menu btn btn-outline-primary"
+                  >
+                    Unavailable
+                  </button>
+                </li>
+                <li className="mt-3">
                   <button
                     type="button"
                     onClick={() => setCategory('vegetable')}
@@ -94,30 +117,6 @@ function Products() {
                     Honey
                   </button>
                 </li>
-                {/* <li>
-                  <div className="form-group my-3">
-                    <label htmlFor="_available">Available Products</label>
-                    <input
-                      type="radio"
-                      onChange={() => setStatus('available')}
-                      className="form-check-input"
-                      id="_available"
-                      name="availability"
-                      value="available"
-                    />
-                  </div>
-                  <div className="form-group my-3">
-                    <label htmlFor="_unavailable">Unvailable Products</label>
-                    <input
-                      type="radio"
-                      onChange={() => setStatus('unavailable')}
-                      className="form-check-input"
-                      id="_unavailable"
-                      name="availability"
-                      value="unavailable"
-                    />
-                  </div>
-                </li> */}
                 <li>
                   <NavLink to="addproduct" className="left-menu btn btn-primary mt-3">
                     Add Product

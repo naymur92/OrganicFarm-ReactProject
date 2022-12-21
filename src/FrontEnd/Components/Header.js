@@ -7,7 +7,7 @@ function Header(props) {
   const navigate = useNavigate();
 
   const logOut = () => {
-    sessionStorage.removeItem('logininfo');
+    localStorage.removeItem('logininfo');
     setLoginInfo([]);
     localStorage.removeItem('cart-items');
     setCartItems([]);

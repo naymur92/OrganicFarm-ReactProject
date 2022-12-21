@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { API_PATH } from '../API_PATH';
 import useLocalStorage from '../hooks/useLocalStorage';
-import useSessionStorage from '../hooks/useSessionStorage';
 import './AdminTemplate.css';
 import AdminFooter from './Components/AdminFooter';
 import AdminHeader from './Components/AdminHeader';
@@ -12,7 +11,7 @@ import AdminHeader from './Components/AdminHeader';
 function AdminTemplate() {
   const pathName = window.location.pathname;
   const navigate = useNavigate();
-  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
+  const [loginInfo, setLoginInfo] = useLocalStorage('logininfo', []);
 
   // console.log(loginInfo);
   const authenticate = () => {

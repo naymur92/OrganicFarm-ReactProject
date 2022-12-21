@@ -6,7 +6,6 @@ function AdminHeader(props) {
   const navigate = useNavigate();
 
   const logOut = () => {
-    sessionStorage.clear();
     localStorage.clear();
     setLoginInfo([]);
     navigate('/');

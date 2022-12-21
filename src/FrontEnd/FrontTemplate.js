@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
-import useSessionStorage from '../hooks/useSessionStorage';
 import Footer from './Components/Footer';
 import Header from './Components/Header';
 
@@ -11,7 +10,7 @@ import Search from './Components/Search';
 
 function FrontTemplate() {
   const [products, setProducts] = useLocalStorage('products', []);
-  const [loginInfo, setLoginInfo] = useSessionStorage('logininfo', []);
+  const [loginInfo, setLoginInfo] = useLocalStorage('logininfo', []);
 
   // Get all products
   const allProducts = async () => {
