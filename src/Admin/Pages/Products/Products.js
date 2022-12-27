@@ -38,9 +38,21 @@ function Products() {
     setSearchItems(event.target.value);
   };
 
-  const searchedProducts = filteredProducts.filter((product) =>
+  let searchedProducts = filteredProducts.filter((product) =>
     product.name.toLowerCase().includes(searchItems.toLocaleLowerCase())
   ); // search method ends
+
+  // Add serial number on every products
+  searchedProducts = searchedProducts.map((item, index) => ({ sl_no: index + 1, ...item }));
+
+  // Pagination
+  const [productsPerPage, setProductsPerPage] = useState(8);
+  const [selectedPage, setSelectedPage] = useState(1);
+
+  const pageIndex = (selectedPage - 1) * productsPerPage;
+  const paginatedProducts = searchedProducts.slice(pageIndex, pageIndex + Number(productsPerPage));
+  const pageNumber = Math.ceil(searchedProducts.length / productsPerPage);
+  const pageNumbers = Array.from({ length: pageNumber }, (x, i) => i); // generate page array
 
   // show All product
   const showAll = () => {
@@ -163,9 +175,9 @@ function Products() {
                   </tr>
                 </thead>
                 <tbody>
-                  {searchedProducts.map((item, index) => (
+                  {paginatedProducts?.map((item) => (
                     <tr key={item.id.toString()}>
-                      <td>{index + 1}</td>
+                      <td>{item.sl_no}</td>
                       <td>
                         <img
                           src={`/assets/images/product/${item.thumbnail}`}
@@ -239,6 +251,44 @@ function Products() {
                   ))}
                 </tbody>
               </table>
+              <div className="row">
+                <div className="col-2 d-flex justify-content-between">
+                  <label htmlFor="_pperpage">
+                    <strong>Product Per Page:</strong>
+                  </label>
+                  <select
+                    id="_pperpage"
+                    className="form-control"
+                    onChange={(e) => {
+                      setProductsPerPage(e.target.value);
+                      setSelectedPage(1);
+                    }}
+                    style={{ maxWidth: '50px' }}
+                  >
+                    <option value="4">4</option>
+                    <option value="8" selected>
+                      8
+                    </option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+                <div className="offset-6 col-4">
+                  <div className="pagination float-end">
+                    {pageNumbers.map((sl) => (
+                      <button
+                        type="button"
+                        className={`btn btn-outline-primary mx-1 ${
+                          sl + 1 === selectedPage ? 'active' : ''
+                        }`}
+                        onClick={() => setSelectedPage(sl + 1)}
+                      >
+                        {sl + 1}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
