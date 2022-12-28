@@ -1,7 +1,7 @@
 <?php
 include '../dbconfig.php';
 
-$result = $db_conn->query("SELECT * FROM harvests");
+$result = $db_conn->query("SELECT * FROM harvests ORDER BY harvest_time DESC");
 
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {

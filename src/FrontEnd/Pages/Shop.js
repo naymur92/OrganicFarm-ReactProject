@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useOutletContext } from 'react-router-dom';
@@ -69,6 +70,29 @@ function Shop() {
     product.name.toLowerCase().includes(searchItems.toLocaleLowerCase())
   );
 
+  // Add serial number on every product
+  searchedProducts = searchedProducts.map((item, index) => ({ sl_no: index + 1, ...item }));
+
+  // Pagination
+  const [productsPerPage, setProductsPerPage] = useState(6);
+  const [selectedPage, setSelectedPage] = useState(1);
+
+  const pageIndex = (selectedPage - 1) * productsPerPage;
+  const paginatedProducts = searchedProducts.slice(pageIndex, pageIndex + Number(productsPerPage));
+  const pageNumber = Math.ceil(searchedProducts.length / productsPerPage);
+  const pageNumbers = Array.from({ length: pageNumber }, (x, i) => i + 1); // generate page array
+
+  const prevPage = () => {
+    if (selectedPage != 1) {
+      setSelectedPage(selectedPage - 1);
+    }
+  };
+  const nextPage = () => {
+    if (selectedPage != pageNumber) {
+      setSelectedPage(selectedPage + 1);
+    }
+  };
+
   return (
     <>
       {/* <!-- Page Header Section Start Here --> */}
@@ -99,13 +123,36 @@ function Shop() {
                 <article>
                   <div className="shop-title d-flex flex-wrap justify-content-between">
                     <p>
-                      Showing 01 - {searchedProducts.length} of {searchedProducts.length} Results
+                      Showing {paginatedProducts[0]?.sl_no} -{' '}
+                      {paginatedProducts[paginatedProducts.length - 1]?.sl_no} of{' '}
+                      {searchedProducts.length} Results
                     </p>
+                    <div className="d-flex justify-content-between float-end">
+                      <label htmlFor="_pperpage" className="mx-2 mt-1">
+                        Product Per Page:
+                      </label>
+                      <select
+                        id="_pperpage"
+                        className="form-control"
+                        onChange={(e) => {
+                          setProductsPerPage(e.target.value);
+                          setSelectedPage(1);
+                        }}
+                        style={{ width: '45px' }}
+                      >
+                        <option value="3">3</option>
+                        <option value="6" selected>
+                          6
+                        </option>
+                        <option value="9">9</option>
+                        <option value="12">12</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div className="shop-product-wrap grids row justify-content-center">
                     {/* Start Loop */}
-                    {searchedProducts.map((item) => (
+                    {paginatedProducts.map((item) => (
                       <div className="col-lg-4 col-md-6 col-12" key={item.id}>
                         <div className="product-item">
                           <div className="product-thumb">
@@ -142,31 +189,39 @@ function Shop() {
                     ))}
                   </div>
 
-                  {/* <div className="paginations">
+                  <div className="paginations">
                     <ul className="agri-ul d-flex flex-wrap justify-content-center">
-                      <li>
-                        <a href="#">1</a>
+                      <li className="mx-2">
+                        <a
+                          role="button"
+                          onClick={prevPage}
+                          className={`${selectedPage == 1 ? 'disabled' : null}`}
+                        >
+                          <i className="fa fa-angle-left" aria-hidden="true" />
+                        </a>
                       </li>
-                      <li className="d-none d-sm-block">
-                        <a href="#">2</a>
-                      </li>
-                      <li className="d-none d-sm-block">
-                        <a href="#">3</a>
-                      </li>
-                      <li>
-                        <a className="dot">...</a>
-                      </li>
-                      <li className="d-none d-sm-block">
-                        <a href="#">9</a>
-                      </li>
-                      <li className="d-none d-sm-block">
-                        <a href="#">10</a>
-                      </li>
-                      <li>
-                        <a href="#">11</a>
+                      {pageNumbers.map((sl) => (
+                        <li className="d-none d-sm-block">
+                          <a
+                            role="button"
+                            onClick={() => setSelectedPage(sl)}
+                            className={`${sl === selectedPage ? 'active' : ''}`}
+                          >
+                            {sl}
+                          </a>
+                        </li>
+                      ))}
+                      <li className="mx-2">
+                        <a
+                          role="button"
+                          onClick={nextPage}
+                          className={`${selectedPage == pageNumber ? 'disabled' : null}`}
+                        >
+                          <i className="fa fa-angle-right" aria-hidden="true" />
+                        </a>
                       </li>
                     </ul>
-                  </div> */}
+                  </div>
                 </article>
               </div>
               <div className="col-lg-3 col-md-7 col-12">

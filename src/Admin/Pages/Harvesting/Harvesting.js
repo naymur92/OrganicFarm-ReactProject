@@ -18,17 +18,6 @@ function Harvesting() {
     });
   };
 
-  // search method
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const onSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const searchedItems = harvests.filter((item) =>
-    item.product_name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   // Find distinc value
   const categories = [...new Set(products.map((product) => product.category))];
   // console.log(categories);
@@ -68,6 +57,40 @@ function Harvesting() {
 
   const deleteHarvest = () => {
     //
+  };
+
+  // search method
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const onSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  let searchedItems = harvests.filter((item) =>
+    item.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Add serial number on every product
+  searchedItems = searchedItems.map((item, index) => ({ sl_no: index + 1, ...item }));
+
+  // Pagination
+  const [harvestsPerPage, setHarvestsPerPage] = useState(8);
+  const [selectedPage, setSelectedPage] = useState(1);
+
+  const pageIndex = (selectedPage - 1) * harvestsPerPage;
+  const paginatedHarvests = searchedItems.slice(pageIndex, pageIndex + Number(harvestsPerPage));
+  const pageNumber = Math.ceil(searchedItems.length / harvestsPerPage);
+  const pageNumbers = Array.from({ length: pageNumber }, (x, i) => i + 1); // generate page array
+
+  const prevPage = () => {
+    if (selectedPage != 1) {
+      setSelectedPage(selectedPage - 1);
+    }
+  };
+  const nextPage = () => {
+    if (selectedPage != pageNumber) {
+      setSelectedPage(selectedPage + 1);
+    }
   };
 
   useEffect(() => {
@@ -207,9 +230,9 @@ function Harvesting() {
                   </tr>
                 </thead>
                 <tbody>
-                  {searchedItems?.map((item, index) => (
+                  {paginatedHarvests?.map((item) => (
                     <tr key={item.id.toString()} className="align-middle">
-                      <td>{index + 1}</td>
+                      <td>{item.sl_no}</td>
 
                       <td>{item.product_name}</td>
                       <td>{item.product_category}</td>
@@ -227,11 +250,77 @@ function Harvesting() {
                   ))}
                 </tbody>
               </table>
-              {searchedItems?.length === 0 ? (
+              {paginatedHarvests?.length === 0 ? (
                 <div className="alert alert-warning text-center">
                   <strong>No Data</strong>
                 </div>
               ) : null}
+              {/* Pagination starts */}
+              <div className="row">
+                <div className="col-2 d-flex justify-content-between">
+                  <label htmlFor="_pperpage" className="mt-1">
+                    <strong>Harvests Per Page:</strong>
+                  </label>
+                  <select
+                    id="_pperpage"
+                    className="form-control"
+                    onChange={(e) => {
+                      setHarvestsPerPage(e.target.value);
+                      setSelectedPage(1);
+                    }}
+                    style={{ width: '45px' }}
+                  >
+                    <option value="4">4</option>
+                    <option value="8" selected>
+                      8
+                    </option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+                <div className="offset-4 col-6">
+                  <div className="pagination float-end">
+                    <span className="mt-1 mx-3">
+                      Showing{' '}
+                      <strong>
+                        ({paginatedHarvests[0]?.sl_no} -{' '}
+                        {paginatedHarvests[paginatedHarvests.length - 1]?.sl_no})
+                      </strong>{' '}
+                      harvests out of <strong>{searchedItems.length}</strong>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={prevPage}
+                      className={`btn btn-outline-primary mx-3 ${
+                        selectedPage == 1 ? 'disabled' : null
+                      }`}
+                    >
+                      Prev
+                    </button>
+                    {pageNumbers.map((sl) => (
+                      <button
+                        type="button"
+                        className={`btn btn-outline-primary mx-1 ${
+                          sl === selectedPage ? 'active' : ''
+                        }`}
+                        onClick={() => setSelectedPage(sl)}
+                      >
+                        {sl}
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={nextPage}
+                      className={`btn btn-outline-primary mx-3 ${
+                        selectedPage == pageNumber ? 'disabled' : null
+                      }`}
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+              {/* Pagination ends */}
             </div>
           </div>
         </div>

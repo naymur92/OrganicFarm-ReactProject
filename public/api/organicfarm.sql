@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 21, 2022 at 03:32 AM
+-- Generation Time: Dec 28, 2022 at 07:32 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -77,7 +77,8 @@ INSERT INTO `harvests` (`id`, `product_id`, `product_name`, `product_category`, 
 (7, 29, 'Fresh Tomato', 'vegetable', 2400, '2022-12-20 23:20:23'),
 (8, 31, 'Onion', 'vegetable', 270, '2022-12-20 23:21:25'),
 (9, 32, 'Potato', 'vegetable', 2000, '2022-12-20 23:21:35'),
-(10, 33, 'Kacha Kola (Green Banana)', 'vegetable', 240, '2022-12-20 23:21:47');
+(10, 33, 'Kacha Kola (Green Banana)', 'vegetable', 240, '2022-12-20 23:21:47'),
+(11, 42, 'Mustured Flower Honey', 'honey', 160, '2022-12-28 12:10:31');
 
 -- --------------------------------------------------------
 
@@ -146,7 +147,7 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `category`, `statu
 (39, 'Guava', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 80, 'fruit', 'available', 'guava.jpg', 198, '2022-12-01 13:14:36'),
 (40, 'Orange', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 150, 'fruit', 'available', 'orange.jpg', 2498, '2022-12-01 13:14:58'),
 (41, 'Black Seed Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 1400, 'honey', 'unavailable', 'black-seed-honey.jpg', 0, '2022-12-01 13:15:33'),
-(42, 'Mustured Flower Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 450, 'honey', 'upcoming', 'mustured-flower-honey.jpg', 70, '2022-12-01 13:15:54'),
+(42, 'Mustured Flower Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 450, 'honey', 'available', 'mustured-flower-honey.jpg', 230, '2022-12-01 13:15:54'),
 (43, 'Pahari Flower Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 800, 'honey', 'available', 'mustured-flower-honey.jpg', 20, '2022-12-01 13:16:43'),
 (44, 'Sundarban Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 900, 'honey', 'unavailable', 'sundarban-honey.jpg', 0, '2022-12-01 13:17:13'),
 (45, 'Lichi Flower Honey', 'The technical details, including the use of power words and A/B tests, can be the difference between a potential buyer on your ecommerce website and those customers shopping at a competitor with similar products.', 600, 'honey', 'unavailable', 'lichi-flower-honey.jpg', 0, '2022-12-01 13:17:35'),
@@ -236,7 +237,7 @@ ALTER TABLE `favourites`
 -- AUTO_INCREMENT for table `harvests`
 --
 ALTER TABLE `harvests`
-  MODIFY `id` mediumint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` mediumint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `orders`

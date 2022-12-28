@@ -33,6 +33,29 @@ function Orders() {
     // console.log(searchTerm);
   };
 
+  // Add serial number on every product
+  orderLists = orderLists.map((item, index) => ({ sl_no: index + 1, ...item }));
+
+  // Pagination
+  const [ordersPerPage, setOrdersPerPage] = useState(8);
+  const [selectedPage, setSelectedPage] = useState(1);
+
+  const pageIndex = (selectedPage - 1) * ordersPerPage;
+  const paginatedOrders = orderLists.slice(pageIndex, pageIndex + Number(ordersPerPage));
+  const pageNumber = Math.ceil(orderLists.length / ordersPerPage);
+  const pageNumbers = Array.from({ length: pageNumber }, (x, i) => i + 1); // generate page array
+
+  const prevPage = () => {
+    if (selectedPage != 1) {
+      setSelectedPage(selectedPage - 1);
+    }
+  };
+  const nextPage = () => {
+    if (selectedPage != pageNumber) {
+      setSelectedPage(selectedPage + 1);
+    }
+  };
+
   // const searchedOrders = orderLists.filter((order) =>
   //   // eslint-disable-next-line array-callback-return, consistent-return
   //   order.products.filter((product) => {
@@ -144,9 +167,9 @@ function Orders() {
                   </tr>
                 </thead>
                 <tbody>
-                  {orderLists?.map((order, index) => (
+                  {paginatedOrders?.map((order) => (
                     <tr key={order.id.toString()} className="align-middle">
-                      <td>{index + 1}</td>
+                      <td>{order.sl_no}</td>
                       <td>
                         <ol>
                           {order.products.map((product) => (
@@ -256,11 +279,77 @@ function Orders() {
                   ))}
                 </tbody>
               </table>
-              {orderLists?.length === 0 ? (
+              {paginatedOrders?.length === 0 ? (
                 <div className="alert alert-warning text-center">
                   <strong>No Data</strong>
                 </div>
               ) : null}
+              {/* Pagination starts */}
+              <div className="row">
+                <div className="col-2 d-flex justify-content-between">
+                  <label htmlFor="_pperpage" className="mt-1">
+                    <strong>Product Per Page:</strong>
+                  </label>
+                  <select
+                    id="_pperpage"
+                    className="form-control"
+                    onChange={(e) => {
+                      setOrdersPerPage(e.target.value);
+                      setSelectedPage(1);
+                    }}
+                    style={{ width: '45px' }}
+                  >
+                    <option value="4">4</option>
+                    <option value="8" selected>
+                      8
+                    </option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+                <div className="offset-4 col-6">
+                  <div className="pagination float-end">
+                    <span className="mt-1 mx-3">
+                      Showing{' '}
+                      <strong>
+                        ({paginatedOrders[0]?.sl_no} -{' '}
+                        {paginatedOrders[paginatedOrders.length - 1]?.sl_no})
+                      </strong>{' '}
+                      products out of <strong>{orderLists.length}</strong>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={prevPage}
+                      className={`btn btn-outline-primary mx-3 ${
+                        selectedPage == 1 ? 'disabled' : null
+                      }`}
+                    >
+                      Prev
+                    </button>
+                    {pageNumbers.map((sl) => (
+                      <button
+                        type="button"
+                        className={`btn btn-outline-primary mx-1 ${
+                          sl === selectedPage ? 'active' : ''
+                        }`}
+                        onClick={() => setSelectedPage(sl)}
+                      >
+                        {sl}
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={nextPage}
+                      className={`btn btn-outline-primary mx-3 ${
+                        selectedPage == pageNumber ? 'disabled' : null
+                      }`}
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+              {/* Pagination ends */}
             </div>
           </div>
         </div>

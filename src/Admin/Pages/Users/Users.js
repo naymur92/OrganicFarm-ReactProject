@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink, useOutletContext } from 'react-router-dom';
 import DateTime from '../../../Components/DateTime';
 
@@ -37,17 +37,35 @@ function Users() {
   };
   // Search Method
   // let searchedUsers = usersList;
-  const searchedUsers = usersList.filter(
+  let searchedUsers = usersList.filter(
     (user) =>
       user.firstname.toLowerCase().includes(searchUsers.toLowerCase()) ||
       user.lastname.toLowerCase().includes(searchUsers.toLowerCase()) ||
       user.email.toLowerCase().includes(searchUsers.toLowerCase())
   );
 
-  useEffect(() => {
-    // showAllUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // Add serial number on every product
+  searchedUsers = searchedUsers.map((item, index) => ({ sl_no: index + 1, ...item }));
+
+  // Pagination
+  const [usersPerPage, setUsersPerPage] = useState(8);
+  const [selectedPage, setSelectedPage] = useState(1);
+
+  const pageIndex = (selectedPage - 1) * usersPerPage;
+  const paginatedUsers = searchedUsers.slice(pageIndex, pageIndex + Number(usersPerPage));
+  const pageNumber = Math.ceil(searchedUsers.length / usersPerPage);
+  const pageNumbers = Array.from({ length: pageNumber }, (x, i) => i + 1); // generate page array
+
+  const prevPage = () => {
+    if (selectedPage != 1) {
+      setSelectedPage(selectedPage - 1);
+    }
+  };
+  const nextPage = () => {
+    if (selectedPage != pageNumber) {
+      setSelectedPage(selectedPage + 1);
+    }
+  };
 
   return (
     <div className="container-fluid cleartop">
@@ -165,9 +183,9 @@ function Users() {
                   </tr>
                 </thead>
                 <tbody>
-                  {searchedUsers?.map((user, index) => (
+                  {paginatedUsers?.map((user, index) => (
                     <tr key={user.id.toString()} className="align-middle">
-                      <td>{index + 1}</td>
+                      <td>{user.sl_no}</td>
                       <td>
                         {user.thumbnail !== '' ? (
                           <img
@@ -293,11 +311,77 @@ function Users() {
                   ))}
                 </tbody>
               </table>
-              {searchedUsers?.length === 0 ? (
+              {paginatedUsers?.length === 0 ? (
                 <div className="alert alert-warning text-center">
                   <strong>No Data</strong>
                 </div>
               ) : null}
+              {/* Pagination starts */}
+              <div className="row">
+                <div className="col-2 d-flex justify-content-between">
+                  <label htmlFor="_pperpage" className="mt-1">
+                    <strong>Users Per Page:</strong>
+                  </label>
+                  <select
+                    id="_pperpage"
+                    className="form-control"
+                    onChange={(e) => {
+                      setUsersPerPage(e.target.value);
+                      setSelectedPage(1);
+                    }}
+                    style={{ width: '45px' }}
+                  >
+                    <option value="4">4</option>
+                    <option value="8" selected>
+                      8
+                    </option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+                <div className="offset-4 col-6">
+                  <div className="pagination float-end">
+                    <span className="mt-1 mx-3">
+                      Showing{' '}
+                      <strong>
+                        ({paginatedUsers[0]?.sl_no} -{' '}
+                        {paginatedUsers[paginatedUsers.length - 1]?.sl_no})
+                      </strong>{' '}
+                      users out of <strong>{searchedUsers.length}</strong>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={prevPage}
+                      className={`btn btn-outline-primary mx-3 ${
+                        selectedPage == 1 ? 'disabled' : null
+                      }`}
+                    >
+                      Prev
+                    </button>
+                    {pageNumbers.map((sl) => (
+                      <button
+                        type="button"
+                        className={`btn btn-outline-primary mx-1 ${
+                          sl === selectedPage ? 'active' : ''
+                        }`}
+                        onClick={() => setSelectedPage(sl)}
+                      >
+                        {sl}
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={nextPage}
+                      className={`btn btn-outline-primary mx-3 ${
+                        selectedPage == pageNumber ? 'disabled' : null
+                      }`}
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+              {/* Pagination ends */}
             </div>
           </div>
         </div>

@@ -42,7 +42,7 @@ function Products() {
     product.name.toLowerCase().includes(searchItems.toLocaleLowerCase())
   ); // search method ends
 
-  // Add serial number on every products
+  // Add serial number on every product
   searchedProducts = searchedProducts.map((item, index) => ({ sl_no: index + 1, ...item }));
 
   // Pagination
@@ -52,7 +52,18 @@ function Products() {
   const pageIndex = (selectedPage - 1) * productsPerPage;
   const paginatedProducts = searchedProducts.slice(pageIndex, pageIndex + Number(productsPerPage));
   const pageNumber = Math.ceil(searchedProducts.length / productsPerPage);
-  const pageNumbers = Array.from({ length: pageNumber }, (x, i) => i); // generate page array
+  const pageNumbers = Array.from({ length: pageNumber }, (x, i) => i + 1); // generate page array
+
+  const prevPage = () => {
+    if (selectedPage != 1) {
+      setSelectedPage(selectedPage - 1);
+    }
+  };
+  const nextPage = () => {
+    if (selectedPage != pageNumber) {
+      setSelectedPage(selectedPage + 1);
+    }
+  };
 
   // show All product
   const showAll = () => {
@@ -251,9 +262,10 @@ function Products() {
                   ))}
                 </tbody>
               </table>
+              {/* Pagination starts */}
               <div className="row">
                 <div className="col-2 d-flex justify-content-between">
-                  <label htmlFor="_pperpage">
+                  <label htmlFor="_pperpage" className="mt-1">
                     <strong>Product Per Page:</strong>
                   </label>
                   <select
@@ -263,7 +275,7 @@ function Products() {
                       setProductsPerPage(e.target.value);
                       setSelectedPage(1);
                     }}
-                    style={{ maxWidth: '50px' }}
+                    style={{ width: '45px' }}
                   >
                     <option value="4">4</option>
                     <option value="8" selected>
@@ -273,22 +285,49 @@ function Products() {
                     <option value="12">12</option>
                   </select>
                 </div>
-                <div className="offset-6 col-4">
+                <div className="offset-4 col-6">
                   <div className="pagination float-end">
+                    <span className="mt-1 mx-3">
+                      Showing{' '}
+                      <strong>
+                        ({paginatedProducts[0]?.sl_no} -{' '}
+                        {paginatedProducts[paginatedProducts.length - 1]?.sl_no})
+                      </strong>{' '}
+                      products out of <strong>{searchedProducts.length}</strong>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={prevPage}
+                      className={`btn btn-outline-primary mx-3 ${
+                        selectedPage == 1 ? 'disabled' : null
+                      }`}
+                    >
+                      Prev
+                    </button>
                     {pageNumbers.map((sl) => (
                       <button
                         type="button"
                         className={`btn btn-outline-primary mx-1 ${
-                          sl + 1 === selectedPage ? 'active' : ''
+                          sl === selectedPage ? 'active' : ''
                         }`}
-                        onClick={() => setSelectedPage(sl + 1)}
+                        onClick={() => setSelectedPage(sl)}
                       >
-                        {sl + 1}
+                        {sl}
                       </button>
                     ))}
+                    <button
+                      type="button"
+                      onClick={nextPage}
+                      className={`btn btn-outline-primary mx-3 ${
+                        selectedPage == pageNumber ? 'disabled' : null
+                      }`}
+                    >
+                      Next
+                    </button>
                   </div>
                 </div>
               </div>
+              {/* Pagination ends */}
             </div>
           </div>
         </div>
